@@ -320,7 +320,7 @@ export default function CabinetsPage() {
             transition={{ duration: 0.7, ease: EASE_EXPO }}
           >
             <img
-              src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=85"
+              src={cabIslandWhiteQuartz}
               alt="Premium kitchen with custom cabinetry"
               loading="eager"
               style={{

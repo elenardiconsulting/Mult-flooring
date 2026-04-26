@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
-import { COMPANY } from "@/lib/constants";
+
 import SectionLabel from "@/components/ui/mult-section-label";
 import Divider from "@/components/ui/mult-divider";
 

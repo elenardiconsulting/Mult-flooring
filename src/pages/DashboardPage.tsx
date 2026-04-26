@@ -14,6 +14,19 @@ import {
   YAxis,
 } from 'recharts'
 import { supabase, type Lead, type LeadStatus } from '@/lib/supabase'
+import {
+  registerServiceWorker,
+  requestNotificationPermission,
+  showNotification,
+} from '@/lib/pushNotifications'
+
+/* ───────────────── push toast type ───────────────── */
+type LeadToast = {
+  id: string
+  name: string
+  projectType: string
+  createdAt: string
+}
 
 /* ───────────────── design tokens (dashboard-only) ───────────────── */
 const COLORS = {
@@ -174,6 +187,25 @@ export default function DashboardPage() {
   const [loadingLeads, setLoadingLeads] = useState(true)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
+  /* push + toast state */
+  const [toasts, setToasts] = useState<LeadToast[]>([])
+  const [permission, setPermission] = useState<NotificationPermission>(
+    typeof Notification !== 'undefined' ? Notification.permission : 'denied',
+  )
+  const [dismissedBanner, setDismissedBanner] = useState(false)
+  const initialLoadDone = useRef(false)
+
+  const removeToast = (id: string) =>
+    setToasts((prev) => prev.filter((t) => t.id !== id))
+
+  const addToast = (t: LeadToast) =>
+    setToasts((prev) => [t, ...prev].slice(0, 4))
+
+  const handleEnableNotifications = async () => {
+    const perm = await requestNotificationPermission()
+    setPermission(perm)
+  }
+
   useEffect(() => {
     let active = true
     const fetchLeads = async () => {
@@ -184,8 +216,20 @@ export default function DashboardPage() {
       if (!active) return
       if (data) setLeads(data as Lead[])
       setLoadingLeads(false)
+      initialLoadDone.current = true
     }
     fetchLeads()
+
+    // Register service worker (no-op inside Lovable preview iframes)
+    registerServiceWorker()
+
+    // Soft-prompt for permission after 3 s — only if still default
+    const permTimer = window.setTimeout(() => {
+      if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
+        // Don't auto-request without user gesture in some browsers; just keep banner visible.
+        setPermission(Notification.permission)
+      }
+    }, 3000)
 
     const channel = supabase
       .channel('leads-changes')
@@ -194,11 +238,31 @@ export default function DashboardPage() {
         { event: '*', schema: 'public', table: 'leads' },
         (payload) => {
           if (payload.eventType === 'INSERT') {
-            setLeads((prev) => [payload.new as Lead, ...prev])
+            const lead = payload.new as Lead
+            setLeads((prev) => [lead, ...prev])
+
+            // Only fire notifications after the initial fetch resolves
+            if (initialLoadDone.current) {
+              showNotification('New Lead — Mult Flooring', {
+                body: `${lead.name} submitted a quote request.\n${
+                  lead.project_type || 'Project type not specified'
+                }`,
+                tag: lead.id,
+                data: '/dashboard',
+              })
+              addToast({
+                id: lead.id,
+                name: lead.name,
+                projectType: lead.project_type,
+                createdAt: lead.created_at,
+              })
+            }
           }
           if (payload.eventType === 'UPDATE') {
             setLeads((prev) =>
-              prev.map((l) => (l.id === (payload.new as Lead).id ? (payload.new as Lead) : l)),
+              prev.map((l) =>
+                l.id === (payload.new as Lead).id ? (payload.new as Lead) : l,
+              ),
             )
           }
           if (payload.eventType === 'DELETE') {
@@ -210,6 +274,7 @@ export default function DashboardPage() {
 
     return () => {
       active = false
+      window.clearTimeout(permTimer)
       supabase.removeChannel(channel)
     }
   }, [])
@@ -364,14 +429,75 @@ export default function DashboardPage() {
           </div>
         </header>
 
+        {/* PUSH PERMISSION BANNER */}
+        {permission === 'default' && !dismissedBanner && (
+          <div
+            className="dash-push-banner"
+            style={{
+              background: '#faeeda',
+              borderBottom: '1px solid #e0cdb8',
+              padding: '12px 32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 16,
+              flexWrap: 'wrap',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#854F0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+              </svg>
+              <span style={{ fontSize: 13, color: '#854F0B' }}>
+                Enable push notifications to get alerted when new leads come in.
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+              <button
+                onClick={handleEnableNotifications}
+                style={{
+                  background: '#7a4f1e',
+                  color: '#fff',
+                  fontSize: 13,
+                  padding: '6px 16px',
+                  borderRadius: 6,
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                Enable
+              </button>
+              <button
+                onClick={() => setDismissedBanner(true)}
+                style={{
+                  fontSize: 13,
+                  color: '#854F0B',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  marginLeft: 8,
+                  fontFamily: 'inherit',
+                }}
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* CONTENT */}
         <div className="dash-content">
           {activeTab === 'overview' && <OverviewTab leads={leads} loading={loadingLeads} />}
           {activeTab === 'leads' && <LeadsTab leads={leads} loading={loadingLeads} />}
-          {activeTab === 'calendar' && <CalendarTabPlaceholder />}
+          {activeTab === 'calendar' && <CalendarTab leads={leads} />}
           {activeTab === 'analytics' && <AnalyticsTab leads={leads} loading={loadingLeads} />}
         </div>
       </div>
+
+      {/* ───── PUSH TOASTS ───── */}
+      <PushToastContainer toasts={toasts} onRemove={removeToast} />
 
       {/* ───── MOBILE BOTTOM NAV ───── */}
       <nav className="dash-bottom-nav">
@@ -1452,27 +1578,713 @@ function ScheduleModal({ lead, onClose }: { lead: Lead; onClose: () => void }) {
   )
 }
 
-/* ───────────────── CALENDAR PLACEHOLDER ───────────────── */
-function CalendarTabPlaceholder() {
+/* ───────────────── PUSH TOAST CONTAINER ───────────────── */
+function PushToastContainer({
+  toasts,
+  onRemove,
+}: {
+  toasts: LeadToast[]
+  onRemove: (id: string) => void
+}) {
   return (
-    <div
-      style={{
-        background: '#fff',
-        border: `1px solid ${COLORS.border}`,
-        borderRadius: 10,
-        padding: '80px 20px',
-        textAlign: 'center',
-      }}
-    >
-      <div style={{ display: 'inline-flex', color: COLORS.textFaint }}>
-        <Icons.calendar />
-      </div>
-      <div style={{ fontSize: 14, color: COLORS.textMuted, marginTop: 12 }}>
-        Calendar coming soon.
-      </div>
+    <div className="dash-toast-container">
+      <AnimatePresence>
+        {toasts.map((t) => (
+          <PushToast key={t.id} toast={t} onRemove={onRemove} />
+        ))}
+      </AnimatePresence>
+      <style>{`
+        .dash-toast-container {
+          position: fixed;
+          bottom: 24px;
+          right: 24px;
+          z-index: 9999;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          pointer-events: none;
+        }
+        @media (max-width: 1023px) {
+          .dash-toast-container {
+            bottom: 80px;
+            right: 16px;
+            left: 16px;
+            top: auto;
+            align-items: flex-end;
+          }
+        }
+      `}</style>
     </div>
   )
 }
+
+function PushToast({
+  toast,
+  onRemove,
+}: {
+  toast: LeadToast
+  onRemove: (id: string) => void
+}) {
+  useEffect(() => {
+    const timer = window.setTimeout(() => onRemove(toast.id), 5000)
+    return () => window.clearTimeout(timer)
+  }, [toast.id, onRemove])
+
+  const initial = toast.name?.trim()?.charAt(0).toUpperCase() || '?'
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        background: '#1a1a1a',
+        border: '1px solid rgba(255,255,255,0.10)',
+        borderRadius: 10,
+        padding: '14px 16px',
+        width: 320,
+        maxWidth: 'calc(100vw - 32px)',
+        pointerEvents: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+      }}
+    >
+      <div
+        style={{
+          width: 32,
+          height: 32,
+          borderRadius: '50%',
+          background: '#C47C3A',
+          color: '#fff',
+          fontSize: 12,
+          fontWeight: 600,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}
+      >
+        {initial}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div
+          style={{
+            fontSize: 11,
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            color: '#C47C3A',
+            marginBottom: 2,
+          }}
+        >
+          New lead
+        </div>
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 500,
+            color: '#ffffff',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {toast.name}
+        </div>
+        {toast.projectType && (
+          <div
+            style={{
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.50)',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {toast.projectType}
+          </div>
+        )}
+      </div>
+      <button
+        onClick={() => onRemove(toast.id)}
+        style={{
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          flexShrink: 0,
+          padding: 0,
+          display: 'flex',
+        }}
+        aria-label="Dismiss"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.40)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </motion.div>
+  )
+}
+
+/* ───────────────── CALENDAR TAB ───────────────── */
+function CalendarTab({ leads }: { leads: Lead[] }) {
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
+  const scheduledLeads = useMemo(
+    () => leads.filter((l) => l.status === 'scheduled' && l.scheduled_at),
+    [leads],
+  )
+
+  const leadsByDate = useMemo(() => {
+    return scheduledLeads.reduce((acc, lead) => {
+      const d = new Date(lead.scheduled_at!)
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+      if (!acc[key]) acc[key] = []
+      acc[key].push(lead)
+      return acc
+    }, {} as Record<string, Lead[]>)
+  }, [scheduledLeads])
+
+  const dateKey = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
+  const getDayLeads = (date: Date) => leadsByDate[dateKey(date)] || []
+
+  const today = new Date()
+  const isToday = (d: Date) =>
+    d.getFullYear() === today.getFullYear() &&
+    d.getMonth() === today.getMonth() &&
+    d.getDate() === today.getDate()
+
+  const isSelected = (d: Date) =>
+    selectedDate &&
+    d.getFullYear() === selectedDate.getFullYear() &&
+    d.getMonth() === selectedDate.getMonth() &&
+    d.getDate() === selectedDate.getDate()
+
+  const year = currentMonth.getFullYear()
+  const month = currentMonth.getMonth()
+  const firstDayOffset = new Date(year, month, 1).getDay()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const daysInPrevMonth = new Date(year, month, 0).getDate()
+
+  type Cell = { date: Date; current: boolean }
+  const cells: Cell[] = []
+  // prev month tail
+  for (let i = firstDayOffset - 1; i >= 0; i--) {
+    cells.push({
+      date: new Date(year, month - 1, daysInPrevMonth - i),
+      current: false,
+    })
+  }
+  // current month
+  for (let d = 1; d <= daysInMonth; d++) {
+    cells.push({ date: new Date(year, month, d), current: true })
+  }
+  // next month head — fill to 42 cells
+  let nextDay = 1
+  while (cells.length < 42) {
+    cells.push({ date: new Date(year, month + 1, nextDay++), current: false })
+  }
+
+  const isCurrentMonthShown =
+    today.getFullYear() === year && today.getMonth() === month
+
+  const upcoming = useMemo(
+    () =>
+      [...scheduledLeads]
+        .filter((l) => new Date(l.scheduled_at!) > new Date())
+        .sort(
+          (a, b) =>
+            new Date(a.scheduled_at!).getTime() - new Date(b.scheduled_at!).getTime(),
+        )
+        .slice(0, 5),
+    [scheduledLeads],
+  )
+
+  const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+  return (
+    <div className="cal-grid">
+      {/* LEFT — calendar + upcoming */}
+      <div>
+        <div
+          style={{
+            background: '#fff',
+            border: `1px solid ${COLORS.border}`,
+            borderRadius: 10,
+            padding: 24,
+            width: '100%',
+          }}
+        >
+          {/* header */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 24,
+            }}
+          >
+            <div style={{ fontSize: 18, fontWeight: 500, color: '#1a1a1a' }}>
+              {currentMonth.toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric',
+              })}
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <CalNavBtn
+                dir="prev"
+                onClick={() =>
+                  setCurrentMonth((d) => {
+                    const n = new Date(d)
+                    n.setMonth(n.getMonth() - 1)
+                    return n
+                  })
+                }
+              />
+              <CalNavBtn
+                dir="next"
+                onClick={() =>
+                  setCurrentMonth((d) => {
+                    const n = new Date(d)
+                    n.setMonth(n.getMonth() + 1)
+                    return n
+                  })
+                }
+              />
+            </div>
+          </div>
+
+          {/* weekday headers */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              paddingBottom: 8,
+              borderBottom: '1px solid #f0f0ee',
+              marginBottom: 8,
+            }}
+          >
+            {dayHeaders.map((d) => (
+              <div
+                key={d}
+                style={{
+                  fontSize: 11,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  color: '#bbb',
+                  textAlign: 'center',
+                }}
+              >
+                {d}
+              </div>
+            ))}
+          </div>
+
+          {/* days grid */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              gap: 2,
+            }}
+          >
+            {cells.map((cell, i) => {
+              const dayLeads = getDayLeads(cell.date)
+              const hasEvents = dayLeads.length > 0
+              const _isToday = isToday(cell.date)
+              const _isSelected = isSelected(cell.date)
+              const otherMonth = !cell.current
+
+              const baseBg = _isSelected
+                ? '#7a4f1e'
+                : _isToday
+                  ? '#f0e6d8'
+                  : 'transparent'
+              const numColor = otherMonth
+                ? '#ccc'
+                : _isSelected
+                  ? '#ffffff'
+                  : _isToday
+                    ? '#7a4f1e'
+                    : '#444'
+              const numWeight = _isSelected || _isToday ? 600 : 400
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (otherMonth) return
+                    setSelectedDate(new Date(cell.date))
+                  }}
+                  className={otherMonth ? '' : 'cal-day'}
+                  style={{
+                    aspectRatio: '1 / 1',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 8,
+                    cursor: otherMonth ? 'default' : 'pointer',
+                    pointerEvents: otherMonth ? 'none' : 'auto',
+                    position: 'relative',
+                    transition: 'background 150ms',
+                    background: baseBg,
+                    border: 'none',
+                    fontFamily: 'inherit',
+                    padding: 0,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: numWeight,
+                      color: numColor,
+                    }}
+                  >
+                    {cell.date.getDate()}
+                  </span>
+                  {hasEvents && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        bottom: 4,
+                        width: 4,
+                        height: 4,
+                        borderRadius: '50%',
+                        background: _isSelected ? '#fff' : '#C47C3A',
+                      }}
+                    />
+                  )}
+                </button>
+              )
+            })}
+          </div>
+
+          {!isCurrentMonthShown && (
+            <div style={{ textAlign: 'center', marginTop: 12 }}>
+              <button
+                onClick={() => {
+                  setCurrentMonth(new Date())
+                  setSelectedDate(new Date())
+                }}
+                style={{
+                  fontSize: 13,
+                  color: '#7a4f1e',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+                onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
+              >
+                Back to today
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* UPCOMING */}
+        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a', marginTop: 24, marginBottom: 12 }}>
+          Upcoming
+        </div>
+        {upcoming.length === 0 ? (
+          <div
+            style={{
+              fontSize: 13,
+              color: '#bbb',
+              padding: '14px',
+              background: '#f8f8f6',
+              borderRadius: 8,
+            }}
+          >
+            No upcoming consultations.
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {upcoming.map((l) => {
+              const d = new Date(l.scheduled_at!)
+              return (
+                <div
+                  key={l.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '10px 14px',
+                    background: '#f8f8f6',
+                    borderRadius: 8,
+                  }}
+                >
+                  <div
+                    style={{
+                      background: '#f0e6d8',
+                      color: '#7a4f1e',
+                      borderRadius: 6,
+                      padding: '6px 10px',
+                      textAlign: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <div style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                      {d.toLocaleDateString('en-US', { month: 'short' })}
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 600, lineHeight: 1 }}>
+                      {d.getDate()}
+                    </div>
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: '#1a1a1a',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {l.name}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: '#9e9e9e',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                      {l.project_type ? ` · ${l.project_type}` : ''}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* RIGHT — selected day panel */}
+      <div className="cal-side">
+        <div
+          style={{
+            background: '#fff',
+            border: `1px solid ${COLORS.border}`,
+            borderRadius: 10,
+            overflow: 'hidden',
+            position: 'sticky',
+            top: 88,
+          }}
+        >
+          <div style={{ padding: '20px 24px', borderBottom: '1px solid #f0f0ee' }}>
+            {selectedDate ? (
+              <>
+                <div style={{ fontSize: 15, fontWeight: 500, color: '#1a1a1a' }}>
+                  {selectedDate.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </div>
+                <div style={{ fontSize: 13, color: '#9e9e9e', marginTop: 2 }}>
+                  {getDayLeads(selectedDate).length} consultation
+                  {getDayLeads(selectedDate).length !== 1 ? 's' : ''}
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ fontSize: 15, fontWeight: 500, color: '#1a1a1a' }}>
+                  Select a date
+                </div>
+                <div style={{ fontSize: 13, color: '#9e9e9e', marginTop: 2 }}>
+                  to view scheduled consultations
+                </div>
+              </>
+            )}
+          </div>
+
+          <div style={{ maxHeight: 480, overflowY: 'auto' }}>
+            {selectedDate && getDayLeads(selectedDate).length === 0 && (
+              <div
+                style={{
+                  padding: '32px 24px',
+                  textAlign: 'center',
+                }}
+              >
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#ddd"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ display: 'inline-block' }}
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                <div style={{ fontSize: 14, color: '#bbb', marginTop: 12 }}>
+                  No consultations
+                </div>
+              </div>
+            )}
+
+            {selectedDate &&
+              getDayLeads(selectedDate)
+                .slice()
+                .sort(
+                  (a, b) =>
+                    new Date(a.scheduled_at!).getTime() -
+                    new Date(b.scheduled_at!).getTime(),
+                )
+                .map((lead) => {
+                  const t = new Date(lead.scheduled_at!)
+                  const badge = getStatusBadge(lead.status)
+                  return (
+                    <div
+                      key={lead.id}
+                      style={{
+                        padding: '16px 24px',
+                        borderBottom: '1px solid #f0f0ee',
+                        display: 'flex',
+                        gap: 12,
+                        alignItems: 'flex-start',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 48,
+                          flexShrink: 0,
+                          textAlign: 'right',
+                          fontSize: 13,
+                          fontWeight: 500,
+                          color: '#1a1a1a',
+                          paddingTop: 1,
+                        }}
+                      >
+                        {t.toLocaleTimeString('en-US', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </div>
+                      <div
+                        style={{
+                          width: 1,
+                          background: '#C47C3A',
+                          alignSelf: 'stretch',
+                          flexShrink: 0,
+                          margin: '0 4px',
+                        }}
+                      />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a' }}>
+                          {lead.name}
+                        </div>
+                        {lead.project_type && (
+                          <div style={{ fontSize: 12, color: '#9e9e9e', marginTop: 2 }}>
+                            {lead.project_type}
+                          </div>
+                        )}
+                        {(lead.phone || lead.email) && (
+                          <div style={{ fontSize: 12, color: '#7a4f1e', marginTop: 4 }}>
+                            {lead.phone && (
+                              <a
+                                href={`tel:${lead.phone}`}
+                                style={{ color: '#7a4f1e', textDecoration: 'none' }}
+                              >
+                                {lead.phone}
+                              </a>
+                            )}
+                            {lead.phone && lead.email && ' · '}
+                            {lead.email && (
+                              <a
+                                href={`mailto:${lead.email}`}
+                                style={{ color: '#7a4f1e', textDecoration: 'none' }}
+                              >
+                                {lead.email}
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      <span
+                        style={{
+                          fontSize: 11,
+                          padding: '3px 8px',
+                          borderRadius: 999,
+                          background: badge.bg,
+                          color: badge.color,
+                          flexShrink: 0,
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {badge.label}
+                      </span>
+                    </div>
+                  )
+                })}
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        .cal-grid {
+          display: grid;
+          grid-template-columns: 1fr 360px;
+          gap: 24px;
+          align-items: start;
+        }
+        .cal-day:hover { background: #f8f8f6 !important; }
+        @media (max-width: 1023px) {
+          .cal-grid {
+            grid-template-columns: 1fr;
+          }
+          .cal-side > div { position: static !important; }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function CalNavBtn({ dir, onClick }: { dir: 'prev' | 'next'; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={dir === 'prev' ? 'Previous month' : 'Next month'}
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: '50%',
+        border: '1px solid #e8e8e6',
+        background: '#fff',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 0,
+        transition: 'background 150ms',
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = '#f8f8f6')}
+      onMouseLeave={(e) => (e.currentTarget.style.background = '#fff')}
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        {dir === 'prev' ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
+      </svg>
+    </button>
+  )
+}
+
 
 /* ───────────────── ANALYTICS ───────────────── */
 function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {

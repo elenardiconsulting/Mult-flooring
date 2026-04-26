@@ -2,8 +2,7 @@ import Layout from "@/components/layout/Layout";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import BrandStatement from "@/components/sections/BrandStatement";
-import Showroom from "@/components/sections/Showroom";
-import RoomVisualizer from "@/components/sections/RoomVisualizer";
+import FloorPreview from "@/components/sections/FloorPreview";
 import Gallery from "@/components/sections/Gallery";
 
 const Index = () => {
@@ -13,10 +12,9 @@ const Index = () => {
       <main>
         <Hero />
         <BrandStatement />
-        <Showroom />
-        <RoomVisualizer />
+        <FloorPreview />
         <Gallery />
-        {/* Outras seções serão adicionadas aqui */}
+        {/* WhyMult, Process, Social Proof, CTA + Footer — próximas seções */}
       </main>
     </Layout>
   );

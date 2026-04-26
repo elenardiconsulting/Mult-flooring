@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/mult-section-label";
 import { PROJECTS } from "@/lib/constants";
+import { useParallax } from "@/hooks/useParallax";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -196,7 +197,7 @@ const Gallery = () => {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay, ease: EASE }}
-                    className="gallery-card group"
+                    className="gallery-card cursor-view group"
                     onClick={() => openLightbox(originalIndex)}
                     style={
                       {
@@ -216,19 +217,9 @@ const Gallery = () => {
                       } as React.CSSProperties
                     }
                   >
-                    <img
+                    <GalleryParallaxImg
                       src={project.image}
                       alt={project.name}
-                      className="gallery-img"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: "center",
-                        display: "block",
-                        transition:
-                          "transform 600ms var(--ease-out-expo)",
-                      }}
                     />
 
                     {/* Overlay gradient */}
@@ -346,7 +337,7 @@ const Gallery = () => {
             .gallery-card { height: 260px !important; }
           }
           .gallery-card:hover .gallery-img {
-            transform: scale(1.05);
+            filter: brightness(1.05);
           }
           .gallery-card:hover .gallery-overlay,
           .gallery-card:hover .gallery-expand {
@@ -584,6 +575,42 @@ const Gallery = () => {
         )}
       </AnimatePresence>
     </>
+  );
+};
+
+interface GalleryParallaxImgProps {
+  src: string;
+  alt: string;
+}
+
+const GalleryParallaxImg = ({ src, alt }: GalleryParallaxImgProps) => {
+  const { ref, y } = useParallax(20);
+  return (
+    <div
+      ref={ref}
+      style={{
+        position: "absolute",
+        inset: 0,
+        overflow: "hidden",
+      }}
+    >
+      <motion.img
+        src={src}
+        alt={alt}
+        className="gallery-img"
+        style={{
+          y,
+          width: "100%",
+          height: "110%",
+          marginTop: "-5%",
+          objectFit: "cover",
+          objectPosition: "center",
+          display: "block",
+          transition: "transform 600ms var(--ease-out-expo)",
+          willChange: "transform",
+        }}
+      />
+    </div>
   );
 };
 

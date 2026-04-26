@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
+import { useParallax } from "@/hooks/useParallax";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -15,6 +16,7 @@ const Hero = () => {
   }, []);
 
   const easeExpo = [0.16, 1, 0.3, 1] as any;
+  const heroParallax = useParallax(40);
 
   return (
     <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
@@ -50,18 +52,57 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8, ease: easeExpo }}
+          {/* Headline — word-by-word reveal */}
+          <h1
             className="text-[var(--color-text-primary)] font-bold leading-[0.95] tracking-[-0.03em] mb-[28px]"
             style={{ fontSize: "clamp(52px, 6.5vw, 88px)" }}
           >
-            The floor<br />
-            beneath every<br />
-            <span className="text-[var(--color-accent-mid)]">great space.</span>
-          </motion.h1>
+            {(() => {
+              const lines: { words: string[]; accent?: boolean }[] = [
+                { words: ["The", "floor"] },
+                { words: ["beneath", "every"] },
+                { words: ["great", "space."], accent: true },
+              ];
+              let wordIndex = 0;
+              return lines.map((line, li) => (
+                <span key={li} style={{ display: "block" }}>
+                  {line.words.map((word) => {
+                    const i = wordIndex++;
+                    return (
+                      <span
+                        key={`${li}-${i}`}
+                        style={{
+                          display: "inline-block",
+                          overflow: "hidden",
+                          marginRight: "0.25em",
+                          verticalAlign: "bottom",
+                        }}
+                      >
+                        <motion.span
+                          initial={{ y: "110%", opacity: 0 }}
+                          animate={{ y: "0%", opacity: 1 }}
+                          transition={{
+                            duration: 0.7,
+                            delay: i * 0.08,
+                            ease: [0.16, 1, 0.3, 1],
+                          }}
+                          style={{
+                            display: "inline-block",
+                            color: line.accent
+                              ? "var(--color-accent-mid)"
+                              : undefined,
+                            willChange: "transform",
+                          }}
+                        >
+                          {word}
+                        </motion.span>
+                      </span>
+                    );
+                  })}
+                </span>
+              ));
+            })()}
+          </h1>
 
           {/* Subtitle */}
           <motion.p
@@ -130,7 +171,10 @@ const Hero = () => {
       </div>
 
       {/* Right Column - Image */}
-      <div className="hidden lg:block relative overflow-hidden h-full">
+      <div
+        ref={heroParallax.ref}
+        className="hidden lg:block relative overflow-hidden h-full"
+      >
         <motion.img
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -138,6 +182,7 @@ const Hero = () => {
           src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90"
           alt="Premium wooden floor interior"
           className="w-full h-full object-cover object-left"
+          style={{ y: heroParallax.y, willChange: "transform" }}
         />
 
         {/* Side Overlays */}

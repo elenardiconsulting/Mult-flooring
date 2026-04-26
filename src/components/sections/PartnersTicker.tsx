@@ -1,33 +1,87 @@
 import React from 'react';
 
-const PARTNERS = [
-  { type: 'stat',  value: '500+',         label: 'Projects Installed'      },
-  { type: 'brand', value: 'Bruce Hardwood'                                  },
-  { type: 'stat',  value: '20+ Years',    label: 'Serving New England'     },
-  { type: 'brand', value: 'Shaw Floors'                                     },
-  { type: 'stat',  value: 'MA · RI · CT', label: 'Licensed & Insured'      },
-  { type: 'brand', value: 'Armstrong'                                       },
-  { type: 'stat',  value: '4.8 ★',        label: 'Google Rating'           },
-  { type: 'brand', value: 'Mohawk'                                          },
-  { type: 'stat',  value: 'Free',         label: 'In-Home Consultation'    },
-  { type: 'brand', value: 'Anderson Tuftex'                                 },
-  { type: 'stat',  value: '500+',         label: 'Projects Installed'      },
-  { type: 'brand', value: 'Pergo'                                           },
+const TICKER_ITEMS = [
+  { text: 'Hardwood Installation',        accent: false },
+  { text: 'Licensed & Insured',           accent: true  },
+  { text: 'Vinyl & LVP',                  accent: false },
+  { text: 'Serving MA · RI · CT',         accent: true  },
+  { text: 'Laminate Flooring',            accent: false },
+  { text: 'Free In-Home Consultation',    accent: true  },
+  { text: 'Hardwood Restoration',         accent: false },
+  { text: 'Certified Installation Crew',  accent: true  },
+  { text: 'Wide Plank & Parquet',         accent: false },
+  { text: 'West Bridgewater, MA',         accent: true  },
+  { text: 'Residential & Commercial',     accent: false },
+  { text: 'Guaranteed Workmanship',       accent: true  },
 ];
 
-const ITEMS = [...PARTNERS, ...PARTNERS];
+const ITEMS = [...TICKER_ITEMS, ...TICKER_ITEMS];
+
+const DiamondSeparator = () => (
+  <svg 
+    viewBox="0 0 8 8" 
+    width="8" 
+    height="8" 
+    style={{ margin: '0 8px', flexShrink: 0 }}
+  >
+    <rect 
+      x="1" 
+      y="1" 
+      width="6" 
+      height="6" 
+      transform="rotate(45 4 4)" 
+      fill="rgba(255,255,255,0.15)" 
+    />
+  </svg>
+);
+
+const TickerRow = ({ items, reverse = false }: { items: typeof ITEMS, reverse?: boolean }) => (
+  <div 
+    className={`ticker-track ${reverse ? 'rtl' : 'ltr'}`}
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      width: 'max-content',
+    }}
+  >
+    {items.map((item, index) => (
+      <div 
+        key={index}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 40px',
+          whiteSpace: 'nowrap',
+          flexShrink: 0
+        }}
+      >
+        <span 
+          style={{
+            fontSize: '22px',
+            fontWeight: 500,
+            letterSpacing: '-0.01em',
+            color: item.accent ? 'var(--color-accent-mid)' : 'rgba(255,255,255,0.55)'
+          }}
+        >
+          {item.text}
+        </span>
+        <DiamondSeparator />
+      </div>
+    ))}
+  </div>
+);
 
 const PartnersTicker = () => {
   return (
     <div 
+      className="ticker-container"
       style={{
         background: '#1a1a1a',
-        padding: 0,
+        height: '260px',
         overflow: 'hidden',
         width: '100%',
         borderTop: '1px solid rgba(255,255,255,0.06)',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
-        height: '52px',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
@@ -35,18 +89,21 @@ const PartnersTicker = () => {
       }}
     >
       <style>{`
-        @keyframes ticker {
+        @keyframes tickerLTR {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
         }
-        .partners-ticker-track {
-          display: flex;
-          align-items: center;
-          width: max-content;
-          gap: 0;
-          animation: ticker 35s linear infinite;
+        @keyframes tickerRTL {
+          from { transform: translateX(-50%); }
+          to   { transform: translateX(0); }
         }
-        .partners-ticker-track:hover {
+        .ticker-track.ltr {
+          animation: tickerLTR 40s linear infinite;
+        }
+        .ticker-track.rtl {
+          animation: tickerRTL 40s linear infinite;
+        }
+        .ticker-container:hover .ticker-track {
           animation-play-state: paused;
         }
       `}</style>
@@ -58,9 +115,9 @@ const PartnersTicker = () => {
           left: 0,
           top: 0,
           bottom: 0,
-          width: '120px',
+          width: '200px',
           zIndex: 1,
-          background: 'linear-gradient(to right, #1a1a1a 0%, transparent 100%)',
+          background: 'linear-gradient(to right, #1a1a1a, transparent)',
           pointerEvents: 'none'
         }}
       />
@@ -72,78 +129,23 @@ const PartnersTicker = () => {
           right: 0,
           top: 0,
           bottom: 0,
-          width: '120px',
+          width: '200px',
           zIndex: 1,
-          background: 'linear-gradient(to left, #1a1a1a 0%, transparent 100%)',
+          background: 'linear-gradient(to left, #1a1a1a, transparent)',
           pointerEvents: 'none'
         }}
       />
 
-      <div className="partners-ticker-track">
-        {ITEMS.map((item, index) => (
-          <React.Fragment key={index}>
-            <div 
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                height: '52px',
-                padding: '0 32px',
-                whiteSpace: 'nowrap',
-                flexShrink: 0
-              }}
-            >
-              {item.type === 'stat' ? (
-                <>
-                  <span 
-                    style={{
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--color-accent-mid)',
-                      letterSpacing: '-0.01em',
-                      marginRight: '6px'
-                    }}
-                  >
-                    {item.value}
-                  </span>
-                  <span 
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: 400,
-                      color: 'rgba(255,255,255,0.40)',
-                      letterSpacing: '0.06em',
-                      textTransform: 'uppercase'
-                    }}
-                  >
-                    {item.label}
-                  </span>
-                </>
-              ) : (
-                <span 
-                  style={{
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    color: 'rgba(255,255,255,0.55)',
-                    letterSpacing: '0.04em',
-                    fontStyle: 'italic'
-                  }}
-                >
-                  {item.value}
-                </span>
-              )}
-            </div>
-            {index < ITEMS.length - 1 && (
-              <div 
-                style={{
-                  width: '1px',
-                  height: '16px',
-                  flexShrink: 0,
-                  background: 'rgba(255,255,255,0.10)',
-                  alignSelf: 'center'
-                }}
-              />
-            )}
-          </React.Fragment>
-        ))}
+      <div 
+        style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '32px', 
+          width: '100%' 
+        }}
+      >
+        <TickerRow items={ITEMS} />
+        <TickerRow items={ITEMS} reverse />
       </div>
     </div>
   );

@@ -97,10 +97,6 @@ const Index = () => {
         <SectionTransition direction="left" />
         <Gallery />
         <SectionTransition direction="right" />
-        <WhyMult />
-        <SectionTransition direction="left" />
-        <Process />
-        <SectionTransition direction="right" />
         <SocialProof />
         <SectionTransition direction="left" />
         <CtaFinal />

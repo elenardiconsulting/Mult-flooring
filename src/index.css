@@ -1,105 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* =============================================================
+   Mult Flooring — Design Tokens
+   All brand colors, typography, spacing and motion tokens.
+   ============================================================= */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* ── BRAND COLORS (raw) ── */
+    --color-bg-base:        #faf7f4;
+    --color-bg-surface:     #f0e6d8;
+    --color-bg-elevated:    #e8d8c4;
+    --color-bg-dark:        #1a1a1a;
+    --color-bg-dark-2:      #111111;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --color-border:         #e0cdb8;
+    --color-border-strong:  #c8b89a;
 
+    --color-text-primary:   #1a1a1a;
+    --color-text-secondary: #6b5c4a;
+    --color-text-muted:     #9e8c7a;
+    --color-text-light:     #ffffff;
+    --color-text-cream:     #f0e6d8;
+
+    --color-accent:         #7a4f1e;
+    --color-accent-hover:   #5a3a14;
+    --color-accent-mid:     #C47C3A;
+    --color-accent-light:   #D4956B;
+
+    /* ── TYPOGRAPHY ── */
+    --font-family:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --text-hero:            clamp(48px, 6.5vw, 88px);
+    --text-section:         clamp(30px, 4vw, 52px);
+    --text-subsection:      clamp(20px, 2.5vw, 32px);
+    --text-body-lg:         18px;
+    --text-body:            16px;
+    --text-sm:              14px;
+    --text-xs:              13px;
+    --text-micro:           11px;
+
+    --weight-regular:       400;
+    --weight-medium:        500;
+    --weight-semibold:      600;
+
+    --leading-tight:        1.0;
+    --leading-snug:         1.25;
+    --leading-normal:       1.6;
+    --leading-relaxed:      1.75;
+
+    --tracking-tight:       -0.025em;
+    --tracking-snug:        -0.02em;
+    --tracking-normal:      0;
+    --tracking-wide:        0.05em;
+    --tracking-wider:       0.1em;
+    --tracking-widest:      0.15em;
+
+    /* ── SPACING (8px base) ── */
+    --space-1:   8px;
+    --space-2:   16px;
+    --space-3:   24px;
+    --space-4:   32px;
+    --space-5:   40px;
+    --space-6:   48px;
+    --space-8:   64px;
+    --space-10:  80px;
+    --space-12:  96px;
+    --space-15:  120px;
+
+    /* ── LAYOUT ── */
+    --max-width:            1160px;
+    --padding-x:            48px;
+    --padding-x-mobile:     20px;
+    --section-py:           120px;
+    --section-py-mobile:    72px;
+
+    /* ── RADIUS ── */
+    --radius-sm:    3px;
+    --radius-md:    6px;
+    --radius-lg:    10px;
+    --radius-pill:  999px;
+
+    /* ── MOTION ── */
+    --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-fast:  180ms;
+    --duration-base:  260ms;
+    --duration-slow:  420ms;
+    --duration-enter: 500ms;
+
+    /* ── SHADOWS ── */
+    --shadow-sm: 0 1px 3px rgba(26, 26, 26, 0.06);
+    --shadow-md: 0 4px 16px rgba(26, 26, 26, 0.08);
+
+    /* ── Z-INDEX ── */
+    --z-nav:     100;
+    --z-drawer:  200;
+    --z-modal:   300;
+    --z-overlay: 400;
+
+    /* ── shadcn aliases (HSL) — mapped to brand palette
+         so existing shadcn components keep rendering correctly. ── */
+    --background: 33 33% 97%;          /* #faf7f4 */
+    --foreground: 0 0% 10%;            /* #1a1a1a */
+    --card: 33 33% 97%;
+    --card-foreground: 0 0% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 29 61% 30%;             /* #7a4f1e accent */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 33 41% 90%;           /* #f0e6d8 surface */
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 33 41% 90%;
+    --muted-foreground: 30 14% 55%;    /* #9e8c7a muted */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 29 61% 30%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 32 39% 80%;              /* #e0cdb8 */
+    --input: 32 39% 80%;
+    --ring: 29 61% 30%;
 
-    --radius: 0.5rem;
+    --radius: 6px;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 33 33% 97%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 29 61% 30%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 33 41% 90%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 32 39% 80%;
+    --sidebar-ring: 29 61% 30%;
   }
+}
+
+/* =============================================================
+   Global reset & base typography
+   ============================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-base);
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-mid);
+}
+
+/* ── Text selection ── */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-text-light);
 }

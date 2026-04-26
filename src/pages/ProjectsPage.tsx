@@ -26,6 +26,8 @@ export default function ProjectsPage() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [config, setConfig] = useState({ cols: 1 });
+  const trackRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const getConfig = () => {

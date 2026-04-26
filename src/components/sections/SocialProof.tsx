@@ -36,9 +36,8 @@ const SocialProof = () => {
         style={{ paddingLeft: "var(--padding-x)", paddingRight: "var(--padding-x)" }}
       >
         <div className="max-md:px-0">
-          <SectionLabel>What our clients say</SectionLabel>
           <h2
-            className="font-medium text-[var(--color-text-primary)] mt-2"
+            className="font-medium text-[var(--color-text-primary)]"
             style={{
               fontSize: "var(--text-section)",
               letterSpacing: "-0.02em",

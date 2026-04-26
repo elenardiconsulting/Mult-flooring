@@ -107,9 +107,6 @@ const CtaFinal = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: easeExpo }}
         >
-          <SectionLabel style={{ color: "var(--color-accent-light)" }}>
-            Start your project
-          </SectionLabel>
           <h2
             className="text-white"
             style={{
@@ -117,7 +114,6 @@ const CtaFinal = () => {
               fontWeight: 500,
               letterSpacing: "-0.025em",
               lineHeight: 1.05,
-              marginTop: 12,
             }}
           >
             The floor you've been

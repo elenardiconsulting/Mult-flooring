@@ -272,7 +272,6 @@ const VideoSection = () => {
           }}
         >
           <div>
-            <SectionLabel>Our work in action</SectionLabel>
             <h2
               style={{
                 fontSize: "var(--text-section)",
@@ -280,7 +279,6 @@ const VideoSection = () => {
                 letterSpacing: "-0.02em",
                 lineHeight: 1.05,
                 color: "var(--color-text-primary)",
-                marginTop: 8,
                 whiteSpace: "pre-line",
               }}
             >

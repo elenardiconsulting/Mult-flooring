@@ -112,14 +112,12 @@ const Gallery = () => {
             style={{ marginBottom: 40 }}
           >
             <div>
-              <SectionLabel>Selected work</SectionLabel>
               <h2
                 style={{
                   fontSize: "var(--text-section)",
                   fontWeight: 500,
                   letterSpacing: "-0.02em",
                   color: "var(--color-text-primary)",
-                  marginTop: 8,
                   lineHeight: 1.05,
                 }}
               >

@@ -3,6 +3,7 @@ import { COMPANY, NAV_LINKS } from "@/lib/constants";
 import BrandButton from "@/components/ui/mult-button";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/mult-flooring-logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,8 +25,11 @@ const Navbar = () => {
 
   const Logo = () => (
     <div className="flex items-center">
-      <span className="text-[18px] font-semibold text-text-primary tracking-tight">MULT</span>
-      <span className="text-[18px] font-normal text-accent tracking-tight">FLOORING</span>
+      <img
+        src={logo}
+        alt="Mult Flooring"
+        className="h-9 md:h-10 w-auto object-contain"
+      />
     </div>
   );
 

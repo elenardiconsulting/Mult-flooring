@@ -197,7 +197,7 @@ const Gallery = () => {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay, ease: EASE }}
-                    className="gallery-card group"
+                    className="gallery-card cursor-view group"
                     onClick={() => openLightbox(originalIndex)}
                     style={
                       {
@@ -217,19 +217,9 @@ const Gallery = () => {
                       } as React.CSSProperties
                     }
                   >
-                    <img
+                    <GalleryParallaxImg
                       src={project.image}
                       alt={project.name}
-                      className="gallery-img"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: "center",
-                        display: "block",
-                        transition:
-                          "transform 600ms var(--ease-out-expo)",
-                      }}
                     />
 
                     {/* Overlay gradient */}

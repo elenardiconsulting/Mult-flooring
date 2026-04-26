@@ -14,6 +14,7 @@ export default {
     },
     extend: {
       colors: {
+        // shadcn semantic tokens (HSL-backed)
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -35,10 +36,6 @@ export default {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -57,28 +54,56 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+
+        // Mult Flooring brand tokens
+        "bg-base": "var(--color-bg-base)",
+        "bg-surface": "var(--color-bg-surface)",
+        "bg-elevated": "var(--color-bg-elevated)",
+        "bg-dark": "var(--color-bg-dark)",
+        "bg-dark-2": "var(--color-bg-dark-2)",
+        "border-warm": "var(--color-border)",
+        "border-strong": "var(--color-border-strong)",
+        "text-primary": "var(--color-text-primary)",
+        "text-secondary": "var(--color-text-secondary)",
+        "text-muted": "var(--color-text-muted)",
+        "text-cream": "var(--color-text-cream)",
+        accent: {
+          DEFAULT: "var(--color-accent)",
+          foreground: "var(--color-text-light)",
+          hover: "var(--color-accent-hover)",
+          mid: "var(--color-accent-mid)",
+          light: "var(--color-accent-light)",
+        },
+      },
+      fontFamily: {
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "var(--radius-lg)",
+        md: "var(--radius-md)",
+        sm: "var(--radius-sm)",
+        pill: "var(--radius-pill)",
+      },
+      transitionTimingFunction: {
+        expo: "cubic-bezier(0.16, 1, 0.3, 1)",
+      },
+      transitionDuration: {
+        fast: "180ms",
+        base: "260ms",
+        slow: "420ms",
+        enter: "500ms",
+      },
+      maxWidth: {
+        site: "1160px",
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {

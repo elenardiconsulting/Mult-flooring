@@ -4,6 +4,9 @@ import Hero from "@/components/sections/Hero";
 import BrandStatement from "@/components/sections/BrandStatement";
 import FloorPreview from "@/components/sections/FloorPreview";
 import Gallery from "@/components/sections/Gallery";
+import SocialProof from "@/components/sections/SocialProof";
+import CtaFinal from "@/components/sections/CtaFinal";
+import Footer from "@/components/layout/Footer";
 
 const Index = () => {
   return (
@@ -14,8 +17,10 @@ const Index = () => {
         <BrandStatement />
         <FloorPreview />
         <Gallery />
-        {/* WhyMult, Process, Social Proof, CTA + Footer — próximas seções */}
+        <SocialProof />
+        <CtaFinal />
       </main>
+      <Footer />
     </Layout>
   );
 };

@@ -10,9 +10,9 @@ const FEATURES = [
   },
   {
     icon: Star,
-    title: "5-Star Rated",
+    title: "4.8 Stars",
     description:
-      "Consistently rated 5 stars by homeowners across Massachusetts and Rhode Island.",
+      "Average 4.8-star rating on Google from homeowners across Massachusetts and Rhode Island.",
   },
   {
     icon: Clock,

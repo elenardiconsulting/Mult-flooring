@@ -9,6 +9,9 @@ import CabinetsPage from "./pages/CabinetsPage.tsx";
 import ProjectsPage from "./pages/ProjectsPage.tsx";
 import ProcessPage from "./pages/ProcessPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
+import LoginPage from "./pages/LoginPage.tsx";
+import DashboardPage from "./pages/DashboardPage.tsx";
+import ProtectedRoute from "./components/auth/ProtectedRoute.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -26,6 +29,15 @@ const App = () => (
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/process" element={<ProcessPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

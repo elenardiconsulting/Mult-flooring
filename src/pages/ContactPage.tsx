@@ -5,6 +5,7 @@ import SectionLabel from "@/components/ui/mult-section-label";
 import BrandButton from "@/components/ui/mult-button";
 import Divider from "@/components/ui/mult-divider";
 import { COMPANY } from "@/lib/constants";
+import { supabase } from '@/lib/supabase'
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -148,6 +149,8 @@ function InfoCard({
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     firstName: "",
     phone: "",
@@ -157,9 +160,31 @@ export default function ContactPage() {
     preferPhone: false,
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    const { error: supabaseError } = await supabase
+      .from('leads')
+      .insert({
+        name: form.firstName,
+        phone: form.phone,
+        email: form.email || '',
+        project_type: form.projectType,
+        message: form.message || '',
+        prefer_phone: form.preferPhone || false,
+        status: 'new',
+      });
+
+    if (supabaseError) {
+      console.error('Error saving lead:', supabaseError);
+      setError('Something went wrong. Please call us directly.');
+    } else {
+      setSubmitted(true);
+    }
+
+    setLoading(false);
   };
 
   const reset = () => {
@@ -451,9 +476,29 @@ export default function ContactPage() {
                     size="lg"
                     type="submit"
                     className="w-full"
+                    disabled={loading}
                   >
+                    {loading ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" className="inline-block mr-2">
+                        <circle cx="12" cy="12" r="10"
+                          stroke="currentColor" strokeWidth="2"
+                          fill="none" strokeDasharray="31.4"
+                          strokeDashoffset="10"
+                          style={{ animation: 'spin 1s linear infinite' }}
+                        />
+                      </svg>
+                    ) : null}
                     Send Request
                   </BrandButton>
+
+                  {error && (
+                    <p style={{ fontSize: '13px', color: '#E24B4A', marginTop: '8px', textAlign: 'center' }}>
+                      {error}
+                    </p>
+                  )}
+                  <style>{`
+                    @keyframes spin { to { transform: rotate(360deg) } }
+                  `}</style>
 
                   <p
                     style={{

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import { COMPANY } from "@/lib/constants";
+import { supabase } from '@/lib/supabase'
 
 const easeExpo = [0.16, 1, 0.3, 1] as any;
 
@@ -47,11 +48,34 @@ const CtaFinal = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Quote request:", formData);
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    const { error: supabaseError } = await supabase
+      .from('leads')
+      .insert({
+        name: formData.name,
+        phone: formData.phone,
+        email: '',
+        project_type: formData.projectType,
+        message: formData.message || '',
+        prefer_phone: false,
+        status: 'new',
+      });
+
+    if (supabaseError) {
+      console.error('Error saving lead:', supabaseError);
+      setError('Something went wrong. Please call us directly.');
+    } else {
+      setSubmitted(true);
+    }
+
+    setLoading(false);
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -281,9 +305,28 @@ const CtaFinal = () => {
                 variant="primary"
                 size="lg"
                 style={{ width: "100%", marginTop: 4 }}
+                disabled={loading}
               >
+                {loading ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" className="inline-block mr-2">
+                    <circle cx="12" cy="12" r="10"
+                      stroke="currentColor" strokeWidth="2"
+                      fill="none" strokeDasharray="31.4"
+                      strokeDashoffset="10"
+                      style={{ animation: 'spin 1s linear infinite' }}
+                    />
+                  </svg>
+                ) : null}
                 {COMPANY.cta.primary}
               </BrandButton>
+              {error && (
+                <p style={{ fontSize: '13px', color: '#E24B4A', marginTop: '8px', textAlign: 'center' }}>
+                  {error}
+                </p>
+              )}
+              <style>{`
+                @keyframes spin { to { transform: rotate(360deg) } }
+              `}</style>
             </form>
           )}
         </motion.div>

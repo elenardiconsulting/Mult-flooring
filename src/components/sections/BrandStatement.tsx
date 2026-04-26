@@ -58,21 +58,21 @@ const BrandStatement = () => {
 
   const stats = [
     {
-      to: 1200,
+      to: 500,
       format: (v: number) => `${Math.round(v).toLocaleString()}+`,
-      label: "Projects completed",
+      label: "Projects installed",
       delay: 0,
     },
     {
-      to: 14,
-      format: (v: number) => `${Math.round(v)} Years`,
-      label: "In the flooring business",
+      to: 20,
+      format: (v: number) => `${Math.round(v)}+ Years`,
+      label: "Serving MA, RI & CT",
       delay: 0.15,
     },
     {
-      to: 4.9,
+      to: 4.8,
       format: (v: number) => `${v.toFixed(1)} ★`,
-      label: "Google rating · 200+ reviews",
+      label: "Google Rating",
       delay: 0.3,
     },
   ];
@@ -152,7 +152,7 @@ const BrandStatement = () => {
 
 const ManifestoColumn = () => (
   <>
-    <SectionLabel>Our philosophy</SectionLabel>
+    <SectionLabel>Who we are</SectionLabel>
 
     <p
       className="font-medium text-text-primary mt-4"
@@ -163,11 +163,11 @@ const ManifestoColumn = () => (
         marginBottom: 0,
       }}
     >
-      We don't sell floors.
+      Quality floors.
       <br />
-      We design the surface
+      Fair prices.
       <br />
-      your life happens on.
+      Done right.
     </p>
 
     <hr
@@ -190,8 +190,7 @@ const ManifestoColumn = () => (
         maxWidth: "440px",
       }}
     >
-      Every project starts with listening. We learn how you move through your
-      space, what you care about, and what will last. Then we get to work.
+      We supply and install hardwood, vinyl and laminate for homeowners, contractors and businesses across MA, RI and CT. Our own warehouse means we have the stock — and our certified crew means we have the people to get it done.
     </p>
   </>
 );

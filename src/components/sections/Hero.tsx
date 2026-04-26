@@ -16,6 +16,7 @@ const Hero = () => {
   }, []);
 
   const easeExpo = [0.16, 1, 0.3, 1] as any;
+  const heroParallax = useParallax(40);
 
   return (
     <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
@@ -170,7 +171,10 @@ const Hero = () => {
       </div>
 
       {/* Right Column - Image */}
-      <div className="hidden lg:block relative overflow-hidden h-full">
+      <div
+        ref={heroParallax.ref}
+        className="hidden lg:block relative overflow-hidden h-full"
+      >
         <motion.img
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -178,6 +182,7 @@ const Hero = () => {
           src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90"
           alt="Premium wooden floor interior"
           className="w-full h-full object-cover object-left"
+          style={{ y: heroParallax.y, willChange: "transform" }}
         />
 
         {/* Side Overlays */}

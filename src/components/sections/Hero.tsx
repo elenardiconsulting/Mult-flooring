@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
-import BrandButton from "@/components/ui/mult-button";
-import { cn } from "@/lib/utils";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -15,121 +14,170 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const easeExpo = [0.16, 1, 0.3, 1] as any;
 
   return (
-    <section className="relative h-screen min-h-[680px] w-full flex items-end overflow-hidden pb-[96px] md:pb-[96px] max-md:pb-[72px] max-md:h-[100svh]">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative h-[100vh] min-h-[680px] w-full bg-[#111111] grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
+      {/* Mobile background texture */}
+      <div className="absolute inset-0 z-0 lg:hidden">
         <img
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90"
-          alt="Premium residential space with light tile flooring"
-          className="w-full h-full object-cover object-center"
-          loading="eager"
-          // @ts-ignore
-          fetchpriority="high"
-        />
-        
-        {/* Overlays */}
-        <div 
-          className="absolute inset-0 z-[1] before:absolute before:inset-0 before:bg-gradient-to-r before:from-[rgba(250,247,244,0.88)] md:before:via-[rgba(250,247,244,0.60)] before:via-[rgba(250,247,244,0.92)] before:to-[rgba(250,247,244,0.10)] max-md:before:to-[rgba(250,247,244,0.75)]" 
-        />
-        <div 
-          className="absolute inset-0 z-[1] after:absolute after:inset-0 after:bg-gradient-to-t after:from-[rgba(250,247,244,0.50)] after:to-transparent after:bottom-0 after:h-[40%]" 
+          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90"
+          alt=""
+          className="w-full h-full object-cover opacity-[0.12]"
         />
       </div>
 
-      {/* Content */}
-      <div className="relative z-[2] w-full max-w-[var(--max-width)] mx-auto px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]">
-        <div className="max-w-[640px] text-left">
+      {/* Left Column - Content */}
+      <div className="relative z-10 flex flex-col justify-center px-[var(--padding-x-mobile)] lg:px-0 lg:pl-[var(--padding-x)] lg:pr-[56px] pt-[100px] lg:pt-[100px] pb-12 lg:pb-0">
+        <div className="max-w-[640px]">
           {/* License Badge */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6, ease: easeExpo }}
-            className="text-[11px] font-normal uppercase tracking-[0.12em] text-text-muted mb-5"
+            className="inline-flex items-center gap-2 bg-[rgba(122,79,30,0.15)] border border-[rgba(122,79,30,0.35)] rounded-full px-[14px] py-1.5 mb-8 w-fit"
           >
-            {COMPANY.license}
-          </motion.p>
+            <motion.div
+              animate={{
+                opacity: [1, 0.3, 1],
+                scale: [1, 0.8, 1],
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-mid)]"
+            />
+            <span className="text-[11px] font-medium text-[var(--color-accent-light)] tracking-[0.1em] uppercase">
+              {COMPANY.license}
+            </span>
+          </motion.div>
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.7, ease: easeExpo }}
-            className="text-[var(--text-hero)] font-medium leading-[1.0] tracking-[-0.025em] text-text-primary mb-6"
-            style={{ fontSize: "var(--text-hero)" }}
+            transition={{ delay: 0.2, duration: 0.8, ease: easeExpo }}
+            className="text-[#ffffff] font-bold leading-[0.95] tracking-[-0.03em] mb-[28px]"
+            style={{ fontSize: "clamp(52px, 6.5vw, 88px)" }}
           >
-            The floor beneath<br />
-            every great space.
+            The floor<br />
+            beneath every<br />
+            <span className="text-[#C47C3A]">great space.</span>
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] max-md:text-[15px] font-normal leading-[1.65] text-text-secondary max-w-[480px] mb-10"
+            className="text-[17px] font-normal leading-[1.6] text-[rgba(255,255,255,0.55)] max-w-[400px] mb-10"
           >
-            Tiles, hardwood and installation — crafted for how you live.
+            Hardwood, vinyl and laminate — supplied and installed by our certified crew.
           </motion.p>
 
-          {/* Buttons */}
+          {/* Button Group */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5, ease: easeExpo }}
-            className="flex flex-wrap gap-4 max-md:flex-col"
+            transition={{ delay: 0.48, duration: 0.5, ease: easeExpo }}
+            className="flex flex-wrap gap-[14px] max-lg:flex-col"
           >
-            <BrandButton
-              variant="primary"
-              size="lg"
-              className="max-md:w-full"
-              onClick={() => scrollTo("collections")}
-            >
-              {COMPANY.cta.collections}
-            </BrandButton>
-            <BrandButton
-              variant="secondary"
-              size="lg"
-              className="max-md:w-full"
-              onClick={() => scrollTo("projects")}
-            >
-              View Our Work
-            </BrandButton>
+            <Link to="/floors" className="max-lg:w-full">
+              <button className="bg-[#C47C3A] hover:bg-[#7a4f1e] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer max-lg:w-full">
+                Explore Floors
+              </button>
+            </Link>
+            <Link to="/projects" className="max-lg:w-full">
+              <button className="bg-transparent border border-[rgba(255,255,255,0.20)] hover:border-[rgba(255,255,255,0.50)] text-[rgba(255,255,255,0.80)] hover:text-[#ffffff] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full">
+                View Our Work
+              </button>
+            </Link>
+          </motion.div>
+
+          {/* Stats Section */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
+            className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.08)] flex gap-10 max-sm:gap-6"
+          >
+            <div className="flex flex-col">
+              <span className="text-[24px] font-bold text-[#ffffff] tracking-[-0.02em]">
+                1,200+
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[rgba(255,255,255,0.40)] mt-0.5">
+                Projects
+              </span>
+            </div>
+            <div className="w-[1px] h-8 self-center bg-[rgba(255,255,255,0.08)]" />
+            <div className="flex flex-col">
+              <span className="text-[24px] font-bold text-[#ffffff] tracking-[-0.02em]">
+                {COMPANY.years}yrs
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[rgba(255,255,255,0.40)] mt-0.5">
+                Experience
+              </span>
+            </div>
+            <div className="w-[1px] h-8 self-center bg-[rgba(255,255,255,0.08)]" />
+            <div className="flex flex-col">
+              <span className="text-[24px] font-bold text-[#ffffff] tracking-[-0.02em]">
+                {COMPANY.rating}★
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[rgba(255,255,255,0.40)] mt-0.5">
+                Google rating
+              </span>
+            </div>
           </motion.div>
         </div>
       </div>
 
+      {/* Right Column - Image */}
+      <div className="hidden lg:block relative overflow-hidden h-full">
+        <motion.img
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
+          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90"
+          alt="Premium wooden floor interior"
+          className="w-full h-full object-cover object-left"
+        />
+
+        {/* Side Overlays */}
+        <div className="absolute left-0 top-0 bottom-0 w-[120px] bg-gradient-to-right from-[#111111] to-transparent pointer-events-none z-10" 
+             style={{ backgroundImage: 'linear-gradient(to right, #111111 0%, transparent 100%)' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-[180px] bg-gradient-to-top from-[#111111] to-transparent pointer-events-none z-10"
+             style={{ backgroundImage: 'linear-gradient(to top, #111111 0%, transparent 100%)' }} />
+
+        {/* Floating Badge */}
+        <div className="absolute bottom-10 left-10 z-20 bg-[rgba(17,17,17,0.75)] backdrop-blur-md border border-[rgba(255,255,255,0.10)] rounded-[var(--radius-md)] px-[18px] py-[14px] flex flex-col gap-1">
+          <span className="text-[11px] uppercase tracking-[0.1em] text-[rgba(255,255,255,0.45)]">
+            Hardwood · Vinyl · Laminate
+          </span>
+          <span className="text-[13px] font-medium text-[#ffffff]">
+            West Bridgewater, MA
+          </span>
+        </div>
+      </div>
+
       {/* Scroll Indicator */}
-      <motion.div
-        animate={{ 
-          y: [0, 8, 0],
-          opacity: scrollY > 80 ? 0 : 1
-        }}
-        transition={{ 
-          y: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
-          opacity: { duration: 0.3 }
-        }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2]"
+      <div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-opacity duration-300"
+        style={{ opacity: scrollY > 80 ? 0 : 1 }}
       >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--color-text-muted)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-        </svg>
-      </motion.div>
+        <span className="text-[10px] uppercase tracking-[0.15em] text-[rgba(255,255,255,0.30)]">
+          Scroll
+        </span>
+        <motion.div
+          animate={{
+            scaleY: [0, 1, 0],
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="w-[1px] h-10 origin-top bg-gradient-to-bottom from-[rgba(255,255,255,0.30)] to-transparent"
+          style={{ backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.30) 0%, transparent 100%)' }}
+        />
+      </div>
     </section>
   );
 };

@@ -429,14 +429,75 @@ export default function DashboardPage() {
           </div>
         </header>
 
+        {/* PUSH PERMISSION BANNER */}
+        {permission === 'default' && !dismissedBanner && (
+          <div
+            className="dash-push-banner"
+            style={{
+              background: '#faeeda',
+              borderBottom: '1px solid #e0cdb8',
+              padding: '12px 32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 16,
+              flexWrap: 'wrap',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, minWidth: 0 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#854F0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+              </svg>
+              <span style={{ fontSize: 13, color: '#854F0B' }}>
+                Enable push notifications to get alerted when new leads come in.
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+              <button
+                onClick={handleEnableNotifications}
+                style={{
+                  background: '#7a4f1e',
+                  color: '#fff',
+                  fontSize: 13,
+                  padding: '6px 16px',
+                  borderRadius: 6,
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                Enable
+              </button>
+              <button
+                onClick={() => setDismissedBanner(true)}
+                style={{
+                  fontSize: 13,
+                  color: '#854F0B',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  marginLeft: 8,
+                  fontFamily: 'inherit',
+                }}
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* CONTENT */}
         <div className="dash-content">
           {activeTab === 'overview' && <OverviewTab leads={leads} loading={loadingLeads} />}
           {activeTab === 'leads' && <LeadsTab leads={leads} loading={loadingLeads} />}
-          {activeTab === 'calendar' && <CalendarTabPlaceholder />}
+          {activeTab === 'calendar' && <CalendarTab leads={leads} />}
           {activeTab === 'analytics' && <AnalyticsTab leads={leads} loading={loadingLeads} />}
         </div>
       </div>
+
+      {/* ───── PUSH TOASTS ───── */}
+      <PushToastContainer toasts={toasts} onRemove={removeToast} />
 
       {/* ───── MOBILE BOTTOM NAV ───── */}
       <nav className="dash-bottom-nav">

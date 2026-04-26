@@ -19,22 +19,49 @@ type ProjectType = (typeof PROJECT_FILTERS)[number];
 
 const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectType>("All");
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const filtered =
     activeFilter === "All"
       ? PROJECTS
       : PROJECTS.filter((p) => p.type === activeFilter);
 
+  const totalSlides = isMobile ? filtered.length : Math.ceil(filtered.length / 2);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [activeFilter]);
+
+  const next = () => setCurrentIndex((i) => Math.min(totalSlides - 1, i + 1));
+  const prev = () => setCurrentIndex((i) => Math.max(0, i - 1));
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (delta > 50) prev();
+    else if (delta < -50) next();
+    touchStartX.current = null;
+  };
+
   // Body scroll lock
   useEffect(() => {
-    if (lightboxOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = lightboxOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -44,16 +71,11 @@ const Gallery = () => {
   useEffect(() => {
     if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setLightboxOpen(false);
-      } else if (e.key === "ArrowLeft") {
-        setLightboxIndex((i) =>
-          i === null ? 0 : i === 0 ? PROJECTS.length - 1 : i - 1,
-        );
+      if (e.key === "Escape") setLightboxOpen(false);
+      else if (e.key === "ArrowLeft") {
+        setLightboxIndex((i) => (i === null ? 0 : i === 0 ? PROJECTS.length - 1 : i - 1));
       } else if (e.key === "ArrowRight") {
-        setLightboxIndex((i) =>
-          i === null ? 0 : i === PROJECTS.length - 1 ? 0 : i + 1,
-        );
+        setLightboxIndex((i) => (i === null ? 0 : i === PROJECTS.length - 1 ? 0 : i + 1));
       }
     };
     window.addEventListener("keydown", onKey);
@@ -67,28 +89,13 @@ const Gallery = () => {
 
   const closeLightbox = () => setLightboxOpen(false);
 
-  const prev = () =>
-    setLightboxIndex((i) =>
-      i === null ? 0 : i === 0 ? PROJECTS.length - 1 : i - 1,
-    );
-  const next = () =>
-    setLightboxIndex((i) =>
-      i === null ? 0 : i === PROJECTS.length - 1 ? 0 : i + 1,
-    );
+  const lbPrev = () =>
+    setLightboxIndex((i) => (i === null ? 0 : i === 0 ? PROJECTS.length - 1 : i - 1));
+  const lbNext = () =>
+    setLightboxIndex((i) => (i === null ? 0 : i === PROJECTS.length - 1 ? 0 : i + 1));
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const delta = e.changedTouches[0].clientX - touchStartX.current;
-    if (delta > 50) prev();
-    else if (delta < -50) next();
-    touchStartX.current = null;
-  };
+  const lightboxProject = lightboxIndex !== null ? PROJECTS[lightboxIndex] : null;
 
-  const lightboxProject =
-    lightboxIndex !== null ? PROJECTS[lightboxIndex] : null;
 
   return (
     <>
@@ -169,61 +176,130 @@ const Gallery = () => {
             </div>
           </motion.div>
 
-          {/* Uniform grid */}
-          <AnimatePresence mode="wait">
+          {/* Navigation Arrows */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: 8,
+              marginBottom: 16,
+            }}
+          >
+            <button
+              type="button"
+              onClick={prev}
+              disabled={currentIndex === 0}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: "50%",
+                background: "var(--color-bg-base)",
+                border: "1px solid var(--color-border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                transition: "all var(--duration-base)",
+                opacity: currentIndex === 0 ? 0.35 : 1,
+                pointerEvents: currentIndex === 0 ? "none" : "auto",
+              }}
+              className="hover:!bg-[var(--color-bg-surface)] hover:!border-[var(--color-border-strong)]"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              disabled={currentIndex === totalSlides - 1}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: "50%",
+                background: "var(--color-bg-base)",
+                border: "1px solid var(--color-border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                transition: "all var(--duration-base)",
+                opacity: currentIndex === totalSlides - 1 ? 0.35 : 1,
+                pointerEvents: currentIndex === totalSlides - 1 ? "none" : "auto",
+              }}
+              className="hover:!bg-[var(--color-bg-surface)] hover:!border-[var(--color-border-strong)]"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Carousel */}
+          <div 
+            ref={trackRef}
+            style={{ position: "relative", width: "100%", overflow: "hidden" }}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <motion.div
-              key={activeFilter}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: EASE }}
-              className="gallery-grid"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.1}
+              onDragEnd={(_, { offset }) => {
+                if (offset.x < -50) next();
+                if (offset.x > 50) prev();
+              }}
+              animate={{
+                x: isMobile 
+                  ? -(currentIndex * 100) + "%" 
+                  : -(currentIndex * (50 + 0.8)) + "%" // 50% width + some factor for the 16px gap
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              style={{ display: "flex", gap: 16, width: "100%" }}
             >
               {filtered.map((project, displayIndex) => {
-                const originalIndex = PROJECTS.findIndex(
-                  (p) => p.id === project.id,
-                );
-                const delay = Math.min(displayIndex * 0.08, 0.4);
-
+                const originalIndex = PROJECTS.findIndex((p) => p.id === project.id);
                 return (
                   <motion.div
                     key={project.id}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay, ease: EASE }}
-                    className="gallery-card cursor-view group"
+                    className="gallery-card group"
                     onClick={() => openLightbox(originalIndex)}
                     style={{
-                      position: "relative",
-                      overflow: "hidden",
-                      borderRadius: "var(--radius-md)",
-                      cursor: "pointer",
-                      width: "100%",
+                      width: isMobile ? "100%" : "calc(50% - 8px)",
+                      flexShrink: 0,
                       aspectRatio: "4 / 3",
+                      borderRadius: "var(--radius-md)",
+                      overflow: "hidden",
+                      position: "relative",
+                      cursor: "pointer",
                       background: "var(--color-bg-elevated)",
                     }}
                   >
-                    <GalleryParallaxImg
+                    <img
                       src={project.image}
                       alt={project.name}
+                      className="gallery-img"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        transition: "transform 600ms var(--ease-out-expo)",
+                      }}
                     />
 
-                    {/* Overlay gradient */}
                     <div
                       className="gallery-overlay"
                       style={{
                         position: "absolute",
                         inset: 0,
-                        background:
-                          "linear-gradient(to top, rgba(26,26,26,0.82) 0%, rgba(26,26,26,0.20) 50%, rgba(26,26,26,0) 100%)",
+                        background: "linear-gradient(to top, rgba(26,26,26,0.82) 0%, rgba(26,26,26,0.20) 50%, transparent 100%)",
                         opacity: 0,
-                        transition:
-                          "opacity 350ms var(--ease-out-expo)",
+                        transition: "opacity 350ms",
                         pointerEvents: "none",
                       }}
                     />
 
-                    {/* Expand icon */}
                     <div
                       className="gallery-expand"
                       style={{
@@ -231,29 +307,15 @@ const Gallery = () => {
                         top: 16,
                         right: 16,
                         opacity: 0,
-                        transition:
-                          "opacity 350ms var(--ease-out-expo)",
+                        transition: "opacity 350ms",
                         pointerEvents: "none",
                       }}
                     >
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#ffffff"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M15 3h6v6" />
-                        <path d="M9 21H3v-6" />
-                        <path d="M21 3l-7 7" />
-                        <path d="M3 21l7-7" />
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 3h6v6" /><path d="M9 21H3v-6" /><path d="M21 3l-7 7" /><path d="M3 21l7-7" />
                       </svg>
                     </div>
 
-                    {/* Content */}
                     <div
                       className="gallery-content"
                       style={{
@@ -264,40 +326,17 @@ const Gallery = () => {
                         padding: "24px 20px",
                         transform: "translateY(8px)",
                         opacity: 0,
-                        transition:
-                          "transform 350ms var(--ease-out-expo), opacity 350ms var(--ease-out-expo)",
+                        transition: "transform 350ms, opacity 350ms",
                         pointerEvents: "none",
                       }}
                     >
-                      <div
-                        style={{
-                          fontSize: 10,
-                          letterSpacing: "0.12em",
-                          textTransform: "uppercase",
-                          color: "var(--color-accent-light)",
-                          marginBottom: 6,
-                        }}
-                      >
+                      <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-accent-light)", marginBottom: 6 }}>
                         {project.type}
                       </div>
-                      <div
-                        style={{
-                          fontSize: 18,
-                          fontWeight: 500,
-                          color: "#ffffff",
-                          letterSpacing: "-0.01em",
-                          marginBottom: 4,
-                        }}
-                      >
+                      <div style={{ fontSize: 18, fontWeight: 500, color: "#ffffff", letterSpacing: "-0.01em", marginBottom: 4 }}>
                         {project.name}
                       </div>
-                      <div
-                        style={{
-                          fontSize: 12,
-                          color: "rgba(255,255,255,0.65)",
-                          letterSpacing: "0.02em",
-                        }}
-                      >
+                      <div style={{ fontSize: 12, color: "rgba(255,255,255,0.65)", letterSpacing: "0.02em" }}>
                         {project.city} and {project.material}
                       </div>
                     </div>
@@ -305,34 +344,41 @@ const Gallery = () => {
                 );
               })}
             </motion.div>
-          </AnimatePresence>
+          </div>
+
+          {/* Dots Indicators */}
+          <div
+            style={{
+              marginTop: 20,
+              display: "flex",
+              justifyContent: "center",
+              gap: 6,
+            }}
+          >
+            {Array.from({ length: totalSlides }).map((_, i) => (
+              <div
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                style={{
+                  width: currentIndex === i ? 20 : 6,
+                  height: 6,
+                  borderRadius: "var(--radius-pill)",
+                  background: currentIndex === i ? "var(--color-accent)" : "var(--color-border-strong)",
+                  transition: "width 300ms var(--ease-out-expo), background 300ms",
+                  cursor: "pointer",
+                }}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Scoped styles for masonry + hover */}
         <style>{`
-          .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 12px;
-          }
-          @media (min-width: 640px) {
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-          }
-          @media (min-width: 1024px) {
-            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-          }
-          .gallery-card:hover .gallery-img {
-            filter: brightness(1.05);
-          }
+          .gallery-card:hover .gallery-img { transform: scale(1.04); }
           .gallery-card:hover .gallery-overlay,
-          .gallery-card:hover .gallery-expand {
-            opacity: 1;
-          }
-          .gallery-card:hover .gallery-content {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          .gallery-card:hover .gallery-expand { opacity: 1; }
+          .gallery-card:hover .gallery-content { opacity: 1; transform: translateY(0); }
         `}</style>
+
       </section>
 
       {/* Lightbox */}
@@ -347,6 +393,7 @@ const Gallery = () => {
             onClick={closeLightbox}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
+
             style={{
               position: "fixed",
               inset: 0,
@@ -410,8 +457,9 @@ const Gallery = () => {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  prev();
+                  lbPrev();
                 }}
+
                 aria-label="Previous"
                 className="hidden sm:flex hover:!bg-[rgba(250,247,244,0.22)]"
                 style={{
@@ -449,8 +497,9 @@ const Gallery = () => {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  next();
+                  lbNext();
                 }}
+
                 aria-label="Next"
                 className="hidden sm:flex hover:!bg-[rgba(250,247,244,0.22)]"
                 style={{

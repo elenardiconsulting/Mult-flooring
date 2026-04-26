@@ -26,7 +26,7 @@ const Navbar = () => {
       <img
         src={logo}
         alt="Mult Flooring"
-        className="h-[62px] md:h-[70px] w-auto object-contain brightness-0"
+        className="h-[62px] md:h-[70px] w-auto object-contain"
       />
     </div>
   );

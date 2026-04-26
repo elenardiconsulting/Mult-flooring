@@ -26,7 +26,7 @@ const Navbar = () => {
       <img
         src={logo}
         alt="Mult Flooring"
-        className="h-[62px] md:h-[70px] w-auto object-contain brightness-0 invert"
+        className="h-[62px] md:h-[70px] w-auto object-contain brightness-0"
       />
     </div>
   );
@@ -36,7 +36,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 w-full z-[var(--z-nav)] transition-all duration-300 ease-expo",
         isScrolled
-          ? "h-[60px] md:h-[68px] bg-[rgba(17,17,17,0.92)] border-b border-[rgba(255,255,255,0.08)] backdrop-blur-lg"
+          ? "h-[60px] md:h-[68px] bg-[rgba(250,247,244,0.92)] border-b border-[var(--color-border)] backdrop-blur-lg"
           : "h-[60px] md:h-[68px] bg-transparent border-b border-transparent"
       )}
     >
@@ -52,7 +52,7 @@ const Navbar = () => {
             <Link
               key={link.href}
               to={link.href}
-              className="text-sm font-normal text-[rgba(255,255,255,0.80)] hover:text-[#ffffff] tracking-[0.01em] transition-colors duration-base ease-expo"
+              className="text-sm font-normal text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] tracking-[0.01em] transition-colors duration-base ease-expo"
             >
               {link.label}
             </Link>
@@ -76,19 +76,19 @@ const Navbar = () => {
           >
             <span
               className={cn(
-                "h-[1.5px] bg-[#ffffff] transition-all duration-300 w-full",
+                "h-[1.5px] bg-[var(--color-text-primary)] transition-all duration-300 w-full",
                 isMobileMenuOpen ? "rotate-45 translate-y-[7.5px]" : ""
               )}
             />
             <span
               className={cn(
-                "h-[1.5px] bg-[#ffffff] transition-all duration-300 w-full",
+                "h-[1.5px] bg-[var(--color-text-primary)] transition-all duration-300 w-full",
                 isMobileMenuOpen ? "opacity-0" : ""
               )}
             />
             <span
               className={cn(
-                "h-[1.5px] bg-[#ffffff] transition-all duration-300 w-full",
+                "h-[1.5px] bg-[var(--color-text-primary)] transition-all duration-300 w-full",
                 isMobileMenuOpen ? "-rotate-45 -translate-y-[7.5px]" : ""
               )}
             />
@@ -104,7 +104,7 @@ const Navbar = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden absolute top-[60px] left-0 w-full bg-[rgba(17,17,17,0.98)] backdrop-blur-lg border-b border-[rgba(255,255,255,0.08)] overflow-hidden"
+            className="md:hidden absolute top-[60px] left-0 w-full bg-[rgba(250,247,244,0.98)] backdrop-blur-lg border-b border-[var(--color-border)] overflow-hidden"
           >
             <div className="flex flex-col gap-6 p-6 px-[var(--padding-x-mobile)]">
               {NAV_LINKS.map((link) => (
@@ -112,7 +112,7 @@ const Navbar = () => {
                   key={link.href}
                   to={link.href}
                   onClick={closeMenu}
-                  className="text-lg font-normal text-[rgba(255,255,255,0.90)] text-left"
+                  className="text-lg font-normal text-[var(--color-text-primary)] text-left"
                 >
                   {link.label}
                 </Link>

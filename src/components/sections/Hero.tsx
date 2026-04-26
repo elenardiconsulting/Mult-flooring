@@ -17,13 +17,13 @@ const Hero = () => {
   const easeExpo = [0.16, 1, 0.3, 1] as any;
 
   return (
-    <section className="relative h-[100vh] min-h-[680px] w-full bg-[#111111] grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
+    <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
       {/* Mobile background texture */}
       <div className="absolute inset-0 z-0 lg:hidden">
         <img
           src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90"
           alt=""
-          className="w-full h-full object-cover opacity-[0.12]"
+          className="w-full h-full object-cover opacity-[0.08]"
         />
       </div>
 
@@ -35,7 +35,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6, ease: easeExpo }}
-            className="inline-flex items-center gap-2 bg-[rgba(122,79,30,0.15)] border border-[rgba(122,79,30,0.35)] rounded-full px-[14px] py-1.5 mb-8 w-fit"
+            className="inline-flex items-center gap-2 bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-full px-[14px] py-1.5 mb-8 w-fit"
           >
             <motion.div
               animate={{
@@ -45,7 +45,7 @@ const Hero = () => {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-mid)]"
             />
-            <span className="text-[11px] font-medium text-[var(--color-accent-light)] tracking-[0.1em] uppercase">
+            <span className="text-[11px] font-medium text-[var(--color-text-muted)] tracking-[0.1em] uppercase">
               {COMPANY.license}
             </span>
           </motion.div>
@@ -55,12 +55,12 @@ const Hero = () => {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8, ease: easeExpo }}
-            className="text-[#ffffff] font-bold leading-[0.95] tracking-[-0.03em] mb-[28px]"
+            className="text-[var(--color-text-primary)] font-bold leading-[0.95] tracking-[-0.03em] mb-[28px]"
             style={{ fontSize: "clamp(52px, 6.5vw, 88px)" }}
           >
             The floor<br />
             beneath every<br />
-            <span className="text-[#C47C3A]">great space.</span>
+            <span className="text-[var(--color-accent-mid)]">great space.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -68,7 +68,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] font-normal leading-[1.6] text-[rgba(255,255,255,0.55)] max-w-[400px] mb-10"
+            className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
           >
             Hardwood, vinyl and laminate — supplied and installed by our certified crew.
           </motion.p>
@@ -81,12 +81,12 @@ const Hero = () => {
             className="flex flex-wrap gap-[14px] max-lg:flex-col"
           >
             <Link to="/floors" className="max-lg:w-full">
-              <button className="bg-[#C47C3A] hover:bg-[#7a4f1e] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer max-lg:w-full">
+              <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer max-lg:w-full">
                 Explore Floors
               </button>
             </Link>
             <Link to="/projects" className="max-lg:w-full">
-              <button className="bg-transparent border border-[rgba(255,255,255,0.20)] hover:border-[rgba(255,255,255,0.50)] text-[rgba(255,255,255,0.80)] hover:text-[#ffffff] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full">
+              <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full">
                 View Our Work
               </button>
             </Link>
@@ -97,31 +97,31 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
-            className="mt-12 pt-8 border-t border-[rgba(255,255,255,0.08)] flex gap-10 max-sm:gap-6"
+            className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10 max-sm:gap-6"
           >
             <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[#ffffff] tracking-[-0.02em]">
+              <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 1,200+
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[rgba(255,255,255,0.40)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
                 Projects
               </span>
             </div>
-            <div className="w-[1px] h-8 self-center bg-[rgba(255,255,255,0.08)]" />
+            <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
             <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[#ffffff] tracking-[-0.02em]">
+              <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.years}yrs
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[rgba(255,255,255,0.40)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
                 Experience
               </span>
             </div>
-            <div className="w-[1px] h-8 self-center bg-[rgba(255,255,255,0.08)]" />
+            <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
             <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[#ffffff] tracking-[-0.02em]">
+              <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.rating}★
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[rgba(255,255,255,0.40)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
                 Google rating
               </span>
             </div>
@@ -141,17 +141,17 @@ const Hero = () => {
         />
 
         {/* Side Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-[120px] bg-gradient-to-right from-[#111111] to-transparent pointer-events-none z-10" 
-             style={{ backgroundImage: 'linear-gradient(to right, #111111 0%, transparent 100%)' }} />
-        <div className="absolute bottom-0 left-0 right-0 h-[180px] bg-gradient-to-top from-[#111111] to-transparent pointer-events-none z-10"
-             style={{ backgroundImage: 'linear-gradient(to top, #111111 0%, transparent 100%)' }} />
+        <div className="absolute left-0 top-0 bottom-0 w-[120px] bg-gradient-to-right from-[var(--color-bg-surface)] to-transparent pointer-events-none z-10" 
+             style={{ backgroundImage: 'linear-gradient(to right, var(--color-bg-surface) 0%, transparent 100%)' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-[180px] bg-gradient-to-top from-[var(--color-bg-surface)] to-transparent pointer-events-none z-10"
+             style={{ backgroundImage: 'linear-gradient(to top, var(--color-bg-surface) 0%, transparent 100%)' }} />
 
         {/* Floating Badge */}
-        <div className="absolute bottom-10 left-10 z-20 bg-[rgba(17,17,17,0.75)] backdrop-blur-md border border-[rgba(255,255,255,0.10)] rounded-[var(--radius-md)] px-[18px] py-[14px] flex flex-col gap-1">
-          <span className="text-[11px] uppercase tracking-[0.1em] text-[rgba(255,255,255,0.45)]">
+        <div className="absolute bottom-10 left-10 z-20 bg-[rgba(240,230,216,0.90)] backdrop-blur-md border border-[var(--color-border)] rounded-[var(--radius-md)] px-[18px] py-[14px] flex flex-col gap-1">
+          <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--color-text-muted)]">
             Hardwood · Vinyl · Laminate
           </span>
-          <span className="text-[13px] font-medium text-[#ffffff]">
+          <span className="text-[13px] font-medium text-[var(--color-text-primary)]">
             West Bridgewater, MA
           </span>
         </div>
@@ -162,7 +162,7 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-opacity duration-300"
         style={{ opacity: scrollY > 80 ? 0 : 1 }}
       >
-        <span className="text-[10px] uppercase tracking-[0.15em] text-[rgba(255,255,255,0.30)]">
+        <span className="text-[10px] uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
           Scroll
         </span>
         <motion.div
@@ -174,10 +174,11 @@ const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="w-[1px] h-10 origin-top bg-gradient-to-bottom from-[rgba(255,255,255,0.30)] to-transparent"
-          style={{ backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.30) 0%, transparent 100%)' }}
+          className="w-[1px] h-10 origin-top bg-[var(--color-accent-mid)]"
+          style={{ background: 'var(--color-accent-mid)' }}
         />
       </div>
+    </section>
     </section>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BrandButton } from "@/components/ui/mult-button";
+import BrandButton from "@/components/ui/mult-button";
 import { SectionLabel } from "@/components/ui/mult-section-label";
 import type { Tile } from "@/lib/constants";
 

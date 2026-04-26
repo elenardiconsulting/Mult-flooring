@@ -101,7 +101,7 @@ const Hero = () => {
           >
             <div className="flex flex-col">
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
-                1,200+
+                {COMPANY.projects}
               </span>
               <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
                 Projects
@@ -110,7 +110,7 @@ const Hero = () => {
             <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
             <div className="flex flex-col">
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
-                {COMPANY.years}yrs
+                {COMPANY.years}yrs+
               </span>
               <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
                 Experience
@@ -122,7 +122,7 @@ const Hero = () => {
                 {COMPANY.rating}★
               </span>
               <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
-                Google rating
+                Google Rating
               </span>
             </div>
           </motion.div>

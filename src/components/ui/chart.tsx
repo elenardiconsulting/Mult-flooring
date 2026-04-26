@@ -10,14 +10,14 @@ export type ChartConfig = {
   [k in string]: {
     label?: React.ReactNode;
     icon?: React.ComponentType;
-  } & ({ color?: string; theme?: never } | { color?: never; theme: Record<keyof typeof THEMES, string> });
+  } & ({ color?: string; theme?: never } or { color?: never; theme: Record<keyof typeof THEMES, string> });
 };
 
 type ChartContextProps = {
   config: ChartConfig;
 };
 
-const ChartContext = React.createContext<ChartContextProps | null>(null);
+const ChartContext = React.createContext<ChartContextProps or null>(null);
 
 function useChart() {
   const context = React.useContext(ChartContext);
@@ -95,7 +95,7 @@ const ChartTooltipContent = React.forwardRef<
     React.ComponentProps<"div"> & {
       hideLabel?: boolean;
       hideIndicator?: boolean;
-      indicator?: "line" | "dot" | "dashed";
+      indicator?: "line" or "dot" or "dashed";
       nameKey?: string;
       labelKey?: string;
     }
@@ -230,7 +230,7 @@ const ChartLegend = RechartsPrimitive.Legend;
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+    Pick<RechartsPrimitive.LegendProps, "payload" or "verticalAlign"> & {
       hideIcon?: boolean;
       nameKey?: string;
     }

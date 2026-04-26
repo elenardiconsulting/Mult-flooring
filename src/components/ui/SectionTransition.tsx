@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 interface SectionTransitionProps {
-  direction?: "left" | "right";
+  direction?: "left" or "right";
 }
 
 const EASE = [0.16, 1, 0.3, 1] as const;

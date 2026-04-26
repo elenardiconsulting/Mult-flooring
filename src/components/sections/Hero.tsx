@@ -34,7 +34,7 @@ const Hero = () => {
         <div className="max-w-[640px]">
           {/* License Badge removed */}
 
-          {/* Headline — word-by-word reveal */}
+          {/* Headline, word-by-word reveal */}
           <h1
             className="text-[var(--color-text-primary)] font-bold tracking-[-0.03em] mb-[28px]"
             style={{ fontSize: "clamp(52px, 6.5vw, 88px)", lineHeight: "1.05" }}
@@ -93,7 +93,7 @@ const Hero = () => {
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
             className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
           >
-            Hardwood, vinyl and laminate — supplied and installed by our certified crew.
+            Hardwood, vinyl and laminate, supplied and installed by our certified crew.
           </motion.p>
 
           {/* Button Group */}

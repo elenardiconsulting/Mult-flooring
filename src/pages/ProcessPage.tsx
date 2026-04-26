@@ -14,33 +14,33 @@ const PROCESS_STEPS = [
   {
     number: "01",
     title: "Free Consultation",
-    duration: "30–60 min",
+    duration: "30 to 60 min",
     description:
-      "We start with a conversation — in your home or virtually. We listen to your vision, assess the space, discuss timelines, and answer every question you have. No sales pressure. Just honest advice.",
+      "We start with a conversation, in your home or virtually. We listen to your vision, assess the space, discuss timelines, and answer every question you have. No sales pressure. Just honest advice.",
     details: [
       "In-home or virtual options available",
-      "Available Mon–Sat, 8am to 6pm",
+      "Available Mon to Sat, 8am to 6pm",
       "Covers MA, RI and CT",
-      "Bring your inspiration — photos, mood boards, anything",
+      "Bring your inspiration, photos, mood boards, anything",
     ],
   },
   {
     number: "02",
     title: "Material Selection",
-    duration: "1–3 days",
+    duration: "1 to 3 days",
     description:
       "We guide you through our full catalog of hardwood, vinyl and laminate options. Samples are delivered to your door so you can see how they look in your actual light before committing.",
     details: [
       "Free samples delivered to your door",
       "Red Oak, White Oak, Parquet, Vinyl and Laminate",
       "Guidance from our flooring specialists",
-      "No pressure — take the time you need",
+      "No pressure, take the time you need",
     ],
   },
   {
     number: "03",
     title: "Measurement & Quote",
-    duration: "24–48 hours",
+    duration: "24 to 48 hours",
     description:
       "Our team visits your space to take precise measurements and assess any subfloor conditions. We deliver a detailed written quote with no hidden fees within 48 hours of the visit.",
     details: [
@@ -53,13 +53,13 @@ const PROCESS_STEPS = [
   {
     number: "04",
     title: "Installation",
-    duration: "1–5 days",
+    duration: "1 to 5 days",
     description:
       "Our certified installers execute the plan with precision. We protect your furniture, keep the site clean, and don't leave until every plank is perfect and you've done a final walkthrough with us.",
     details: [
       "Certified installation crew",
       "Furniture protection included",
-      "Clean site — every day",
+      "Clean site, every day",
       "Final walkthrough before we leave",
     ],
   },
@@ -68,7 +68,7 @@ const PROCESS_STEPS = [
     title: "Warranty & Follow-up",
     duration: "Ongoing",
     description:
-      "Every installation comes with a workmanship warranty. If anything's not right — a board, a seam, anything — we come back and fix it. No questions asked.",
+      "Every installation comes with a workmanship warranty. If anything's not right, a board, a seam, anything, we come back and fix it. No questions asked.",
     details: [
       "Workmanship warranty on every project",
       "Follow-up call at 30 days",
@@ -101,7 +101,7 @@ const FAQS = [
   },
   {
     q: "What's included in the warranty?",
-    a: "Our workmanship warranty covers the installation itself — any issues with how the floor was installed. Material warranties are provided by the manufacturer.",
+    a: "Our workmanship warranty covers the installation itself, any issues with how the floor was installed. Material warranties are provided by the manufacturer.",
   },
 ];
 

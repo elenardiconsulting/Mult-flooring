@@ -203,7 +203,7 @@ const Footer = () => {
             © {new Date().getFullYear()} Mult Flooring. All rights reserved.
           </span>
           <span style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
-            Licensed &amp; Insured · MA · RI · CT
+            Licensed &amp; Insured and MA and RI and CT
           </span>
         </div>
       </div>

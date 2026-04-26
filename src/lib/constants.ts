@@ -12,13 +12,13 @@ export const COMPANY = {
   phone: "(508) 560-2310",
   phoneRaw: "5085602310",
   website: "multflooring.com",
-  license: "Licensed & Insured · MA · RI · CT",
+  license: "Licensed & Insured and MA and RI and CT",
   rating: "4.8",
   projects: "500+",
   years: "20",
   email: "contact@multflooring.com",
   address: "Serving Massachusetts, Rhode Island & Connecticut",
-  hours: "Mon–Sat, 8am–6pm",
+  hours: "Mon to Sat, 8am to 6pm",
   cta: {
     primary: "Get a Free Quote",
     collections: "Explore Collections",
@@ -53,7 +53,7 @@ export type FloorCategory = (typeof FLOOR_CATEGORIES)[number];
 export interface FloorProduct {
   id: string;
   name: string;
-  species: "Red Oak" | "White Oak" | "Parquet" | "Vinyl (LVP)" | "Laminate";
+  species: "Red Oak" or "White Oak" or "Parquet" or "Vinyl (LVP)" or "Laminate";
   width: string;
   finish: string;
   thickness: string;
@@ -95,7 +95,7 @@ export const FLOORS: FloorProduct[] = [
     coating: "Site-finished",
     indoor: true,
     description:
-      "Standard 3¼-inch Red Oak — the most installed hardwood width in New England homes. Timeless character with open grain.",
+      "Standard 3¼-inch Red Oak, the most installed hardwood width in New England homes. Timeless character with open grain.",
     image:
       "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=80",
     colors: ["#C47C3A", "#8B5E3C", "#D4956B"],
@@ -195,7 +195,7 @@ export const FLOORS: FloorProduct[] = [
     coating: "Site-finished",
     indoor: true,
     description:
-      "Wide-plank White Oak with a clean, Scandinavian-inspired look. Accepts stain beautifully — from natural to dark espresso.",
+      "Wide-plank White Oak with a clean, Scandinavian-inspired look. Accepts stain beautifully, from natural to dark espresso.",
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     colors: ["#C8B898", "#A89878", "#D8C8A8"],
@@ -211,7 +211,7 @@ export const FLOORS: FloorProduct[] = [
     coating: "Site-finished",
     indoor: true,
     description:
-      "Seven-inch White Oak planks — the designer's choice for high-end residential projects. Minimal knots, refined grain structure.",
+      "Seven-inch White Oak planks, the designer's choice for high-end residential projects. Minimal knots, refined grain structure.",
     image:
       "https://images.unsplash.com/photo-1574691250077-03a929faece5?w=800&q=80",
     colors: ["#BCA888", "#9A8868", "#CEB898"],
@@ -349,7 +349,7 @@ export interface Project {
   id: string;
   name: string;
   city: string;
-  type: "Residential" | "Commercial" | "Hospitality";
+  type: "Residential" or "Commercial" or "Hospitality";
   material: string;
   image: string;
 }
@@ -360,7 +360,7 @@ export const PROJECTS: Project[] = [
     name: "Wide Plank Install",
     city: "Newton, MA",
     type: "Residential",
-    material: "White Oak — 7\" planks",
+    material: "White Oak, 7\" planks",
     image: projInstallLivingRoom,
   },
   {
@@ -368,7 +368,7 @@ export const PROJECTS: Project[] = [
     name: "Attic Suite Conversion",
     city: "Wellesley, MA",
     type: "Residential",
-    material: "Red Oak — 3¼\" strip",
+    material: "Red Oak, 3¼\" strip",
     image: projAtticPrep,
   },
   {
@@ -376,7 +376,7 @@ export const PROJECTS: Project[] = [
     name: "Red Oak Finished",
     city: "Brookline, MA",
     type: "Residential",
-    material: "Red Oak — gloss finish",
+    material: "Red Oak, gloss finish",
     image: projRedOakFinished,
   },
   {
@@ -392,7 +392,7 @@ export const PROJECTS: Project[] = [
     name: "Dark Stain Staircase",
     city: "Providence, RI",
     type: "Residential",
-    material: "Oak — espresso stain",
+    material: "Oak, espresso stain",
     image: projStaircaseDarkStain,
   },
   {
@@ -400,7 +400,7 @@ export const PROJECTS: Project[] = [
     name: "Natural Oak Stairs",
     city: "Cambridge, MA",
     type: "Residential",
-    material: "White Oak — natural finish",
+    material: "White Oak, natural finish",
     image: projOakStairsNatural,
   },
   {
@@ -408,7 +408,7 @@ export const PROJECTS: Project[] = [
     name: "Dark Stain Landing",
     city: "Hartford, CT",
     type: "Hospitality",
-    material: "Red Oak — custom pattern",
+    material: "Red Oak, custom pattern",
     image: projDarkStainLanding,
   },
   {

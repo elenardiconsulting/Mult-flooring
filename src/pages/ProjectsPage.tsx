@@ -132,7 +132,7 @@ export default function ProjectsPage() {
               }}
             >
               From hardwood installations in historic Newton homes to
-              commercial lobbies in downtown Boston — every project finished
+              commercial lobbies in downtown Boston, every project finished
               to the same standard.
             </p>
           </motion.div>
@@ -303,7 +303,7 @@ export default function ProjectsPage() {
                           color: "rgba(255,255,255,0.65)",
                         }}
                       >
-                        {project.city} · {project.material}
+                        {project.city} and {project.material}
                       </div>
                     </div>
                   </motion.div>
@@ -453,7 +453,7 @@ export default function ProjectsPage() {
                   {lightboxProject.name}
                 </div>
                 <div style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", marginTop: 4 }}>
-                  {lightboxProject.city} · {lightboxProject.material}
+                  {lightboxProject.city} and {lightboxProject.material}
                 </div>
               </div>
             </div>

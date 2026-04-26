@@ -162,7 +162,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90"
+          src={heroNewImg}
           alt="Premium wooden floor interior"
           className="w-full h-full object-cover object-left"
           style={{ y: heroParallax.y, willChange: "transform" }}

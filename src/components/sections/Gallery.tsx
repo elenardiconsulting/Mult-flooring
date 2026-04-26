@@ -337,7 +337,7 @@ const Gallery = () => {
             .gallery-card { height: 260px !important; }
           }
           .gallery-card:hover .gallery-img {
-            transform: scale(1.05);
+            filter: brightness(1.05);
           }
           .gallery-card:hover .gallery-overlay,
           .gallery-card:hover .gallery-expand {

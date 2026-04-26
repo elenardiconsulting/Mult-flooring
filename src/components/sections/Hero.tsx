@@ -32,25 +32,7 @@ const Hero = () => {
       {/* Left Column - Content */}
       <div className="relative z-10 flex flex-col justify-center px-[var(--padding-x-mobile)] lg:px-0 lg:pl-[var(--padding-x)] lg:pr-[56px] pt-[100px] lg:pt-[100px] pb-12 lg:pb-0">
         <div className="max-w-[640px]">
-          {/* License Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6, ease: easeExpo }}
-            className="inline-flex items-center gap-2 bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-full px-[14px] py-1.5 mb-8 w-fit"
-          >
-            <motion.div
-              animate={{
-                opacity: [1, 0.3, 1],
-                scale: [1, 0.8, 1],
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-mid)]"
-            />
-            <span className="text-[11px] font-medium text-[var(--color-text-muted)] tracking-[0.1em] uppercase">
-              {COMPANY.license}
-            </span>
-          </motion.div>
+          {/* License Badge removed */}
 
           {/* Headline — word-by-word reveal */}
           <h1

@@ -146,7 +146,7 @@ const FloorCard: React.FC<FloorCardProps> = ({ category, index, cornerClass }) =
           alt={category.label}
           loading="lazy"
           style={{ y, willChange: "transform" }}
-          className="absolute inset-0 w-full h-[110%] -top-[5%] object-cover object-center transition-transform duration-[700ms] ease-expo group-hover:scale-[1.04]"
+          className="absolute left-0 right-0 -top-[5%] w-full h-[110%] object-cover object-center transition-transform duration-[700ms] ease-expo group-hover:scale-[1.04]"
         />
 
         {/* Overlay gradient */}

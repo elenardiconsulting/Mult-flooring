@@ -46,6 +46,15 @@ const StatLabel = ({ children }: { children: React.ReactNode }) => (
 const BrandStatement = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const inView = useInView(statsRef, { once: true, amount: 0.3 });
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== "undefined" ? window.innerWidth >= 768 : true,
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const stats = [
     {
@@ -70,13 +79,7 @@ const BrandStatement = () => {
 
   return (
     <section
-      className="bg-bg-surface"
-      style={{
-        paddingTop: "var(--section-py)",
-        paddingBottom: "var(--section-py)",
-        paddingLeft: "var(--padding-x)",
-        paddingRight: "var(--padding-x)",
-      }}
+      className="bg-bg-surface md:px-[var(--padding-x)] px-[var(--padding-x-mobile)] md:py-[var(--section-py)] py-[var(--section-py-mobile)]"
     >
       <div
         className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20"
@@ -84,15 +87,10 @@ const BrandStatement = () => {
       >
         {/* LEFT — MANIFESTO */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            x: 0,
-          }}
+          initial={isDesktop ? { opacity: 0, x: -24 } : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: easeExpo }}
-          className="md:[&]:[transform:translateX(-24px)]"
         >
           <ManifestoColumn />
         </motion.div>
@@ -100,12 +98,8 @@ const BrandStatement = () => {
         {/* RIGHT — STATS */}
         <motion.div
           ref={statsRef}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            x: 0,
-          }}
+          initial={isDesktop ? { opacity: 0, x: 24 } : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, delay: 0.15, ease: easeExpo }}
           className="flex flex-col justify-center"

@@ -173,15 +173,6 @@ const Hero = () => {
         <div className="absolute bottom-0 left-0 right-0 h-[180px] bg-gradient-to-top from-[var(--color-bg-surface)] to-transparent pointer-events-none z-10"
              style={{ backgroundImage: 'linear-gradient(to top, var(--color-bg-surface) 0%, transparent 100%)' }} />
 
-        {/* Floating Badge */}
-        <div className="absolute bottom-10 left-10 z-20 bg-[rgba(240,230,216,0.90)] backdrop-blur-md border border-[var(--color-border)] rounded-[var(--radius-md)] px-[18px] py-[14px] flex flex-col gap-1">
-          <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--color-text-muted)]">
-            Hardwood · Vinyl · Laminate
-          </span>
-          <span className="text-[13px] font-medium text-[var(--color-text-primary)]">
-            West Bridgewater, MA
-          </span>
-        </div>
       </div>
 
       {/* Scroll Indicator */}

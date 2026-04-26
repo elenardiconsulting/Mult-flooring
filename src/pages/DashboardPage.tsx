@@ -2240,7 +2240,6 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
 
       <style>{`
         .cal-grid {
-          padding: 32px;
           display: grid;
           grid-template-columns: 1fr 360px;
           gap: 24px;
@@ -2249,7 +2248,6 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
         .cal-day:hover { background: #f8f8f6 !important; }
         @media (max-width: 1023px) {
           .cal-grid {
-            padding: 20px;
             grid-template-columns: 1fr;
           }
           .cal-side > div { position: static !important; }

@@ -96,8 +96,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Standard 3¼-inch Red Oak, the most installed hardwood width in New England homes. Timeless character with open grain.",
-    image:
-      "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=80",
+    image: "/floors/red-oak-3-25.png",
     colors: ["#C47C3A", "#8B5E3C", "#D4956B"],
     tag: "Most Popular",
   },
@@ -113,8 +112,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Wide-plank 6-inch Red Oak for a more contemporary, open feel. Shows the natural grain and character of the wood beautifully.",
-    image:
-      "https://images.unsplash.com/photo-1562184552-997c461abbe6?w=800&q=80",
+    image: "/floors/red-oak-6.png",
     colors: ["#B8713A", "#8B5E3C", "#C8905A"],
   },
   {
@@ -129,8 +127,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Extra-wide 7-inch planks showcase the full natural beauty of Red Oak. Ideal for open-concept spaces and modern farmhouse aesthetics.",
-    image:
-      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+    image: "/floors/red-oak-7.png",
     colors: ["#A0622A", "#7A4A20", "#B87840"],
   },
   {
@@ -145,8 +142,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Premium 8-inch wide-plank Red Oak. Statement flooring for living rooms, dining areas and master suites.",
-    image:
-      "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=80",
+    image: "/floors/red-oak-8.png",
     colors: ["#9A5C28", "#7A4018", "#B07038"],
   },
   {
@@ -161,8 +157,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "The widest Red Oak plank we carry. Creates a dramatic, luxurious look that transforms any room into something extraordinary.",
-    image:
-      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    image: "/floors/red-oak-9.png",
     colors: ["#8B5220", "#6B3E18", "#A06830"],
     tag: "Wide Plank",
   },
@@ -179,8 +174,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "White Oak offers a cooler, more contemporary tone than Red Oak. Tighter grain and natural gray undertones make it ideal for modern interiors.",
-    image:
-      "https://images.unsplash.com/photo-1600566753151-384129cf4d3a?w=800&q=80",
+    image: "/floors/white-oak-3-25.png",
     colors: ["#D4C4A8", "#B8A888", "#C8B898"],
     tag: "Trending",
   },
@@ -196,8 +190,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Wide-plank White Oak with a clean, Scandinavian-inspired look. Accepts stain beautifully, from natural to dark espresso.",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    image: "/floors/white-oak-6.png",
     colors: ["#C8B898", "#A89878", "#D8C8A8"],
   },
   {
@@ -212,8 +205,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Seven-inch White Oak planks, the designer's choice for high-end residential projects. Minimal knots, refined grain structure.",
-    image:
-      "https://images.unsplash.com/photo-1574691250077-03a929faece5?w=800&q=80",
+    image: "/floors/white-oak-7.png",
     colors: ["#BCA888", "#9A8868", "#CEB898"],
   },
   {
@@ -228,8 +220,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Wide-plank 8-inch White Oak with natural character marks. Each plank tells its own story.",
-    image:
-      "https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=800&q=80",
+    image: "/floors/white-oak-8.png",
     colors: ["#B89878", "#988060", "#C8A888"],
     tag: "Wide Plank",
   },
@@ -246,8 +237,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Classic herringbone and basket-weave patterns in White Oak. Adds architectural interest and a timeless European elegance to any room.",
-    image:
-      "https://images.unsplash.com/photo-1600210491892-03d54078399a?w=800&q=80",
+    image: "/floors/white-oak-parquet.png",
     colors: ["#C8B898", "#A89878", "#D8C8A8"],
     tag: "Signature",
   },
@@ -263,8 +253,7 @@ export const FLOORS: FloorProduct[] = [
     indoor: true,
     description:
       "Warm Red Oak in traditional parquet patterns. A statement floor for formal dining rooms, foyers, and classic New England homes.",
-    image:
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80",
+    image: "/floors/red-oak-parquet.png",
     colors: ["#C47C3A", "#8B5E3C", "#D4956B"],
     tag: "Signature",
   },

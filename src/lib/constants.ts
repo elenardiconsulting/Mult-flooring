@@ -12,7 +12,7 @@ export const COMPANY = {
   phone: "(508) 560-2310",
   phoneRaw: "5085602310",
   website: "multflooring.com",
-  license: "Licensed & Insured and MA and RI and CT",
+  license: "Licensed & Insured in MA, RI and CT",
   rating: "4.8",
   projects: "500+",
   years: "20",

@@ -1,0 +1,127 @@
+import React, { useState, useEffect } from "react";
+import { COMPANY, NAV_LINKS } from "@/lib/constants";
+import { BrandButton } from "@/components/ui/mult-button";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+
+const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 60);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToContact = () => {
+    setIsMobileMenuOpen(false);
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const Logo = () => (
+    <div className="flex items-center">
+      <span className="text-[18px] font-semibold text-text-primary tracking-tight">MULT</span>
+      <span className="text-[18px] font-normal text-accent tracking-tight">FLOORING</span>
+    </div>
+  );
+
+  return (
+    <nav
+      className={cn(
+        "fixed top-0 left-0 w-full z-[var(--z-nav)] transition-all duration-300 ease-expo",
+        isScrolled
+          ? "h-[60px] md:h-[68px] bg-[rgba(250,247,244,0.92)] border-b border-[var(--color-border)] backdrop-blur-md"
+          : "h-[60px] md:h-[68px] bg-transparent border-b border-transparent"
+      )}
+    >
+      <div className="max-w-[var(--max-width)] mx-auto h-full px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] flex items-center justify-between">
+        {/* Logo */}
+        <a href="/" className="flex-shrink-0">
+          <Logo />
+        </a>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-[36px]">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className="text-sm font-normal text-text-secondary hover:text-text-primary tracking-[0.01em] transition-colors duration-base ease-expo"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        {/* CTA & Mobile Toggle */}
+        <div className="flex items-center gap-4">
+          <div className="hidden md:block">
+            <BrandButton variant="primary" size="sm" onClick={scrollToContact}>
+              {COMPANY.cta.primary}
+            </BrandButton>
+          </div>
+
+          <button
+            className="md:hidden flex flex-col justify-center items-end gap-[6px] w-[22px] h-[22px]"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            <span
+              className={cn(
+                "h-[1.5px] bg-text-primary transition-all duration-300 w-full",
+                isMobileMenuOpen ? "rotate-45 translate-y-[7.5px]" : ""
+              )}
+            />
+            <span
+              className={cn(
+                "h-[1.5px] bg-text-primary transition-all duration-300 w-full",
+                isMobileMenuOpen ? "opacity-0" : ""
+              )}
+            />
+            <span
+              className={cn(
+                "h-[1.5px] bg-text-primary transition-all duration-300 w-full",
+                isMobileMenuOpen ? "-rotate-45 -translate-y-[7.5px]" : ""
+              )}
+            />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden absolute top-[60px] left-0 w-full bg-[rgba(250,247,244,0.98)] backdrop-blur-lg border-b border-[var(--color-border)] overflow-hidden"
+          >
+            <div className="flex flex-col gap-6 p-6 px-[var(--padding-x-mobile)]">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-lg font-normal text-text-primary"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <BrandButton variant="primary" size="md" className="w-full" onClick={scrollToContact}>
+                {COMPANY.cta.primary}
+              </BrandButton>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+export default Navbar;

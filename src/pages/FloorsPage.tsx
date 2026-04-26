@@ -215,7 +215,7 @@ export default function FloorsPage() {
                         marginTop: 4,
                       }}
                     >
-                      {floor.width} wide · {floor.thickness} thick
+                      {floor.width} wide and {floor.thickness} thick
                     </div>
                     <div
                       style={{
@@ -384,7 +384,7 @@ function PageHeader() {
                 maxWidth: 420,
               }}
             >
-              Solid hardwood, engineered wood, vinyl and laminate — every
+              Solid hardwood, engineered wood, vinyl and laminate, every
               product installed by our certified crew in MA, RI and CT.
             </p>
           </motion.div>
@@ -400,7 +400,7 @@ function PageHeader() {
             <StatDivider />
             <Stat title="Free Samples" label="Delivered to your door" />
             <StatDivider />
-            <Stat title="Licensed Install" label="MA · RI · CT" />
+            <Stat title="Licensed Install" label="MA and RI and CT" />
           </motion.div>
         </div>
       </div>
@@ -534,7 +534,7 @@ function FloorDetail({
         className="detail-inner"
       >
         <div className="detail-grid">
-          {/* LEFT — Visual */}
+          {/* LEFT, Visual */}
           <div>
             <div
               style={{
@@ -624,7 +624,7 @@ function FloorDetail({
             </div>
           </div>
 
-          {/* RIGHT — Details */}
+          {/* RIGHT, Details */}
           <div>
             <div
               style={{
@@ -786,7 +786,7 @@ function FloorDetail({
                 size="md"
                 onClick={() => {
                   window.open(
-                    `mailto:multflooring@gmail.com?subject=Sample Request — ${floor.name}`,
+                    `mailto:multflooring@gmail.com?subject=Sample Request, ${floor.name}`,
                     "_blank",
                   );
                 }}
@@ -803,7 +803,7 @@ function FloorDetail({
                 lineHeight: 1.6,
               }}
             >
-              Free samples delivered within 3–5 business days. Installation
+              Free samples delivered within 3 to 5 business days. Installation
               available in MA, RI and CT.
             </p>
           </div>

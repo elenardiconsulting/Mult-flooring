@@ -187,7 +187,7 @@ export default function ContactPage() {
         className="contact-grid"
         style={{ minHeight: "100vh" }}
       >
-        {/* LEFT — INFO */}
+        {/* LEFT, INFO */}
         <div
           className="contact-left"
           style={{
@@ -222,7 +222,7 @@ export default function ContactPage() {
               }}
             >
               Whether you have a question, need a quote, or just want to see
-              samples — we're here. No pressure, no commitment.
+              samples, we're here. No pressure, no commitment.
             </p>
 
             <div style={{ margin: "40px 0" }}>
@@ -234,7 +234,7 @@ export default function ContactPage() {
                 icon={<PhoneIcon />}
                 label="Call us"
                 value="(508) 510-4007"
-                sub="Mon–Sat, 8am to 6pm"
+                sub="Mon to Sat, 8am to 6pm"
                 href="tel:5085104007"
               />
               <InfoCard
@@ -253,7 +253,7 @@ export default function ContactPage() {
               <InfoCard
                 icon={<GlobeIcon />}
                 label="Service area"
-                value="MA · RI · CT"
+                value="MA and RI and CT"
                 sub="Free in-home consultation"
               />
             </div>
@@ -308,7 +308,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* RIGHT — FORM */}
+        {/* RIGHT, FORM */}
         <div
           className="contact-right"
           style={{
@@ -399,10 +399,10 @@ export default function ContactPage() {
                       Type of project
                     </option>
                     <option value="residential-new">
-                      Residential — New Installation
+                      Residential, New Installation
                     </option>
                     <option value="residential-restoration">
-                      Residential — Restoration
+                      Residential, Restoration
                     </option>
                     <option value="commercial">Commercial</option>
                     <option value="new-construction">New Construction</option>
@@ -411,7 +411,7 @@ export default function ContactPage() {
 
                   <textarea
                     rows={4}
-                    placeholder="Describe your project — size, current flooring, timeline..."
+                    placeholder="Describe your project, size, current flooring, timeline..."
                     value={form.message}
                     onChange={(e) =>
                       setForm((f) => ({ ...f, message: e.target.value }))

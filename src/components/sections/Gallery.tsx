@@ -310,7 +310,7 @@ const Gallery = () => {
                           letterSpacing: "0.02em",
                         }}
                       >
-                        {project.city} · {project.material}
+                        {project.city} and {project.material}
                       </div>
                     </div>
                   </motion.div>
@@ -372,7 +372,7 @@ const Gallery = () => {
             }}
             role="dialog"
             aria-modal="true"
-            aria-label={`${lightboxProject.name} — image viewer`}
+            aria-label={`${lightboxProject.name}, image viewer`}
           >
             <div
               onClick={(e) => e.stopPropagation()}

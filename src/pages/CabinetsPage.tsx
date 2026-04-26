@@ -41,7 +41,7 @@ const CABINET_STYLES: CabinetStyle[] = [
     material: "Solid Wood",
     best_for: "Kitchen & Bathroom",
     description:
-      "Raised-panel white cabinetry — the most versatile finish in American homes. Pairs beautifully with quartz, marble or butcher block.",
+      "Raised-panel white cabinetry, the most versatile finish in American homes. Pairs beautifully with quartz, marble or butcher block.",
     tag: "Most Popular",
     image: cabKitchenClassicWhite,
     colors: ["#ffffff", "#f5f5f0", "#e8e4dc"],
@@ -100,7 +100,7 @@ const CABINET_STYLES: CabinetStyle[] = [
     material: "Solid Wood",
     best_for: "Kitchen",
     description:
-      "Warm natural wood lowers paired with painted upper cabinets. Scandinavian-inspired, organic and minimal — improves with age.",
+      "Warm natural wood lowers paired with painted upper cabinets. Scandinavian-inspired, organic and minimal, improves with age.",
     image: cabNaturalWoodModern,
     colors: ["#C49A6B", "#E8DCC8", "#8B6A45"],
   },
@@ -111,7 +111,7 @@ const CABINET_TYPES = [
     id: "kitchen",
     label: "Kitchen Cabinets",
     description:
-      "Full kitchen layouts — uppers, lowers, islands and pantry units. Custom sizing available.",
+      "Full kitchen layouts, uppers, lowers, islands and pantry units. Custom sizing available.",
     image: cabBlueCounterDetail,
   },
   {
@@ -134,7 +134,7 @@ const CABINET_FEATURES = [
   {
     title: "Solid Wood Construction",
     description:
-      "Every cabinet box and door built from solid wood — not particleboard. Built to last decades, not years.",
+      "Every cabinet box and door built from solid wood, not particleboard. Built to last decades, not years.",
     icon: "wood",
   },
   {
@@ -146,7 +146,7 @@ const CABINET_FEATURES = [
   {
     title: "In-Stock & Ready",
     description:
-      "Large warehouse inventory means fast turnaround. Most orders ready within 1–2 weeks.",
+      "Large warehouse inventory means fast turnaround. Most orders ready within 1 to 2 weeks.",
     icon: "warehouse",
   },
   {
@@ -161,7 +161,7 @@ const CABINET_VIDEOS = [
   {
     id: "warehouse",
     title: "Our Warehouse",
-    description: "Large inventory — most orders ready within 1 to 2 weeks",
+    description: "Large inventory, most orders ready within 1 to 2 weeks",
     src: "/videos/cabinet-1.mp4",
   },
   {
@@ -297,7 +297,7 @@ export default function CabinetsPage() {
               }}
             >
               Solid wood kitchen cabinets, bathroom vanities and laundry room
-              storage — supplied and installed by our team across MA, RI and
+              storage, supplied and installed by our team across MA, RI and
               CT.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
@@ -588,7 +588,7 @@ export default function CabinetsPage() {
                         marginBottom: 4,
                       }}
                     >
-                      {style.finish} · {style.material}
+                      {style.finish} and {style.material}
                     </div>
                     <div
                       style={{
@@ -838,7 +838,7 @@ export default function CabinetsPage() {
                       </Link>
                       <a
                         href={`mailto:multflooring@gmail.com?subject=${encodeURIComponent(
-                          `Cabinet Sample — ${selectedStyle.name}`,
+                          `Cabinet Sample, ${selectedStyle.name}`,
                         )}`}
                         className="w-full"
                       >

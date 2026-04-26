@@ -85,7 +85,7 @@ const BrandStatement = () => {
         className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20"
         style={{ maxWidth: "var(--max-width)" }}
       >
-        {/* LEFT — MANIFESTO */}
+        {/* LEFT, MANIFESTO */}
         <motion.div
           initial={isDesktop ? { opacity: 0, x: -24 } : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -95,7 +95,7 @@ const BrandStatement = () => {
           <ManifestoColumn />
         </motion.div>
 
-        {/* RIGHT — STATS */}
+        {/* RIGHT, STATS */}
         <motion.div
           ref={statsRef}
           initial={isDesktop ? { opacity: 0, x: 24 } : { opacity: 0, y: 24 }}
@@ -188,7 +188,7 @@ const ManifestoColumn = () => (
         maxWidth: "440px",
       }}
     >
-      We supply and install hardwood, vinyl and laminate for homeowners, contractors and businesses across MA, RI and CT. Our own warehouse means we have the stock — and our certified crew means we have the people to get it done.
+      We supply and install hardwood, vinyl and laminate for homeowners, contractors and businesses across MA, RI and CT. Our own warehouse means we have the stock, and our certified crew means we have the people to get it done.
     </p>
   </>
 );

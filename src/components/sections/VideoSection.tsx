@@ -11,7 +11,7 @@ const VIDEOS = [
     id: "video-1",
     src: "/videos/work-1.mp4",
     label: "Installation in progress",
-    description: "Our crew at work — precision\non every plank.",
+    description: "Our crew at work, precision\non every plank.",
   },
   {
     id: "video-2",

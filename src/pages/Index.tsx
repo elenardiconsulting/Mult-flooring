@@ -8,6 +8,7 @@ import Gallery from "@/components/sections/Gallery";
 import VideoSection from "@/components/sections/VideoSection";
 import SocialProof from "@/components/sections/SocialProof";
 import CtaFinal from "@/components/sections/CtaFinal";
+import PartnersTicker from "@/components/sections/PartnersTicker";
 import Footer from "@/components/layout/Footer";
 import SectionTransition from "@/components/ui/SectionTransition";
 import CustomCursor from "@/components/ui/CustomCursor";
@@ -90,6 +91,7 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <PartnersTicker />
         <SectionTransition direction="left" />
         <VideoSection />
         <SectionTransition direction="right" />

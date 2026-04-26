@@ -13,9 +13,6 @@ import SectionTransition from "@/components/ui/SectionTransition";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
-// Using existing components to represent WhyMult and Process as requested
-import WhyMult from "@/components/sections/FloorPreview"; 
-import Process from "@/components/sections/Gallery";
 
 const Index = () => {
   const scaleX = useScrollProgress();

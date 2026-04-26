@@ -198,10 +198,5 @@ const FloorCard: React.FC<FloorCardProps> = ({ category, index, cornerClass }) =
     </motion.div>
   );
 };
-        </div>
-      </div>
-    </section>
-  );
-};
 
 export default FloorPreview;

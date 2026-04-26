@@ -156,18 +156,24 @@ const CABINET_FEATURES = [
   },
 ] as const;
 
-const VIDEOS = [
+const CABINET_VIDEOS = [
   {
+    id: "warehouse",
+    title: "Our Warehouse",
+    description: "Large inventory — most orders ready within 1 to 2 weeks",
     src: "/videos/cabinet-1.mp4",
-    label: "Our warehouse — large inventory, fast turnaround",
   },
   {
+    id: "vanity",
+    title: "Bathroom Vanity",
+    description: "Shaker White vanity with granite top",
     src: "/videos/cabinet-2.mp4",
-    label: "Bathroom vanity — Shaker White with granite top",
   },
   {
+    id: "showroom",
+    title: "Kitchen Showroom",
+    description: "Multiple styles on display in our West Bridgewater showroom",
     src: "/videos/cabinet-3.mp4",
-    label: "Kitchen showroom — multiple styles on display",
   },
 ];
 
@@ -973,73 +979,188 @@ export default function CabinetsPage() {
 
           <div
             className="grid grid-cols-1 md:grid-cols-3"
-            style={{ gap: 16 }}
+            style={{ gap: 24 }}
           >
-            {VIDEOS.map((v, i) => (
+            {CABINET_VIDEOS.map((v, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
+                key={v.id}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  duration: 0.55,
-                  delay: i * 0.1,
+                  duration: 0.6,
+                  delay: i * 0.12,
                   ease: EASE_EXPO,
                 }}
               >
+                {/* External Container (Animated Border) */}
                 <div
-                  style={{
-                    position: "relative",
-                    borderRadius: "var(--radius-md)",
-                    overflow: "hidden",
-                    background: "var(--color-bg-elevated)",
-                    border: "1px solid var(--color-border)",
-                    aspectRatio: "9 / 16",
-                  }}
+                  className="relative p-[2px] rounded-[10px]"
+                  style={{ position: "relative" }}
                 >
-                  <video
-                    controls
-                    preload="metadata"
-                    playsInline
+                  <motion.div
+                    className="absolute inset-0 rounded-[10px]"
+                    style={{ zIndex: 0 }}
+                    animate={{
+                      background: [
+                        "linear-gradient(135deg, #7a4f1e 0%, #C47C3A 35%, #D4956B 60%, #e8d8c4 100%)",
+                        "linear-gradient(225deg, #7a4f1e 0%, #C47C3A 35%, #D4956B 60%, #e8d8c4 100%)",
+                        "linear-gradient(315deg, #7a4f1e 0%, #C47C3A 35%, #D4956B 60%, #e8d8c4 100%)",
+                        "linear-gradient(45deg,  #7a4f1e 0%, #C47C3A 35%, #D4956B 60%, #e8d8c4 100%)",
+                        "linear-gradient(135deg, #7a4f1e 0%, #C47C3A 35%, #D4956B 60%, #e8d8c4 100%)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
+                  
+                  {/* Internal Container */}
+                  <div
+                    className="relative z-[1] rounded-[8px] overflow-hidden bg-black"
+                    style={{ position: "relative" }}
+                  >
+                    {v.src ? (
+                      <>
+                        {/* TODO: substituir src="" pelo caminho do vídeo após upload na Lovable. Ex: src="/videos/warehouse.mp4" */}
+                        <video
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="none"
+                          style={{
+                            width: "100%",
+                            display: "block",
+                            aspectRatio: "16 / 9",
+                            objectFit: "cover",
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <source src={v.src} type="video/mp4" />
+                        </video>
+                        
+                        {/* Mute indicator */}
+                        <div
+                          className="absolute bottom-[10px] right-[10px] z-[2] px-[10px] py-[4px] flex items-center gap-[6px]"
+                          style={{
+                            background: "rgba(26, 26, 26, 0.55)",
+                            backdropFilter: "blur(4px)",
+                            borderRadius: "var(--radius-pill)",
+                          }}
+                        >
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#ffffff"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                            <path d="M23 9l-6 6" />
+                            <path d="M17 9l6 6" />
+                          </svg>
+                          <span
+                            style={{
+                              fontSize: 10,
+                              color: "rgba(255,255,255,0.7)",
+                              letterSpacing: "0.06em",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            Muted
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <div
+                        className="flex flex-col items-center justify-center gap-[12px] rounded-[8px]"
+                        style={{
+                          aspectRatio: "16 / 9",
+                          background: "linear-gradient(135deg, var(--color-bg-elevated) 0%, var(--color-bg-surface) 100%)",
+                        }}
+                      >
+                        <svg
+                          width="48"
+                          height="48"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="var(--color-border-strong)"
+                          strokeWidth="1"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <polygon points="10 8 16 12 10 16 10 8" fill="var(--color-accent-mid)" />
+                        </svg>
+                        <span
+                          style={{
+                            fontSize: 11,
+                            color: "var(--color-text-muted)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.1em",
+                          }}
+                        >
+                          Video {i + 1}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-4 px-[2px]">
+                  <h3
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                      background: "var(--color-bg-elevated)",
+                      fontSize: 14,
+                      fontWeight: 500,
+                      color: "var(--color-text-primary)",
+                      marginBottom: 4,
                     }}
                   >
-                    <source src={v.src} type="video/mp4" />
-                  </video>
+                    {v.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: 13,
+                      color: "var(--color-text-secondary)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {v.description}
+                  </p>
                 </div>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "var(--color-text-secondary)",
-                    marginTop: 12,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {v.label}
-                </p>
               </motion.div>
             ))}
           </div>
 
-          <p
-            style={{
-              fontSize: 13,
-              color: "var(--color-text-muted)",
-              textAlign: "center",
-              marginTop: 32,
-              maxWidth: 480,
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          >
-            Videos filmed at our West Bridgewater location. Visit us at 240 W
-            Center St to see our full cabinet selection in person.
-          </p>
+          <div className="mt-12 text-center">
+            <p
+              style={{
+                fontSize: 13,
+                color: "var(--color-text-muted)",
+                maxWidth: 440,
+                margin: "0 auto",
+                lineHeight: 1.6,
+              }}
+            >
+              Visit our showroom at 240 W Center St, West Bridgewater to see the full cabinet selection in person.
+            </p>
+            <div className="mt-4">
+              <a
+                href="https://maps.app.goo.gl/DmApvtS5h7nz8msj6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <BrandButton variant="secondary" size="sm">
+                  Get directions
+                </BrandButton>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

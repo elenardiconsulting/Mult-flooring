@@ -1,12 +1,14 @@
 import Layout from "@/components/layout/Layout";
+import Navbar from "@/components/sections/Navbar";
+import Hero from "@/components/sections/Hero";
 
 const Index = () => {
   return (
     <Layout>
-      <main className="flex min-h-screen items-center justify-center px-5">
-        <h1 className="text-text-primary text-2xl md:text-3xl font-medium tracking-[-0.02em]">
-          Mult Flooring — Design System Ready
-        </h1>
+      <Navbar />
+      <main>
+        <Hero />
+        {/* Outras seções serão adicionadas aqui */}
       </main>
     </Layout>
   );

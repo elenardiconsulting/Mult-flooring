@@ -53,7 +53,7 @@ export type FloorCategory = (typeof FLOOR_CATEGORIES)[number];
 export interface FloorProduct {
   id: string;
   name: string;
-  species: "Red Oak" or "White Oak" or "Parquet" or "Vinyl (LVP)" or "Laminate";
+  species: "Red Oak" | "White Oak" | "Parquet" | "Vinyl (LVP)" | "Laminate";
   width: string;
   finish: string;
   thickness: string;
@@ -349,7 +349,7 @@ export interface Project {
   id: string;
   name: string;
   city: string;
-  type: "Residential" or "Commercial" or "Hospitality";
+  type: "Residential" | "Commercial" | "Hospitality";
   material: string;
   image: string;
 }

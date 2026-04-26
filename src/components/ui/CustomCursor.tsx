@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-type CursorState = "default" or "hover" or "view";
+type CursorState = "default" | "hover" | "view";
 
 const CustomCursor = () => {
   const [enabled, setEnabled] = useState(false);
@@ -51,7 +51,7 @@ const CustomCursor = () => {
     if (!enabled) return;
 
     const onOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement or null;
+      const target = e.target as HTMLElement | null;
       if (!target) return;
       if (target.closest(".cursor-view")) {
         setState("view");

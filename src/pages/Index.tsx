@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import Layout from "@/components/layout/Layout";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
-import BrandStatement from "@/components/sections/BrandStatement";
 import FloorPreview from "@/components/sections/FloorPreview";
 import Gallery from "@/components/sections/Gallery";
 import VideoSection from "@/components/sections/VideoSection";
@@ -13,6 +12,10 @@ import Footer from "@/components/layout/Footer";
 import SectionTransition from "@/components/ui/SectionTransition";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+
+// Using existing components to represent WhyMult and Process as requested
+import WhyMult from "@/components/sections/FloorPreview"; 
+import Process from "@/components/sections/Gallery";
 
 const Index = () => {
   const scaleX = useScrollProgress();
@@ -91,16 +94,18 @@ const Index = () => {
       <main>
         <Hero />
         <SectionTransition direction="left" />
-        <BrandStatement />
+        <VideoSection />
         <SectionTransition direction="right" />
         <FloorPreview />
         <SectionTransition direction="left" />
         <Gallery />
         <SectionTransition direction="right" />
-        <VideoSection />
+        <WhyMult />
         <SectionTransition direction="left" />
-        <SocialProof />
+        <Process />
         <SectionTransition direction="right" />
+        <SocialProof />
+        <SectionTransition direction="left" />
         <CtaFinal />
       </main>
       <Footer />

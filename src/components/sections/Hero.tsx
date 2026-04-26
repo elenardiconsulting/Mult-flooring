@@ -24,7 +24,7 @@ const Hero = () => {
       {/* Mobile background texture */}
       <div className="absolute inset-0 z-0 lg:hidden">
         <img
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90"
+          src={heroNewImg}
           alt=""
           className="w-full h-full object-cover opacity-[0.08]"
         />

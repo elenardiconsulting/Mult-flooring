@@ -25,15 +25,22 @@ export default function ProjectsPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [config, setConfig] = useState({ cols: 1 });
   const trackRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const getConfig = () => {
+      const w = window.innerWidth;
+      if (w >= 1024) return { cols: 4 };
+      if (w >= 768) return { cols: 2 };
+      return { cols: 1 };
+    };
+    
+    const handleResize = () => setConfig(getConfig());
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const filtered =
@@ -41,7 +48,7 @@ export default function ProjectsPage() {
       ? PROJECTS
       : PROJECTS.filter((p) => p.type === activeFilter);
 
-  const totalSlides = isMobile ? filtered.length : Math.ceil(filtered.length / 2);
+  const totalSlides = Math.ceil(filtered.length / config.cols);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -169,46 +176,52 @@ export default function ProjectsPage() {
         className="px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]"
       >
         <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
-          {/* Filters */}
-          <div
-            style={{
-              display: "flex",
-              borderBottom: "1px solid var(--color-border)",
-              overflowX: "auto",
-              whiteSpace: "nowrap",
-              maxWidth: "100%",
-              marginBottom: 40,
-            }}
-          >
-            {PROJECT_FILTERS.map((f) => {
-              const isActive = activeFilter === f;
-              return (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => setActiveFilter(f)}
-                  style={{
-                    padding: "8px 20px",
-                    fontSize: 13,
-                    fontFamily: "var(--font-family)",
-                    background: "transparent",
-                    border: "none",
-                    borderBottom: `2px solid ${
-                      isActive ? "var(--color-accent)" : "transparent"
-                    }`,
-                    marginBottom: -1,
-                    color: isActive
-                      ? "var(--color-text-primary)"
-                      : "var(--color-text-muted)",
-                    cursor: "pointer",
-                    transition:
-                      "color var(--duration-base) var(--ease-out-expo), border-color var(--duration-base) var(--ease-out-expo)",
-                  }}
-                >
-                  {f}
-                </button>
-              );
-            })}
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between" style={{ marginBottom: 40 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                background: "var(--color-bg-surface)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "var(--radius-pill)",
+                padding: "4px",
+                gap: "2px",
+                overflowX: "auto",
+                msOverflowStyle: "none",
+                scrollbarWidth: "none",
+              }}
+              className="no-scrollbar"
+            >
+              {PROJECT_FILTERS.map((f) => {
+                const isActive = activeFilter === f;
+                return (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => setActiveFilter(f)}
+                    style={{
+                      padding: "7px 18px",
+                      borderRadius: "var(--radius-pill)",
+                      fontSize: 13,
+                      fontWeight: isActive ? 500 : 400,
+                      fontFamily: "var(--font-family)",
+                      border: "none",
+                      cursor: "pointer",
+                      whiteSpace: "nowrap",
+                      transition: "all var(--duration-base) var(--ease-out-expo)",
+                      background: isActive ? "var(--color-bg-base)" : "transparent",
+                      color: isActive
+                        ? "var(--color-text-primary)"
+                        : "var(--color-text-muted)",
+                      boxShadow: isActive ? "0 1px 3px rgba(26,26,26,0.10)" : "none",
+                    }}
+                    className={!isActive ? "hover:text-[var(--color-text-primary)]" : ""}
+                  >
+                    {f}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Navigation Arrows */}
@@ -286,9 +299,7 @@ export default function ProjectsPage() {
                 if (offset.x > 50) prev();
               }}
               animate={{
-                x: isMobile 
-                  ? -(currentIndex * 100) + "%" 
-                  : -(currentIndex * (50 + 0.8)) + "%"
+                x: -(currentIndex * 100) + "%"
               }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               style={{ display: "flex", gap: 16, width: "100%" }}
@@ -301,7 +312,11 @@ export default function ProjectsPage() {
                     className="proj-card group"
                     onClick={() => openLightbox(originalIndex)}
                     style={{
-                      width: isMobile ? "100%" : "calc(50% - 8px)",
+                      width: config.cols === 4 
+                        ? "calc(25% - 12px)" 
+                        : config.cols === 2 
+                        ? "calc(50% - 8px)" 
+                        : "100%",
                       flexShrink: 0,
                       aspectRatio: "4 / 3",
                       borderRadius: "var(--radius-md)",
@@ -412,6 +427,8 @@ export default function ProjectsPage() {
           .proj-card:hover .proj-overlay,
           .proj-card:hover .proj-expand { opacity: 1; }
           .proj-card:hover .proj-content { opacity: 1; transform: translateY(0); }
+          .no-scrollbar::-webkit-scrollbar { display: none; }
+          .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         `}</style>
 
       </section>

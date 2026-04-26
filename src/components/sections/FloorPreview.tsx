@@ -14,20 +14,17 @@ const CATEGORIES: CategoryCard[] = [
   {
     label: "Red & White Oak",
     sub: "The foundation of every great home",
-    image:
-      "https://images.unsplash.com/photo-1562184552-997c461abbe6?w=900&q=80",
+    image: "/floors/red-oak-3.png",
   },
   {
     label: "Wide Plank",
     sub: '6", 7", 8" and 9" widths',
-    image:
-      "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=900&q=80",
+    image: "/floors/white-oak-8.png",
   },
   {
     label: "Parquet",
     sub: "Herringbone & basket-weave patterns",
-    image:
-      "https://images.unsplash.com/photo-1600210491892-03d54078399a?w=900&q=80",
+    image: "/floors/white-oak-parquet.png",
   },
   {
     label: "Vinyl & Laminate",

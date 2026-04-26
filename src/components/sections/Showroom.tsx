@@ -63,7 +63,7 @@ const StepIndicator = ({ step }: { step: 1 | 2 | 3 }) => {
         const stepNum = i + 1;
         const isActive = step >= stepNum;
         return (
-          <>
+          <Fragment key={`group-${stepNum}`}>
             <div
               key={`step-${stepNum}`}
               style={{

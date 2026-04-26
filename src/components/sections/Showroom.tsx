@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BrandButton from "@/components/ui/mult-button";
 import { SectionLabel } from "@/components/ui/mult-section-label";
@@ -137,7 +137,7 @@ const StepIndicator = ({ step }: { step: 1 | 2 | 3 }) => {
                 />
               </div>
             )}
-          </>
+          </Fragment>
         );
       })}
     </div>

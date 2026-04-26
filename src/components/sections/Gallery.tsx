@@ -578,4 +578,40 @@ const Gallery = () => {
   );
 };
 
+interface GalleryParallaxImgProps {
+  src: string;
+  alt: string;
+}
+
+const GalleryParallaxImg = ({ src, alt }: GalleryParallaxImgProps) => {
+  const { ref, y } = useParallax(20);
+  return (
+    <div
+      ref={ref}
+      style={{
+        position: "absolute",
+        inset: 0,
+        overflow: "hidden",
+      }}
+    >
+      <motion.img
+        src={src}
+        alt={alt}
+        className="gallery-img"
+        style={{
+          y,
+          width: "100%",
+          height: "110%",
+          marginTop: "-5%",
+          objectFit: "cover",
+          objectPosition: "center",
+          display: "block",
+          transition: "transform 600ms var(--ease-out-expo)",
+          willChange: "transform",
+        }}
+      />
+    </div>
+  );
+};
+
 export default Gallery;

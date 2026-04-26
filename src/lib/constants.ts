@@ -29,152 +29,269 @@ export const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ] as const;
 
-export const TILE_CATEGORIES = [
+export const FLOOR_CATEGORIES = [
   "All",
-  "Stone Look",
-  "Wood Look",
-  "Porcelain",
-  "Large Format",
-  "Outdoor",
+  "Red Oak",
+  "White Oak",
+  "Parquet",
+  "Vinyl (LVP)",
+  "Laminate",
 ] as const;
 
-export type TileCategory = (typeof TILE_CATEGORIES)[number];
+export type FloorCategory = (typeof FLOOR_CATEGORIES)[number];
 
-export interface Tile {
+export interface FloorProduct {
   id: string;
   name: string;
-  category: TileCategory;
-  material: string;
-  size: string;
+  species: "Red Oak" | "White Oak" | "Parquet" | "Vinyl (LVP)" | "Laminate";
+  width: string;
   finish: string;
-  pei: string;
-  slipResistance: string;
+  thickness: string;
+  grade: string;
+  coating: string;
   indoor: boolean;
-  outdoor: boolean;
+  description: string;
   image: string;
   colors: string[];
+  tag?: string;
 }
 
-export const TILES: Tile[] = [
+export const FLOORS: FloorProduct[] = [
+  // ── RED OAK ──
   {
-    id: "calacatta-gold",
-    name: "Calacatta Gold",
-    category: "Stone Look",
-    material: "Porcelain",
-    size: '24×48"',
-    finish: "Polished",
-    pei: "PEI IV",
-    slipResistance: "R10",
+    id: "red-oak-3",
+    name: '3" Red Oak',
+    species: "Red Oak",
+    width: '3"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select & Better",
+    coating: "Site-finished",
     indoor: true,
-    outdoor: false,
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-    colors: ["#f5f0e8", "#e8dcc8", "#d4c8b0"],
-  },
-  {
-    id: "nero-marquina",
-    name: "Nero Marquina",
-    category: "Stone Look",
-    material: "Porcelain",
-    size: '24×24"',
-    finish: "Matte",
-    pei: "PEI III",
-    slipResistance: "R11",
-    indoor: true,
-    outdoor: true,
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-    colors: ["#1a1a1a", "#2e2e2e", "#3d3530"],
-  },
-  {
-    id: "oak-natural",
-    name: "Oak Natural",
-    category: "Wood Look",
-    material: "Porcelain",
-    size: '8×48"',
-    finish: "Satin",
-    pei: "PEI IV",
-    slipResistance: "R10",
-    indoor: true,
-    outdoor: false,
+    description:
+      "Classic 3-inch Red Oak strip flooring. The most popular hardwood in America, prized for its warm grain pattern and exceptional durability.",
     image:
       "https://images.unsplash.com/photo-1562184552-997c461abbe6?w=800&q=80",
-    colors: ["#C47C3A", "#8B5E3C", "#D4956B"],
+    colors: ["#C47C3A", "#8B5E3C", "#A0522D"],
   },
   {
-    id: "cement-grey",
-    name: "Cement Grey",
-    category: "Large Format",
-    material: "Porcelain",
-    size: '32×64"',
-    finish: "Matte",
-    pei: "PEI III",
-    slipResistance: "R11",
+    id: "red-oak-314",
+    name: '3¼" Red Oak',
+    species: "Red Oak",
+    width: '3¼"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select & Better",
+    coating: "Site-finished",
     indoor: true,
-    outdoor: true,
-    image:
-      "https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=800&q=80",
-    colors: ["#9e9e9e", "#757575", "#bdbdbd"],
-  },
-  {
-    id: "bianco-dolomite",
-    name: "Bianco Dolomite",
-    category: "Stone Look",
-    material: "Porcelain",
-    size: '12×24"',
-    finish: "Honed",
-    pei: "PEI III",
-    slipResistance: "R10",
-    indoor: true,
-    outdoor: false,
-    image:
-      "https://images.unsplash.com/photo-1600566753151-384129cf4d3a?w=800&q=80",
-    colors: ["#f0ede8", "#ddd8d0", "#c8c0b4"],
-  },
-  {
-    id: "terracotta-outdoor",
-    name: "Terracotta Outdoor",
-    category: "Outdoor",
-    material: "Porcelain",
-    size: '16×16"',
-    finish: "Textured",
-    pei: "PEI V",
-    slipResistance: "R12",
-    indoor: false,
-    outdoor: true,
-    image:
-      "https://images.unsplash.com/photo-1600210491892-03d54078399a?w=800&q=80",
-    colors: ["#C47C3A", "#a05a28", "#8B4513"],
-  },
-  {
-    id: "walnut-dark",
-    name: "Walnut Dark",
-    category: "Wood Look",
-    material: "Porcelain",
-    size: '8×48"',
-    finish: "Satin",
-    pei: "PEI IV",
-    slipResistance: "R10",
-    indoor: true,
-    outdoor: false,
+    description:
+      "Standard 3¼-inch Red Oak — the most installed hardwood width in New England homes. Timeless character with open grain.",
     image:
       "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=80",
-    colors: ["#3d2b1f", "#5c3d2e", "#7a5040"],
+    colors: ["#C47C3A", "#8B5E3C", "#D4956B"],
+    tag: "Most Popular",
   },
   {
-    id: "arctic-white",
-    name: "Arctic White",
-    category: "Porcelain",
-    material: "Porcelain",
-    size: '24×48"',
-    finish: "Polished",
-    pei: "PEI III",
-    slipResistance: "R9",
+    id: "red-oak-6",
+    name: '6" Red Oak',
+    species: "Red Oak",
+    width: '6"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select & Better",
+    coating: "Site-finished",
     indoor: true,
-    outdoor: false,
+    description:
+      "Wide-plank 6-inch Red Oak for a more contemporary, open feel. Shows the natural grain and character of the wood beautifully.",
+    image:
+      "https://images.unsplash.com/photo-1562184552-997c461abbe6?w=800&q=80",
+    colors: ["#B8713A", "#8B5E3C", "#C8905A"],
+  },
+  {
+    id: "red-oak-7",
+    name: '7" Red Oak',
+    species: "Red Oak",
+    width: '7"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Character",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "Extra-wide 7-inch planks showcase the full natural beauty of Red Oak. Ideal for open-concept spaces and modern farmhouse aesthetics.",
+    image:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+    colors: ["#A0622A", "#7A4A20", "#B87840"],
+  },
+  {
+    id: "red-oak-8",
+    name: '8" Red Oak',
+    species: "Red Oak",
+    width: '8"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Character",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "Premium 8-inch wide-plank Red Oak. Statement flooring for living rooms, dining areas and master suites.",
+    image:
+      "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=80",
+    colors: ["#9A5C28", "#7A4018", "#B07038"],
+  },
+  {
+    id: "red-oak-9",
+    name: '9" Red Oak',
+    species: "Red Oak",
+    width: '9"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Character",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "The widest Red Oak plank we carry. Creates a dramatic, luxurious look that transforms any room into something extraordinary.",
+    image:
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    colors: ["#8B5220", "#6B3E18", "#A06830"],
+    tag: "Wide Plank",
+  },
+  // ── WHITE OAK ──
+  {
+    id: "white-oak-314",
+    name: '3¼" White Oak',
+    species: "White Oak",
+    width: '3¼"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select & Better",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "White Oak offers a cooler, more contemporary tone than Red Oak. Tighter grain and natural gray undertones make it ideal for modern interiors.",
+    image:
+      "https://images.unsplash.com/photo-1600566753151-384129cf4d3a?w=800&q=80",
+    colors: ["#D4C4A8", "#B8A888", "#C8B898"],
+    tag: "Trending",
+  },
+  {
+    id: "white-oak-6",
+    name: '6" White Oak',
+    species: "White Oak",
+    width: '6"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select & Better",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "Wide-plank White Oak with a clean, Scandinavian-inspired look. Accepts stain beautifully — from natural to dark espresso.",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    colors: ["#C8B898", "#A89878", "#D8C8A8"],
+  },
+  {
+    id: "white-oak-7",
+    name: '7" White Oak',
+    species: "White Oak",
+    width: '7"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select & Better",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "Seven-inch White Oak planks — the designer's choice for high-end residential projects. Minimal knots, refined grain structure.",
     image:
       "https://images.unsplash.com/photo-1574691250077-03a929faece5?w=800&q=80",
-    colors: ["#ffffff", "#f5f5f5", "#e8e8e8"],
+    colors: ["#BCA888", "#9A8868", "#CEB898"],
+  },
+  {
+    id: "white-oak-8",
+    name: '8" White Oak',
+    species: "White Oak",
+    width: '8"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Character",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "Wide-plank 8-inch White Oak with natural character marks. Each plank tells its own story.",
+    image:
+      "https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=800&q=80",
+    colors: ["#B89878", "#988060", "#C8A888"],
+    tag: "Wide Plank",
+  },
+  // ── PARQUET ──
+  {
+    id: "white-oak-parquet",
+    name: "White Oak Parquet",
+    species: "Parquet",
+    width: '12"×12"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "Classic herringbone and basket-weave patterns in White Oak. Adds architectural interest and a timeless European elegance to any room.",
+    image:
+      "https://images.unsplash.com/photo-1600210491892-03d54078399a?w=800&q=80",
+    colors: ["#C8B898", "#A89878", "#D8C8A8"],
+    tag: "Signature",
+  },
+  {
+    id: "red-oak-parquet",
+    name: "Red Oak Parquet",
+    species: "Parquet",
+    width: '12"×12"',
+    finish: "Unfinished",
+    thickness: '¾"',
+    grade: "Select",
+    coating: "Site-finished",
+    indoor: true,
+    description:
+      "Warm Red Oak in traditional parquet patterns. A statement floor for formal dining rooms, foyers, and classic New England homes.",
+    image:
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80",
+    colors: ["#C47C3A", "#8B5E3C", "#D4956B"],
+    tag: "Signature",
+  },
+  // ── VINYL LVP ──
+  {
+    id: "lvp-premium",
+    name: "Premium LVP",
+    species: "Vinyl (LVP)",
+    width: '7"',
+    finish: "Embossed",
+    thickness: "6mm",
+    grade: "Commercial Grade",
+    coating: "UV-cured urethane",
+    indoor: true,
+    description:
+      "Luxury Vinyl Plank with 100% waterproof core. Perfect for kitchens, bathrooms and basements. Realistic wood-look texture with AC4 wear layer.",
+    image:
+      "https://images.unsplash.com/photo-1562184552-997c461abbe6?w=800&q=80",
+    colors: ["#8B6914", "#6B5010", "#A07820"],
+    tag: "100% Waterproof",
+  },
+  // ── LAMINATE ──
+  {
+    id: "laminate-12mm",
+    name: "12mm Laminate",
+    species: "Laminate",
+    width: '5"',
+    finish: "Embossed in Register",
+    thickness: "12mm",
+    grade: "AC3 Residential",
+    coating: "Aluminum Oxide",
+    indoor: true,
+    description:
+      "High-definition laminate with authentic wood texture. Scratch-resistant, easy to install, and budget-friendly without compromising on style.",
+    image:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+    colors: ["#9A7840", "#7A5820", "#B09050"],
   },
 ];
 

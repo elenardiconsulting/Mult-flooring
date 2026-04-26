@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import BrandButton from "@/components/ui/mult-button";
 import { SectionLabel } from "@/components/ui/mult-section-label";
 import { Divider } from "@/components/ui/mult-divider";
-import { COMPANY, TILES } from "@/lib/constants";
+import { COMPANY, FLOORS } from "@/lib/constants";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -31,13 +31,15 @@ const ROOMS = [
   },
 ] as const;
 
-const VISUALIZER_TILES = TILES.filter((t) => t.indoor).map((t) => ({
-  id: t.id,
-  name: t.name,
-  color: t.colors[0],
-  image: t.image,
-  size: t.size,
-}));
+const VISUALIZER_TILES = FLOORS.filter((f) => f.indoor)
+  .slice(0, 8)
+  .map((f) => ({
+    id: f.id,
+    name: f.name,
+    color: f.colors[0],
+    image: f.image,
+    size: f.width,
+  }));
 
 const RoomVisualizer = () => {
   const [activeRoom, setActiveRoom] = useState<string>(ROOMS[0].id);

@@ -4,6 +4,7 @@ import Hero from "@/components/sections/Hero";
 import BrandStatement from "@/components/sections/BrandStatement";
 import Showroom from "@/components/sections/Showroom";
 import RoomVisualizer from "@/components/sections/RoomVisualizer";
+import Gallery from "@/components/sections/Gallery";
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
         <BrandStatement />
         <Showroom />
         <RoomVisualizer />
+        <Gallery />
         {/* Outras seções serão adicionadas aqui */}
       </main>
     </Layout>

@@ -3,6 +3,7 @@ import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import BrandStatement from "@/components/sections/BrandStatement";
 import Showroom from "@/components/sections/Showroom";
+import RoomVisualizer from "@/components/sections/RoomVisualizer";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
         <Hero />
         <BrandStatement />
         <Showroom />
+        <RoomVisualizer />
         {/* Outras seções serão adicionadas aqui */}
       </main>
     </Layout>

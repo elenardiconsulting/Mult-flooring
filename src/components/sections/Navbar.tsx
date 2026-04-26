@@ -40,14 +40,14 @@ const Navbar = () => {
           : "h-[60px] md:h-[68px] bg-transparent border-b border-transparent"
       )}
     >
-      <div className="max-w-[var(--max-width)] mx-auto h-full px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] flex items-center justify-between">
+      <div className="max-w-[var(--max-width)] mx-auto h-full px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] flex items-center justify-between relative">
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0" onClick={closeMenu}>
+        <Link to="/" className="flex-shrink-0 z-10" onClick={closeMenu}>
           <Logo />
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-[36px]">
+        {/* Desktop Links - Centralizados */}
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-[36px]">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -60,8 +60,8 @@ const Navbar = () => {
         </div>
 
         {/* CTA & Mobile Toggle */}
-        <div className="flex items-center gap-4">
-          <div className="hidden md:block">
+        <div className="flex items-center gap-4 z-10">
+          <div className="hidden md:block flex-shrink-0">
             <Link to="/contact">
               <BrandButton variant="primary" size="sm">
                 {COMPANY.cta.primary}

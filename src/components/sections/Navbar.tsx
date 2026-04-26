@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { COMPANY, NAV_LINKS } from "@/lib/constants";
-import { BrandButton } from "@/components/ui/mult-button";
+import BrandButton from "@/components/ui/mult-button";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -48,8 +48,8 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-[36px]">
           {NAV_LINKS.map((link) => (
             <a
-              key={link.id}
-              href={`#${link.id}`}
+              key={link.href}
+              href={link.href}
               className="text-sm font-normal text-text-secondary hover:text-text-primary tracking-[0.01em] transition-colors duration-base ease-expo"
             >
               {link.label}
@@ -105,8 +105,8 @@ const Navbar = () => {
             <div className="flex flex-col gap-6 p-6 px-[var(--padding-x-mobile)]">
               {NAV_LINKS.map((link) => (
                 <a
-                  key={link.id}
-                  href={`#${link.id}`}
+                  key={link.href}
+                  href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-lg font-normal text-text-primary"
                 >

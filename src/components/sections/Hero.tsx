@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { COMPANY } from "@/lib/constants";
-import { BrandButton } from "@/components/ui/mult-button";
+import BrandButton from "@/components/ui/mult-button";
 import { cn } from "@/lib/utils";
 
 const Hero = () => {
@@ -19,7 +19,7 @@ const Hero = () => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const easeExpo = [0.16, 1, 0.3, 1];
+  const easeExpo = [0.16, 1, 0.3, 1] as any;
 
   return (
     <section className="relative h-screen min-h-[680px] w-full flex items-end overflow-hidden pb-[96px] md:pb-[96px] max-md:pb-[72px] max-md:h-[100svh]">

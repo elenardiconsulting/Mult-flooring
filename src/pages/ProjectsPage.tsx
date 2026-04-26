@@ -16,7 +16,7 @@ const PROJECT_FILTERS = [
   "Hospitality",
 ] as const;
 
-const HEIGHTS = ["320px", "420px", "360px", "440px", "380px", "320px", "400px", "360px"];
+
 
 type ProjectType = (typeof PROJECT_FILTERS)[number];
 
@@ -191,7 +191,7 @@ export default function ProjectsPage() {
             })}
           </div>
 
-          {/* Masonry */}
+          {/* Grid layout */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeFilter}
@@ -199,14 +199,12 @@ export default function ProjectsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: EASE }}
-              className="proj-masonry"
-              style={{ columnGap: 16 }}
+              className="proj-grid"
             >
               {filtered.map((project, displayIndex) => {
                 const originalIndex = PROJECTS.findIndex(
                   (p) => p.id === project.id,
                 );
-                const height = HEIGHTS[originalIndex] ?? "360px";
                 const delay = Math.min(displayIndex * 0.08, 0.4);
                 return (
                   <motion.div
@@ -216,22 +214,15 @@ export default function ProjectsPage() {
                     transition={{ duration: 0.6, delay, ease: EASE }}
                     className="proj-card group"
                     onClick={() => openLightbox(originalIndex)}
-                    style={
-                      {
-                        position: "relative",
-                        overflow: "hidden",
-                        borderRadius: "var(--radius-md)",
-                        cursor: "pointer",
-                        marginBottom: 16,
-                        width: "100%",
-                        display: "inline-block",
-                        breakInside: "avoid",
-                        WebkitColumnBreakInside: "avoid",
-                        ["--card-h" as string]: height,
-                        height: "var(--card-h)",
-                        background: "var(--color-bg-elevated)",
-                      } as React.CSSProperties
-                    }
+                    style={{
+                      position: "relative",
+                      overflow: "hidden",
+                      borderRadius: "var(--radius-md)",
+                      cursor: "pointer",
+                      width: "100%",
+                      aspectRatio: "4 / 3",
+                      background: "var(--color-bg-elevated)",
+                    }}
                   >
                     <img
                       src={project.image}
@@ -314,10 +305,13 @@ export default function ProjectsPage() {
         </div>
 
         <style>{`
-          .proj-masonry { column-count: 1; }
-          @media (min-width: 640px) { .proj-masonry { column-count: 2; } }
-          @media (min-width: 1024px) { .proj-masonry { column-count: 3; } }
-          @media (max-width: 639px) { .proj-card { height: 260px !important; } }
+          .proj-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 12px;
+          }
+          @media (min-width: 640px) { .proj-grid { grid-template-columns: repeat(2, 1fr); } }
+          @media (min-width: 1024px) { .proj-grid { grid-template-columns: repeat(3, 1fr); } }
           .proj-card:hover .proj-img { transform: scale(1.05); }
           .proj-card:hover .proj-overlay { opacity: 1; }
           .proj-card:hover .proj-content { opacity: 1; transform: translateY(0); }

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Layout from "@/components/layout/Layout";
 import Navbar from "@/components/sections/Navbar";
@@ -12,20 +11,11 @@ import PartnersTicker from "@/components/sections/PartnersTicker";
 import WhyChoose from "@/components/sections/WhyChoose";
 import Footer from "@/components/layout/Footer";
 import SectionTransition from "@/components/ui/SectionTransition";
-import CustomCursor from "@/components/ui/CustomCursor";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
 
 const Index = () => {
   const scaleX = useScrollProgress();
-
-  // Activate home-only effects (cursor:none) and clean up on unmount
-  useEffect(() => {
-    document.body.classList.add("home-page");
-    return () => {
-      document.body.classList.remove("home-page");
-    };
-  }, []);
 
   return (
     <Layout>
@@ -86,8 +76,6 @@ const Index = () => {
         </svg>
       </motion.div>
 
-      {/* Custom cursor (desktop only) */}
-      <CustomCursor />
 
       <Navbar />
       <main>

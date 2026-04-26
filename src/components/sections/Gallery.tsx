@@ -13,7 +13,7 @@ const PROJECT_FILTERS = [
   "Hospitality",
 ] as const;
 
-const HEIGHTS = ["320px", "420px", "360px", "440px", "380px", "320px"];
+const HEIGHTS = ["320px", "420px", "360px", "440px", "380px", "320px", "400px", "360px"];
 
 type ProjectType = (typeof PROJECT_FILTERS)[number];
 

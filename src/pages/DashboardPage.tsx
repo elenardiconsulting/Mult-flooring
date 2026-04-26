@@ -187,6 +187,25 @@ export default function DashboardPage() {
   const [loadingLeads, setLoadingLeads] = useState(true)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
+  /* push + toast state */
+  const [toasts, setToasts] = useState<LeadToast[]>([])
+  const [permission, setPermission] = useState<NotificationPermission>(
+    typeof Notification !== 'undefined' ? Notification.permission : 'denied',
+  )
+  const [dismissedBanner, setDismissedBanner] = useState(false)
+  const initialLoadDone = useRef(false)
+
+  const removeToast = (id: string) =>
+    setToasts((prev) => prev.filter((t) => t.id !== id))
+
+  const addToast = (t: LeadToast) =>
+    setToasts((prev) => [t, ...prev].slice(0, 4))
+
+  const handleEnableNotifications = async () => {
+    const perm = await requestNotificationPermission()
+    setPermission(perm)
+  }
+
   useEffect(() => {
     let active = true
     const fetchLeads = async () => {
@@ -197,8 +216,20 @@ export default function DashboardPage() {
       if (!active) return
       if (data) setLeads(data as Lead[])
       setLoadingLeads(false)
+      initialLoadDone.current = true
     }
     fetchLeads()
+
+    // Register service worker (no-op inside Lovable preview iframes)
+    registerServiceWorker()
+
+    // Soft-prompt for permission after 3 s — only if still default
+    const permTimer = window.setTimeout(() => {
+      if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
+        // Don't auto-request without user gesture in some browsers; just keep banner visible.
+        setPermission(Notification.permission)
+      }
+    }, 3000)
 
     const channel = supabase
       .channel('leads-changes')
@@ -207,11 +238,31 @@ export default function DashboardPage() {
         { event: '*', schema: 'public', table: 'leads' },
         (payload) => {
           if (payload.eventType === 'INSERT') {
-            setLeads((prev) => [payload.new as Lead, ...prev])
+            const lead = payload.new as Lead
+            setLeads((prev) => [lead, ...prev])
+
+            // Only fire notifications after the initial fetch resolves
+            if (initialLoadDone.current) {
+              showNotification('New Lead — Mult Flooring', {
+                body: `${lead.name} submitted a quote request.\n${
+                  lead.project_type || 'Project type not specified'
+                }`,
+                tag: lead.id,
+                data: '/dashboard',
+              })
+              addToast({
+                id: lead.id,
+                name: lead.name,
+                projectType: lead.project_type,
+                createdAt: lead.created_at,
+              })
+            }
           }
           if (payload.eventType === 'UPDATE') {
             setLeads((prev) =>
-              prev.map((l) => (l.id === (payload.new as Lead).id ? (payload.new as Lead) : l)),
+              prev.map((l) =>
+                l.id === (payload.new as Lead).id ? (payload.new as Lead) : l,
+              ),
             )
           }
           if (payload.eventType === 'DELETE') {
@@ -223,6 +274,7 @@ export default function DashboardPage() {
 
     return () => {
       active = false
+      window.clearTimeout(permTimer)
       supabase.removeChannel(channel)
     }
   }, [])

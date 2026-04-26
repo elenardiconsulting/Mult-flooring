@@ -9,6 +9,16 @@ import Divider from "@/components/ui/mult-divider";
 import Tag from "@/components/ui/mult-tag";
 import { COMPANY } from "@/lib/constants";
 
+import cabKitchenClassicWhite from "@/assets/cabinets/kitchen-classic-white.jpg";
+import cabShowroomShaker from "@/assets/cabinets/showroom-shaker.jpg";
+import cabIslandWhiteQuartz from "@/assets/cabinets/island-white-quartz.jpg";
+import cabBlueQuartzKitchen from "@/assets/cabinets/blue-quartz-kitchen.jpg";
+import cabBlueCounterDetail from "@/assets/cabinets/blue-counter-detail.jpg";
+import cabWhiteMarbleIsland from "@/assets/cabinets/white-marble-island.jpg";
+import cabNaturalWoodModern from "@/assets/cabinets/natural-wood-modern.jpg";
+import cabNavyIslandDisplay from "@/assets/cabinets/navy-island-display.jpg";
+import cabGlassFrontBuiltIn from "@/assets/cabinets/glass-front-built-in.jpg";
+
 const EASE_EXPO = [0.16, 1, 0.3, 1] as const;
 
 interface CabinetStyle {
@@ -25,80 +35,74 @@ interface CabinetStyle {
 
 const CABINET_STYLES: CabinetStyle[] = [
   {
-    id: "shaker-white",
-    name: "Shaker White",
+    id: "classic-white",
+    name: "Classic White",
     finish: "Painted",
     material: "Solid Wood",
     best_for: "Kitchen & Bathroom",
     description:
-      "The most versatile cabinet style in American homes. Clean recessed panel doors, crisp white finish, and timeless proportions that work in any kitchen.",
+      "Raised-panel white cabinetry — the most versatile finish in American homes. Pairs beautifully with quartz, marble or butcher block.",
     tag: "Most Popular",
-    image:
-      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    image: cabKitchenClassicWhite,
     colors: ["#ffffff", "#f5f5f0", "#e8e4dc"],
   },
   {
-    id: "shaker-gray",
-    name: "Shaker Gray",
+    id: "shaker-cream",
+    name: "Shaker Cream",
     finish: "Painted",
     material: "Solid Wood",
     best_for: "Kitchen & Bathroom",
     description:
-      "A contemporary take on the classic Shaker. Warm gray tones pair beautifully with quartz countertops and hardwood or tile floors.",
-    tag: "Trending",
-    image:
-      "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=80",
-    colors: ["#9e9e9e", "#757575", "#bdbdbd"],
+      "Soft cream Shaker cabinets with clean recessed panels. Showroom-grade construction, available with matte black or brushed nickel hardware.",
+    tag: "Showroom Pick",
+    image: cabShowroomShaker,
+    colors: ["#efe9dc", "#d8cfb8", "#c9bd9c"],
   },
   {
-    id: "espresso",
-    name: "Espresso",
-    finish: "Stained",
-    material: "Solid Wood",
-    best_for: "Kitchen",
-    description:
-      "Rich, dark espresso stain over solid wood grain. Creates a dramatic, sophisticated kitchen with depth and warmth.",
-    image:
-      "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=80",
-    colors: ["#3d2b1f", "#5c3d2e", "#2a1f16"],
-  },
-  {
-    id: "natural-wood",
-    name: "Natural Wood",
-    finish: "Clear Coat",
-    material: "Solid Wood",
-    best_for: "Kitchen & Laundry",
-    description:
-      "Unfinished natural wood grain sealed with a clear coat. Warm, organic character that improves with age. Popular in modern farmhouse and Scandinavian interiors.",
-    image:
-      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80",
-    colors: ["#C47C3A", "#8B5E3C", "#D4956B"],
-  },
-  {
-    id: "glass-front",
-    name: "Glass Front",
+    id: "white-quartz-island",
+    name: "White Quartz Island",
     finish: "Painted",
-    material: "Solid Wood + Glass",
-    best_for: "Kitchen",
-    description:
-      "Upper cabinets with clear or seeded glass inserts. Displays dishware and adds visual depth to the kitchen. Available in any painted finish.",
-    tag: "Signature",
-    image:
-      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
-    colors: ["#ffffff", "#f0ede8", "#e8e4dc"],
-  },
-  {
-    id: "two-tone",
-    name: "Two-Tone",
-    finish: "Mixed",
     material: "Solid Wood",
     best_for: "Kitchen",
     description:
-      "Upper cabinets in white or light gray, lower cabinets in a contrasting dark tone. One of the most requested kitchen designs of the decade.",
+      "Oversized white island with seamless quartz waterfall. Perfect centerpiece for entertaining and open-concept layouts.",
+    tag: "Signature",
+    image: cabIslandWhiteQuartz,
+    colors: ["#ffffff", "#f0ede8", "#e0dcd3"],
+  },
+  {
+    id: "blue-marble-quartz",
+    name: "Blue Marble Quartz",
+    finish: "Painted + Quartz",
+    material: "Solid Wood + Quartz",
+    best_for: "Kitchen",
+    description:
+      "Statement kitchen with white shaker cabinets, brass hardware and dramatic blue-marbled quartz countertops. Bold, modern, unforgettable.",
     tag: "Trending",
-    image:
-      "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=800&q=80",
-    colors: ["#ffffff", "#3d2b1f", "#9e9e9e"],
+    image: cabBlueQuartzKitchen,
+    colors: ["#ffffff", "#2a4a6b", "#c9a35a"],
+  },
+  {
+    id: "carrara-island",
+    name: "Carrara Island",
+    finish: "Painted",
+    material: "Solid Wood",
+    best_for: "Kitchen",
+    description:
+      "Bright white shaker cabinets with carrara-style quartz top, brass pulls and glass-front uppers. A timeless, light-filled kitchen.",
+    image: cabWhiteMarbleIsland,
+    colors: ["#ffffff", "#f4f1ec", "#c9a35a"],
+  },
+  {
+    id: "natural-wood-modern",
+    name: "Natural Wood Modern",
+    finish: "Clear Coat + Painted",
+    material: "Solid Wood",
+    best_for: "Kitchen",
+    description:
+      "Warm natural wood lowers paired with painted upper cabinets. Scandinavian-inspired, organic and minimal — improves with age.",
+    image: cabNaturalWoodModern,
+    colors: ["#C49A6B", "#E8DCC8", "#8B6A45"],
   },
 ];
 
@@ -108,24 +112,21 @@ const CABINET_TYPES = [
     label: "Kitchen Cabinets",
     description:
       "Full kitchen layouts — uppers, lowers, islands and pantry units. Custom sizing available.",
-    image:
-      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    image: cabBlueCounterDetail,
   },
   {
     id: "bathroom",
     label: "Bathroom Vanities",
     description:
       'Single and double vanities with soft-close doors and drawers. 24", 36", 48" and 60" widths.',
-    image:
-      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80",
+    image: cabNavyIslandDisplay,
   },
   {
-    id: "laundry",
-    label: "Laundry Room",
+    id: "builtins",
+    label: "Built-Ins & Storage",
     description:
-      "Storage solutions for laundry and utility rooms. Built for durability in high-moisture environments.",
-    image:
-      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80",
+      "Custom built-in hutches, glass-front display cabinets and laundry storage solutions tailored to your space.",
+    image: cabGlassFrontBuiltIn,
   },
 ];
 
@@ -319,7 +320,7 @@ export default function CabinetsPage() {
             transition={{ duration: 0.7, ease: EASE_EXPO }}
           >
             <img
-              src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=85"
+              src={cabIslandWhiteQuartz}
               alt="Premium kitchen with custom cabinetry"
               loading="eager"
               style={{

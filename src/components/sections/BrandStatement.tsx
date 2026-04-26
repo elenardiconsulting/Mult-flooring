@@ -152,8 +152,6 @@ const BrandStatement = () => {
 
 const ManifestoColumn = () => (
   <>
-    <SectionLabel>Who we are</SectionLabel>
-
     <p
       className="font-medium text-text-primary mt-4"
       style={{

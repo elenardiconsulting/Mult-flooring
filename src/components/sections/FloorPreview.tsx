@@ -71,9 +71,8 @@ const FloorPreview: React.FC = () => {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12"
         >
           <div>
-            <SectionLabel>Our floors</SectionLabel>
             <h2
-              className="mt-2 font-medium text-text-primary"
+              className="font-medium text-text-primary"
               style={{
                 fontSize: "var(--text-section)",
                 letterSpacing: "-0.02em",

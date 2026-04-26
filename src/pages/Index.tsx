@@ -92,8 +92,6 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
-        <PartnersTicker />
-        <SectionTransition direction="left" />
         <VideoSection />
         <SectionTransition direction="right" />
         <FloorPreview />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { COMPANY, NAV_LINKS } from "@/lib/constants";
 import BrandButton from "@/components/ui/mult-button";
 import { cn } from "@/lib/utils";
@@ -9,8 +9,6 @@ import logo from "@/assets/mult-flooring-logo.png";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,22 +19,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
-    setIsMobileMenuOpen(false);
-    if (href.startsWith("/")) {
-      navigate(href);
-    } else if (location.pathname !== "/") {
-      navigate("/" + href);
-    } else {
-      document
-        .querySelector(href)
-        ?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const scrollToContact = () => {
-    handleNavClick("#contact");
-  };
+  const closeMenu = () => setIsMobileMenuOpen(false);
 
   const Logo = () => (
     <div className="flex items-center">
@@ -59,39 +42,31 @@ const Navbar = () => {
     >
       <div className="max-w-[var(--max-width)] mx-auto h-full px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0">
+        <Link to="/" className="flex-shrink-0" onClick={closeMenu}>
           <Logo />
         </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-[36px]">
-          {NAV_LINKS.map((link) =>
-            link.href.startsWith("/") ? (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="text-sm font-normal text-text-secondary hover:text-text-primary tracking-[0.01em] transition-colors duration-base ease-expo"
-              >
-                {link.label}
-              </Link>
-            ) : (
-              <button
-                key={link.href}
-                onClick={() => handleNavClick(link.href)}
-                className="text-sm font-normal text-text-secondary hover:text-text-primary tracking-[0.01em] transition-colors duration-base ease-expo bg-transparent"
-              >
-                {link.label}
-              </button>
-            )
-          )}
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              to={link.href}
+              className="text-sm font-normal text-text-secondary hover:text-text-primary tracking-[0.01em] transition-colors duration-base ease-expo"
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
         {/* CTA & Mobile Toggle */}
         <div className="flex items-center gap-4">
           <div className="hidden md:block">
-            <BrandButton variant="primary" size="sm" onClick={scrollToContact}>
-              {COMPANY.cta.primary}
-            </BrandButton>
+            <Link to="/contact">
+              <BrandButton variant="primary" size="sm">
+                {COMPANY.cta.primary}
+              </BrandButton>
+            </Link>
           </div>
 
           <button
@@ -132,34 +107,21 @@ const Navbar = () => {
             className="md:hidden absolute top-[60px] left-0 w-full bg-[rgba(250,247,244,0.98)] backdrop-blur-lg border-b border-[var(--color-border)] overflow-hidden"
           >
             <div className="flex flex-col gap-6 p-6 px-[var(--padding-x-mobile)]">
-              {NAV_LINKS.map((link) =>
-                link.href.startsWith("/") ? (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-lg font-normal text-text-primary text-left"
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <button
-                    key={link.href}
-                    onClick={() => handleNavClick(link.href)}
-                    className="text-lg font-normal text-text-primary text-left bg-transparent"
-                  >
-                    {link.label}
-                  </button>
-                )
-              )}
-              <BrandButton
-                variant="primary"
-                size="md"
-                className="w-full"
-                onClick={scrollToContact}
-              >
-                {COMPANY.cta.primary}
-              </BrandButton>
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  onClick={closeMenu}
+                  className="text-lg font-normal text-text-primary text-left"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link to="/contact" onClick={closeMenu}>
+                <BrandButton variant="primary" size="md" className="w-full">
+                  {COMPANY.cta.primary}
+                </BrandButton>
+              </Link>
             </div>
           </motion.div>
         )}

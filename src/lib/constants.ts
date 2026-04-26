@@ -24,9 +24,9 @@ export const COMPANY = {
 
 export const NAV_LINKS = [
   { label: "Floors", href: "/floors" },
-  { label: "Projects", href: "#projects" },
-  { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" },
+  { label: "Projects", href: "/projects" },
+  { label: "Process", href: "/process" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const FLOOR_CATEGORIES = [

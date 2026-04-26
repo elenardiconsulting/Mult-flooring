@@ -1,3 +1,12 @@
+import projInstallLivingRoom from "@/assets/projects/install-living-room.jpg";
+import projAtticPrep from "@/assets/projects/attic-prep.jpg";
+import projRedOakFinished from "@/assets/projects/red-oak-finished.jpg";
+import projStaircaseRailing from "@/assets/projects/staircase-railing.jpg";
+import projStaircaseDarkStain from "@/assets/projects/staircase-dark-stain.jpg";
+import projOakStairsNatural from "@/assets/projects/oak-stairs-natural.jpg";
+import projDarkStainLanding from "@/assets/projects/dark-stain-landing.jpg";
+import projFloorRefinishing from "@/assets/projects/floor-refinishing.jpg";
+
 export const COMPANY = {
   name: "Mult Flooring",
   phone: "(508) 560-2310",
@@ -347,57 +356,67 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: "newton-residence",
-    name: "Newton Residence",
+    id: "newton-install",
+    name: "Wide Plank Install",
     city: "Newton, MA",
     type: "Residential",
-    material: 'Calacatta Gold 24×48"',
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+    material: "White Oak — 7\" planks",
+    image: projInstallLivingRoom,
   },
   {
-    id: "boston-commercial",
-    name: "Downtown Office Lobby",
-    city: "Boston, MA",
-    type: "Commercial",
-    material: 'Cement Grey 32×64"',
-    image:
-      "https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=1200&q=80",
-  },
-  {
-    id: "providence-hotel",
-    name: "The Biltmore Suite",
-    city: "Providence, RI",
-    type: "Hospitality",
-    material: 'Bianco Dolomite 12×24"',
-    image:
-      "https://images.unsplash.com/photo-1600566753151-384129cf4d3a?w=1200&q=80",
-  },
-  {
-    id: "brookline-kitchen",
-    name: "Brookline Kitchen Remodel",
-    city: "Brookline, MA",
-    type: "Residential",
-    material: 'Arctic White 24×48"',
-    image:
-      "https://images.unsplash.com/photo-1574691250077-03a929faece5?w=1200&q=80",
-  },
-  {
-    id: "hartford-spa",
-    name: "Riverview Wellness Spa",
-    city: "Hartford, CT",
-    type: "Commercial",
-    material: 'Nero Marquina 24×24"',
-    image:
-      "https://images.unsplash.com/photo-1600210491892-03d54078399a?w=1200&q=80",
-  },
-  {
-    id: "wellesley-master",
-    name: "Wellesley Master Bath",
+    id: "wellesley-attic",
+    name: "Attic Suite Conversion",
     city: "Wellesley, MA",
     type: "Residential",
-    material: 'Oak Natural 8×48"',
-    image:
-      "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1200&q=80",
+    material: "Red Oak — 3¼\" strip",
+    image: projAtticPrep,
+  },
+  {
+    id: "brookline-redoak",
+    name: "Red Oak Finished",
+    city: "Brookline, MA",
+    type: "Residential",
+    material: "Red Oak — gloss finish",
+    image: projRedOakFinished,
+  },
+  {
+    id: "boston-staircase",
+    name: "Custom Staircase",
+    city: "Boston, MA",
+    type: "Residential",
+    material: "Oak treads + iron balusters",
+    image: projStaircaseRailing,
+  },
+  {
+    id: "providence-staircase-dark",
+    name: "Dark Stain Staircase",
+    city: "Providence, RI",
+    type: "Residential",
+    material: "Oak — espresso stain",
+    image: projStaircaseDarkStain,
+  },
+  {
+    id: "cambridge-oak-stairs",
+    name: "Natural Oak Stairs",
+    city: "Cambridge, MA",
+    type: "Residential",
+    material: "White Oak — natural finish",
+    image: projOakStairsNatural,
+  },
+  {
+    id: "hartford-landing",
+    name: "Dark Stain Landing",
+    city: "Hartford, CT",
+    type: "Hospitality",
+    material: "Red Oak — custom pattern",
+    image: projDarkStainLanding,
+  },
+  {
+    id: "westbridge-refinish",
+    name: "Floor Refinishing",
+    city: "West Bridgewater, MA",
+    type: "Commercial",
+    material: "Hardwood restoration",
+    image: projFloorRefinishing,
   },
 ];

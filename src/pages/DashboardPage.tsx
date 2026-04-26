@@ -14,6 +14,19 @@ import {
   YAxis,
 } from 'recharts'
 import { supabase, type Lead, type LeadStatus } from '@/lib/supabase'
+import {
+  registerServiceWorker,
+  requestNotificationPermission,
+  showNotification,
+} from '@/lib/pushNotifications'
+
+/* ───────────────── push toast type ───────────────── */
+type LeadToast = {
+  id: string
+  name: string
+  projectType: string
+  createdAt: string
+}
 
 /* ───────────────── design tokens (dashboard-only) ───────────────── */
 const COLORS = {

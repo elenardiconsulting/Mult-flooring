@@ -9,6 +9,7 @@ import VideoSection from "@/components/sections/VideoSection";
 import SocialProof from "@/components/sections/SocialProof";
 import CtaFinal from "@/components/sections/CtaFinal";
 import PartnersTicker from "@/components/sections/PartnersTicker";
+import WhyChoose from "@/components/sections/WhyChoose";
 import Footer from "@/components/layout/Footer";
 import SectionTransition from "@/components/ui/SectionTransition";
 import CustomCursor from "@/components/ui/CustomCursor";
@@ -101,6 +102,8 @@ const Index = () => {
         <SectionTransition direction="right" />
         <SocialProof />
         <SectionTransition direction="left" />
+        <WhyChoose />
+        <SectionTransition direction="right" />
         <CtaFinal />
       </main>
       <Footer />

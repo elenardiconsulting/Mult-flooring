@@ -36,8 +36,8 @@ const Hero = () => {
 
           {/* Headline — word-by-word reveal */}
           <h1
-            className="text-[var(--color-text-primary)] font-bold leading-[0.95] tracking-[-0.03em] mb-[28px]"
-            style={{ fontSize: "clamp(52px, 6.5vw, 88px)" }}
+            className="text-[var(--color-text-primary)] font-bold tracking-[-0.03em] mb-[28px]"
+            style={{ fontSize: "clamp(52px, 6.5vw, 88px)", lineHeight: "1.05" }}
           >
             {(() => {
               const lines: { words: string[]; accent?: boolean }[] = [

@@ -21,7 +21,7 @@ const HERO_IMAGES = [
   },
 ];
 
-const GOLD = "#C9A84C";
+const GOLD = "#8A5C2D";
 const EASE_EXPO = [0.16, 1, 0.3, 1] as any;
 
 const Hero = () => {
@@ -418,7 +418,7 @@ const MobileHeroContent: React.FC = () => {
         every<br />
         <span
           style={{
-            color: "#C9A84C",
+            color: "#8A5C2D",
             textShadow: "0px 4px 24px rgba(201,168,76,0.35)",
           }}
         >
@@ -462,7 +462,7 @@ const MobileHeroContent: React.FC = () => {
               fontFamily: "var(--font-family)",
               color: "#ffffff",
               letterSpacing: "0.02em",
-              background: `linear-gradient(135deg, #C9A84C 0%, #A8893E 100%)`,
+              background: `linear-gradient(135deg, #8A5C2D 0%, #6E481F 100%)`,
               boxShadow: "0 10px 32px rgba(201, 168, 76, 0.30)",
               display: "flex",
               alignItems: "center",

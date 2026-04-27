@@ -169,10 +169,20 @@ const Hero = () => {
         />
 
         {/* Side Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-[120px] bg-gradient-to-right from-[var(--color-bg-surface)] to-transparent pointer-events-none z-10" 
-             style={{ backgroundImage: 'linear-gradient(to right, var(--color-bg-surface) 0%, transparent 100%)' }} />
-        <div className="absolute bottom-0 left-0 right-0 h-[180px] bg-gradient-to-top from-[var(--color-bg-surface)] to-transparent pointer-events-none z-10"
-             style={{ backgroundImage: 'linear-gradient(to top, var(--color-bg-surface) 0%, transparent 100%)' }} />
+        <div
+          className="absolute left-0 top-0 bottom-0 w-[180px] pointer-events-none z-[1]"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.85) 25%, rgba(240, 230, 216, 0.40) 55%, rgba(212, 149, 107, 0.08) 80%, transparent 100%)',
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none z-[1]"
+          style={{
+            backgroundImage:
+              'linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.60) 40%, transparent 100%)',
+          }}
+        />
 
       </div>
 

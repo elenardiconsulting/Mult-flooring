@@ -199,8 +199,7 @@ const HeroContactForm = () => {
             </button>
 
             <p
-              className="text-[var(--color-text-muted)]"
-              style={{ fontSize: 11, lineHeight: 1.5, marginTop: 2 }}
+              style={{ fontSize: 11, lineHeight: 1.5, marginTop: 2, color: "#ffffff" }}
             >
               By submitting you agree to be contacted about your project.
             </p>

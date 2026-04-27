@@ -113,7 +113,7 @@ const Gallery = () => {
           paddingTop: "var(--section-py)",
           paddingBottom: "var(--section-py)",
         }}
-        className="px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]"
+        className="px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] max-md:!py-[32px]"
       >
         <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
           {/* Header */}

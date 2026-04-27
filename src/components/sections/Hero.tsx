@@ -222,66 +222,36 @@ const Hero = () => {
           className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] lg:pr-[520px] pt-[80px]"
         >
           <div className="max-w-[640px]">
-            {/* Headline, word-by-word reveal */}
+            {/* Headline, natural flow on 2 lines */}
             <h1
-              className="text-[var(--color-text-primary)] tracking-[-0.02em] mb-[28px]"
-              style={{ fontSize: "clamp(56px, 7vw, 96px)", lineHeight: "1.05", fontWeight: 700 }}
+              className="hero-desktop-headline text-[var(--color-text-primary)] mb-[28px]"
+              style={{
+                fontSize: "clamp(36px, 4.2vw, 58px)",
+                lineHeight: 1.1,
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
+                maxWidth: 580,
+              }}
             >
-              {(() => {
-                const lines: { words: string[]; rotating?: boolean }[] = [
-                  { words: ["New", "England's", "most"] },
-                  { words: ["trusted", "renovation"], rotating: true },
-                ];
-                let wordIndex = 0;
-                return lines.map((line, li) => (
-                  <span key={li} style={{ display: "block" }}>
-                    {line.words.map((word) => {
-                      const i = wordIndex++;
-                      return (
-                        <span
-                          key={`${li}-${i}`}
-                          style={{
-                            display: "inline-block",
-                            overflow: "hidden",
-                            marginRight: "0.25em",
-                            verticalAlign: "bottom",
-                          }}
-                        >
-                          <motion.span
-                            initial={{ y: "110%", opacity: 0 }}
-                            animate={{ y: "0%", opacity: 1 }}
-                            transition={{
-                              duration: 0.7,
-                              delay: i * 0.08,
-                              ease: [0.16, 1, 0.3, 1],
-                            }}
-                            style={{
-                              display: "inline-block",
-                              willChange: "transform",
-                            }}
-                          >
-                            {word}
-                          </motion.span>
-                        </span>
-                      );
-                    })}
-                    {line.rotating && (
-                      <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6, duration: 0.5 }}
-                        style={{
-                          display: "inline-block",
-                          color: "var(--color-accent-mid)",
-                          verticalAlign: "bottom",
-                        }}
-                      >
-                        <DesktopRotatingWord />
-                      </motion.span>
-                    )}
-                  </span>
-                ));
-              })()}
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                style={{ color: "var(--color-text-primary)" }}
+              >
+                New England's most trusted renovation{" "}
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                style={{
+                  color: "var(--color-accent-mid)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <DesktopRotatingWord />
+              </motion.span>
             </h1>
 
             {/* Subtitle */}

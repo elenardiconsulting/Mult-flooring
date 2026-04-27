@@ -216,20 +216,6 @@ const Hero = () => {
         />
       )}
 
-      {/* Soft top-left warm glow — subtle illumination behind the logo, no visible shape */}
-      <div
-        aria-hidden="true"
-        className="absolute top-0 left-0 z-[1] pointer-events-none"
-        style={{
-          width: "640px",
-          height: "420px",
-          background:
-            "radial-gradient(ellipse at top left, rgba(255,236,200,0.22) 0%, rgba(255,236,200,0.10) 30%, rgba(255,236,200,0.04) 55%, rgba(255,236,200,0) 78%)",
-          filter: "blur(40px)",
-          transform: "translate(-10%, -15%)",
-        }}
-      />
-
       {/* DESKTOP Content (unchanged) */}
       {isDesktop && (
         <div

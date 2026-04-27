@@ -652,4 +652,42 @@ const MobileStat: React.FC<{
   </div>
 );
 
+/* ─────────── ROTATING WORDS (typewriter) ─────────── */
+
+const BlinkingCursor: React.FC<{ color?: string }> = ({ color = "currentColor" }) => (
+  <span
+    aria-hidden="true"
+    style={{
+      display: "inline-block",
+      width: "0.06em",
+      height: "0.95em",
+      background: color,
+      marginLeft: "0.06em",
+      verticalAlign: "-0.12em",
+      animation: "heroCursorBlink 1s step-end infinite",
+    }}
+  />
+);
+
+const DesktopRotatingWord: React.FC = () => {
+  const text = useTypewriter(ROTATING_WORDS);
+  return (
+    <>
+      <style>{`@keyframes heroCursorBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }`}</style>
+      <span>{text}</span>
+      <BlinkingCursor color="var(--color-accent-mid)" />
+    </>
+  );
+};
+
+const MobileRotatingWord: React.FC = () => {
+  const text = useTypewriter(ROTATING_WORDS);
+  return (
+    <>
+      <span>{text}</span>
+      <BlinkingCursor color="#C9A84C" />
+    </>
+  );
+};
+
 export default Hero;

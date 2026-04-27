@@ -86,32 +86,38 @@ const ContactLink = ({ href, children }: { href: string; children: React.ReactNo
   </a>
 );
 
-const CITIES = [
-  // Massachusetts
-  "West Bridgewater, MA",
-  "Brockton, MA",
-  "Boston, MA",
-  "Newton, MA",
-  "Brookline, MA",
-  "Wellesley, MA",
-  "Quincy, MA",
-  "Plymouth, MA",
-  "Attleboro, MA",
-  "Taunton, MA",
-  "Bridgewater, MA",
-  "Easton, MA",
-  "Stoughton, MA",
-  "Canton, MA",
-  "Norwood, MA",
-  // Rhode Island
-  "Providence, RI",
-  "Cranston, RI",
-  "Warwick, RI",
-  "Pawtucket, RI",
-  // Connecticut
-  "Hartford, CT",
-  "Stamford, CT",
-  "Bridgeport, CT",
+const CITIES_BY_STATE: { state: string; label: string; cities: string[] }[] = [
+  {
+    state: "MA",
+    label: "Massachusetts",
+    cities: [
+      "West Bridgewater, MA",
+      "Brockton, MA",
+      "Boston, MA",
+      "Newton, MA",
+      "Brookline, MA",
+      "Wellesley, MA",
+      "Quincy, MA",
+      "Plymouth, MA",
+      "Attleboro, MA",
+      "Taunton, MA",
+      "Bridgewater, MA",
+      "Easton, MA",
+      "Stoughton, MA",
+      "Canton, MA",
+      "Norwood, MA",
+    ],
+  },
+  {
+    state: "RI",
+    label: "Rhode Island",
+    cities: ["Providence, RI", "Cranston, RI", "Warwick, RI", "Pawtucket, RI"],
+  },
+  {
+    state: "CT",
+    label: "Connecticut",
+    cities: ["Hartford, CT", "Stamford, CT", "Bridgeport, CT"],
+  },
 ];
 
 const Footer = () => {
@@ -131,49 +137,93 @@ const Footer = () => {
       className="md:py-14 md:px-[var(--padding-x)] py-10 px-[var(--padding-x-mobile)]"
     >
       <div className="mx-auto" style={{ maxWidth: "var(--max-width)" }}>
-        {/* Areas We Serve strip */}
-        <div
-          className="flex flex-col md:flex-row md:items-start md:gap-12 gap-4"
+        {/* Areas We Serve — accordion */}
+        <details
+          className="group areas-accordion"
           style={{
-            paddingBottom: 32,
+            paddingBottom: 16,
             marginBottom: 40,
+            borderTop: "1px solid rgba(255,255,255,0.06)",
             borderBottom: "1px solid rgba(255,255,255,0.06)",
           }}
         >
-          <span
-            className="text-center md:text-left"
-            style={{
-              flexShrink: 0,
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: "0.12em",
-              color: "rgba(255,255,255,0.30)",
-              whiteSpace: "nowrap",
-            }}
+          <summary
+            className="flex items-center justify-between cursor-pointer list-none select-none"
+            style={{ paddingTop: 18, paddingBottom: 18 }}
           >
-            Areas We Serve
-          </span>
-          <div
-            className="flex flex-wrap justify-center md:justify-start"
-            style={{ flex: 1, columnGap: 6, rowGap: 4 }}
-          >
-            {CITIES.map((city, idx) => (
+            <span
+              style={{
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: "rgba(201,168,76,0.85)",
+              }}
+            >
+              Areas We Serve
+            </span>
+            <span className="flex items-center gap-3">
               <span
-                key={city}
                 style={{
                   fontSize: 12,
-                  color: "rgba(255,255,255,0.38)",
-                  whiteSpace: "nowrap",
+                  color: "rgba(255,255,255,0.45)",
+                  letterSpacing: "0.04em",
                 }}
               >
-                {city}
-                {idx < CITIES.length - 1 && (
-                  <span style={{ color: "rgba(255,255,255,0.15)" }}> · </span>
-                )}
+                MA · RI · CT
               </span>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="rgba(201,168,76,0.85)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform duration-300 ease-out group-open:rotate-180"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </summary>
+
+          <div
+            className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-6 areas-accordion-content"
+            style={{ paddingTop: 8, paddingBottom: 24 }}
+          >
+            {CITIES_BY_STATE.map((group) => (
+              <div key={group.state}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.12em",
+                    color: "rgba(255,255,255,0.45)",
+                    display: "block",
+                    marginBottom: 10,
+                  }}
+                >
+                  {group.label}
+                </span>
+                <ul className="list-none">
+                  {group.cities.map((city) => (
+                    <li
+                      key={city}
+                      style={{
+                        fontSize: 13,
+                        color: "rgba(255,255,255,0.55)",
+                        lineHeight: 1.9,
+                      }}
+                    >
+                      {city}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
-        </div>
+        </details>
 
         {/* Body */}
         <div

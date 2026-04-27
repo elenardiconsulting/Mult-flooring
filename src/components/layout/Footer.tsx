@@ -86,32 +86,38 @@ const ContactLink = ({ href, children }: { href: string; children: React.ReactNo
   </a>
 );
 
-const CITIES = [
-  // Massachusetts
-  "West Bridgewater, MA",
-  "Brockton, MA",
-  "Boston, MA",
-  "Newton, MA",
-  "Brookline, MA",
-  "Wellesley, MA",
-  "Quincy, MA",
-  "Plymouth, MA",
-  "Attleboro, MA",
-  "Taunton, MA",
-  "Bridgewater, MA",
-  "Easton, MA",
-  "Stoughton, MA",
-  "Canton, MA",
-  "Norwood, MA",
-  // Rhode Island
-  "Providence, RI",
-  "Cranston, RI",
-  "Warwick, RI",
-  "Pawtucket, RI",
-  // Connecticut
-  "Hartford, CT",
-  "Stamford, CT",
-  "Bridgeport, CT",
+const CITIES_BY_STATE: { state: string; label: string; cities: string[] }[] = [
+  {
+    state: "MA",
+    label: "Massachusetts",
+    cities: [
+      "West Bridgewater, MA",
+      "Brockton, MA",
+      "Boston, MA",
+      "Newton, MA",
+      "Brookline, MA",
+      "Wellesley, MA",
+      "Quincy, MA",
+      "Plymouth, MA",
+      "Attleboro, MA",
+      "Taunton, MA",
+      "Bridgewater, MA",
+      "Easton, MA",
+      "Stoughton, MA",
+      "Canton, MA",
+      "Norwood, MA",
+    ],
+  },
+  {
+    state: "RI",
+    label: "Rhode Island",
+    cities: ["Providence, RI", "Cranston, RI", "Warwick, RI", "Pawtucket, RI"],
+  },
+  {
+    state: "CT",
+    label: "Connecticut",
+    cities: ["Hartford, CT", "Stamford, CT", "Bridgeport, CT"],
+  },
 ];
 
 const Footer = () => {

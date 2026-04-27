@@ -433,16 +433,17 @@ const MobileHeroContent: React.FC = () => {
           textShadow: "0px 4px 20px rgba(0,0,0,0.5)",
         }}
       >
-        The floor<br />
-        beneath<br />
-        every<br />
+        The<br />
+        renovation crew<br />
+        New England<br />
+        homeowners{" "}
         <span
           style={{
-            color: "#D4956B",
-            textShadow: "0px 4px 24px rgba(212,149,107,0.40)",
+            color: "#C9A84C",
+            textShadow: "0px 4px 24px rgba(201,168,76,0.40)",
           }}
         >
-          great space.
+          <MobileRotatingWord />
         </span>
       </motion.h1>
 

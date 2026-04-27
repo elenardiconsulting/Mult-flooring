@@ -26,19 +26,7 @@ const Navbar = () => {
   const onDarkHero = !isScrolled && !isMobileMenuOpen;
 
   const Logo = () => (
-    <div
-      className="relative inline-flex items-center"
-      style={
-        onDarkHero
-          ? {
-              padding: "8px 14px",
-              borderRadius: 999,
-              background:
-                "radial-gradient(circle, rgba(255,248,235,0.45) 0%, rgba(255,248,235,0.18) 45%, rgba(255,248,235,0) 75%)",
-            }
-          : undefined
-      }
-    >
+    <div className="relative inline-flex items-center">
       <img
         src={logo}
         alt="Mult Flooring"

@@ -63,8 +63,8 @@ const homeSchema = {
   priceRange: "$$",
   image: "https://multflooring.com/og-image.jpg",
   sameAs: [
-    "https://facebook.com/multflooring",
-    "https://instagram.com/multflooring",
+    "https://www.facebook.com/tonyspaintingmvLLC",
+    "https://www.instagram.com/tonyspainting_remodeling",
   ],
 };
 

@@ -229,9 +229,8 @@ const Hero = () => {
             >
               {(() => {
                 const lines: { words: string[]; rotating?: boolean }[] = [
-                  { words: ["The", "renovation", "crew"] },
-                  { words: ["New", "England"] },
-                  { words: ["homeowners"], rotating: true },
+                  { words: ["New", "England's", "most"] },
+                  { words: ["trusted", "renovation"], rotating: true },
                 ];
                 let wordIndex = 0;
                 return lines.map((line, li) => (
@@ -433,10 +432,9 @@ const MobileHeroContent: React.FC = () => {
           textShadow: "0px 4px 20px rgba(0,0,0,0.5)",
         }}
       >
-        The<br />
-        renovation crew<br />
-        New England<br />
-        homeowners{" "}
+        New England's<br />
+        most trusted<br />
+        renovation{" "}
         <span
           style={{
             color: "#C9A84C",

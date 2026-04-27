@@ -262,7 +262,7 @@ const Hero = () => {
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.projects}
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
                 Projects
               </span>
             </div>
@@ -271,7 +271,7 @@ const Hero = () => {
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.years}yrs+
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
                 Experience
               </span>
             </div>
@@ -280,7 +280,7 @@ const Hero = () => {
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.rating}★
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
                 Google Rating
               </span>
             </div>

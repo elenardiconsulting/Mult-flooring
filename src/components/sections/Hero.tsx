@@ -73,19 +73,6 @@ const Hero = () => {
         className="absolute inset-0 z-[2] flex flex-col items-center justify-center px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] pt-[80px] text-center"
       >
         <div className="max-w-[760px] relative inline-flex flex-col items-center">
-          {/* Backdrop blur glass */}
-          <div
-            aria-hidden="true"
-            className="absolute pointer-events-none"
-            style={{
-              inset: "-28px -32px",
-              borderRadius: "16px",
-              background: "rgba(240, 230, 216, 0.45)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              zIndex: -1,
-            }}
-          />
           {/* Headline, word-by-word reveal */}
           <h1
             className="text-[var(--color-text-primary)] tracking-[-0.03em] mb-[28px]"

@@ -155,6 +155,16 @@ const Hero = () => {
         }}
       />
 
+      {/* Top Overlay (mobile only) */}
+      {!isDesktop && (
+        <div
+          className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
+          style={{
+            height: 120,
+            backgroundImage: mobileTopOverlay,
+          }}
+        />
+      )}
       {/* Content */}
       <div
         className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] lg:pr-[520px] pt-[80px]"

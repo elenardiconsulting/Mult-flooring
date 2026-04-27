@@ -112,9 +112,8 @@ const Footer = () => {
             <img
               src={logo}
               alt="Mult Flooring"
+              className="h-[62px] md:h-[70px] w-auto object-contain"
               style={{
-                height: 32,
-                width: "auto",
                 display: "block",
                 filter: "brightness(0) invert(1)",
               }}

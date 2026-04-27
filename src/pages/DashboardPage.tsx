@@ -16,7 +16,6 @@ import {
 import { supabase, type Lead, type LeadStatus } from '@/lib/supabase'
 import {
   registerServiceWorker,
-  requestNotificationPermission,
   subscribeUserToPush,
   unsubscribeFromPush,
 } from '@/lib/pushNotifications'

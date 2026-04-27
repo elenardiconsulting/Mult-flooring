@@ -313,7 +313,7 @@ export default function DashboardPage() {
     >
       {/* ───── DESKTOP SIDEBAR ───── */}
       <aside className="dash-sidebar">
-        <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ padding: '8px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <img
             src={logo}
             alt="Mult Flooring"
@@ -579,7 +579,7 @@ export default function DashboardPage() {
                 flexDirection: 'column',
               }}
             >
-              <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <div style={{ padding: '8px 20px 16px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <img
                   src={logo}
                   alt="Mult Flooring"

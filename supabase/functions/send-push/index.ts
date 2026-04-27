@@ -180,9 +180,9 @@ async function encryptPayload(
   const padded = concatUint8(payload, new Uint8Array([0x02]))
 
   // AES-128-GCM encryption
-  const cekKey = await crypto.subtle.importKey('raw', cek, { name: 'AES-GCM' }, false, ['encrypt'])
+  const cekKey = await crypto.subtle.importKey('raw', toBuffer(cek), { name: 'AES-GCM' }, false, ['encrypt'])
   const ciphertext = new Uint8Array(
-    await crypto.subtle.encrypt({ name: 'AES-GCM', iv: nonce }, cekKey, padded),
+    await crypto.subtle.encrypt({ name: 'AES-GCM', iv: toBuffer(nonce) }, cekKey, toBuffer(padded)),
   )
 
   // Build aes128gcm content body: salt (16) || rs (4, BE) || idlen (1) || keyid (idlen) || ciphertext

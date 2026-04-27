@@ -24,6 +24,52 @@ const HERO_IMAGES = [
 const GOLD = "#8A5C2D";
 const EASE_EXPO = [0.16, 1, 0.3, 1] as any;
 
+const ROTATING_WORDS = [
+  "trust.",
+  "rely on.",
+  "call first.",
+  "recommend.",
+  "come back to.",
+  "believe in.",
+];
+
+/* Typewriter hook for rotating words */
+const useTypewriter = (words: string[]) => {
+  const [text, setText] = React.useState("");
+  const [wordIndex, setWordIndex] = React.useState(0);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+
+  React.useEffect(() => {
+    const current = words[wordIndex];
+    const typingSpeed = isDeleting ? 45 : 90;
+    const pauseAtFull = 1800;
+    const pauseEmpty = 250;
+
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!isDeleting && text === current) {
+      timeout = setTimeout(() => setIsDeleting(true), pauseAtFull);
+    } else if (isDeleting && text === "") {
+      timeout = setTimeout(() => {
+        setIsDeleting(false);
+        setWordIndex((i) => (i + 1) % words.length);
+      }, pauseEmpty);
+    } else {
+      timeout = setTimeout(() => {
+        setText((prev) =>
+          isDeleting
+            ? current.substring(0, prev.length - 1)
+            : current.substring(0, prev.length + 1)
+        );
+      }, typingSpeed);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, wordIndex, words]);
+
+  return text;
+};
+
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -182,10 +228,10 @@ const Hero = () => {
               style={{ fontSize: "clamp(56px, 7vw, 96px)", lineHeight: "1.05", fontWeight: 700 }}
             >
               {(() => {
-                const lines: { words: string[]; accent?: boolean }[] = [
-                  { words: ["The", "floor"] },
-                  { words: ["beneath", "every"] },
-                  { words: ["great", "space."], accent: true },
+                const lines: { words: string[]; rotating?: boolean }[] = [
+                  { words: ["The", "renovation", "crew"] },
+                  { words: ["New", "England"] },
+                  { words: ["homeowners"], rotating: true },
                 ];
                 let wordIndex = 0;
                 return lines.map((line, li) => (
@@ -212,9 +258,6 @@ const Hero = () => {
                             }}
                             style={{
                               display: "inline-block",
-                              color: line.accent
-                                ? "var(--color-accent-mid)"
-                                : undefined,
                               willChange: "transform",
                             }}
                           >
@@ -223,6 +266,20 @@ const Hero = () => {
                         </span>
                       );
                     })}
+                    {line.rotating && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6, duration: 0.5 }}
+                        style={{
+                          display: "inline-block",
+                          color: "var(--color-accent-mid)",
+                          verticalAlign: "bottom",
+                        }}
+                      >
+                        <DesktopRotatingWord />
+                      </motion.span>
+                    )}
                   </span>
                 ));
               })()}
@@ -233,9 +290,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-              className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
+              className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[440px] mb-10"
             >
-              Hardwood, vinyl and laminate, supplied and installed by our certified crew.
+              Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
             </motion.p>
 
             {/* Button Group */}
@@ -245,11 +302,11 @@ const Hero = () => {
               transition={{ delay: 0.48, duration: 0.5, ease: easeExpo }}
               className="flex flex-wrap gap-[14px]"
             >
-              <Link to="/floors">
+              <a href="#contact">
                 <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer">
-                  Explore Floors
+                  Get a Free Quote
                 </button>
-              </Link>
+              </a>
               <Link to="/projects">
                 <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer">
                   View Our Work
@@ -376,16 +433,17 @@ const MobileHeroContent: React.FC = () => {
           textShadow: "0px 4px 20px rgba(0,0,0,0.5)",
         }}
       >
-        The floor<br />
-        beneath<br />
-        every<br />
+        The<br />
+        renovation crew<br />
+        New England<br />
+        homeowners{" "}
         <span
           style={{
-            color: "#D4956B",
-            textShadow: "0px 4px 24px rgba(212,149,107,0.40)",
+            color: "#C9A84C",
+            textShadow: "0px 4px 24px rgba(201,168,76,0.40)",
           }}
         >
-          great space.
+          <MobileRotatingWord />
         </span>
       </motion.h1>
 
@@ -403,7 +461,7 @@ const MobileHeroContent: React.FC = () => {
           maxWidth: 320,
         }}
       >
-        Hardwood, vinyl and laminate, supplied and installed by our certified crew.
+        Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
       </motion.p>
 
       {/* Primary button */}
@@ -412,7 +470,7 @@ const MobileHeroContent: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6, ease: EASE_EXPO }}
       >
-        <Link to="/floors" style={{ display: "block", width: "100%" }}>
+        <a href="#contact" style={{ display: "block", width: "100%" }}>
           <button
             style={{
               width: "100%",
@@ -433,7 +491,7 @@ const MobileHeroContent: React.FC = () => {
               gap: 10,
             }}
           >
-            <span>Explore Floors</span>
+            <span>Get a Free Quote</span>
             <svg
               style={{ marginLeft: "auto" }}
               width="18"
@@ -448,7 +506,7 @@ const MobileHeroContent: React.FC = () => {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
-        </Link>
+        </a>
 
         {/* Secondary button */}
         <Link
@@ -593,5 +651,43 @@ const MobileStat: React.FC<{
     </span>
   </div>
 );
+
+/* ─────────── ROTATING WORDS (typewriter) ─────────── */
+
+const BlinkingCursor: React.FC<{ color?: string }> = ({ color = "currentColor" }) => (
+  <span
+    aria-hidden="true"
+    style={{
+      display: "inline-block",
+      width: "0.06em",
+      height: "0.95em",
+      background: color,
+      marginLeft: "0.06em",
+      verticalAlign: "-0.12em",
+      animation: "heroCursorBlink 1s step-end infinite",
+    }}
+  />
+);
+
+const DesktopRotatingWord: React.FC = () => {
+  const text = useTypewriter(ROTATING_WORDS);
+  return (
+    <>
+      <style>{`@keyframes heroCursorBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }`}</style>
+      <span>{text}</span>
+      <BlinkingCursor color="var(--color-accent-mid)" />
+    </>
+  );
+};
+
+const MobileRotatingWord: React.FC = () => {
+  const text = useTypewriter(ROTATING_WORDS);
+  return (
+    <>
+      <span>{text}</span>
+      <BlinkingCursor color="#C9A84C" />
+    </>
+  );
+};
 
 export default Hero;

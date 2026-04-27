@@ -229,9 +229,8 @@ const Hero = () => {
             >
               {(() => {
                 const lines: { words: string[]; rotating?: boolean }[] = [
-                  { words: ["The", "renovation", "crew"] },
-                  { words: ["New", "England"] },
-                  { words: ["homeowners"], rotating: true },
+                  { words: ["New", "England's", "most"] },
+                  { words: ["trusted", "renovation"], rotating: true },
                 ];
                 let wordIndex = 0;
                 return lines.map((line, li) => (

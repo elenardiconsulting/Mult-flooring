@@ -227,6 +227,13 @@ export default function ContactPage() {
         fontFamily: "var(--font-family)",
       }}
     >
+      <SEO
+        title="Get a Free Flooring Quote — West Bridgewater, MA"
+        description="Request a free in-home flooring consultation. Hardwood, vinyl, laminate and cabinet installation across MA, RI and CT. Call (508) 510-4007 or submit online."
+        canonical="/contact"
+        keywords="free flooring quote Massachusetts, flooring consultation MA, hardwood floor estimate, contact flooring contractor West Bridgewater"
+        schema={contactSchema}
+      />
       <Navbar />
 
       <div

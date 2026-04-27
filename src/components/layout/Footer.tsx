@@ -105,20 +105,21 @@ const Footer = () => {
       <div className="mx-auto" style={{ maxWidth: "var(--max-width)" }}>
         {/* Body */}
         <div
-          className="grid gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr]"
+          className="grid gap-8 md:gap-12 grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] text-center md:text-left"
         >
           {/* Brand */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <img
               src={logo}
               alt="Mult Flooring"
-              className="h-[62px] md:h-[70px] w-auto object-contain"
+              className="h-[62px] md:h-[70px] w-auto object-contain mx-auto md:mx-0"
               style={{
                 display: "block",
                 filter: "brightness(0) invert(1)",
               }}
             />
             <p
+              className="text-center md:text-left"
               style={{
                 fontSize: 14,
                 lineHeight: 1.6,
@@ -130,7 +131,7 @@ const Footer = () => {
               {"The floor beneath\nevery great space."}
             </p>
 
-            <div className="flex gap-3" style={{ marginTop: 24 }}>
+            <div className="flex gap-3 justify-center md:justify-start" style={{ marginTop: 24 }}>
               <SocialButton href={COMPANY.social.instagram}>
                 <InstagramIcon />
               </SocialButton>
@@ -141,9 +142,9 @@ const Footer = () => {
           </div>
 
           {/* Navigation */}
-          <div>
-            <span style={labelStyle}>Navigation</span>
-            <nav className="flex flex-col gap-[10px]">
+          <div className="flex flex-col items-center md:items-stretch">
+            <span style={labelStyle} className="text-center md:text-left">Navigation</span>
+            <nav className="flex flex-col gap-[10px] items-center md:items-start">
               <NavLink href="/">Home</NavLink>
               <NavLink href="/floors">Floors</NavLink>
               <NavLink href="/#projects">Projects</NavLink>
@@ -153,9 +154,9 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div>
-            <span style={labelStyle}>Services</span>
-            <ul className="list-none">
+          <div className="flex flex-col items-center md:items-stretch">
+            <span style={labelStyle} className="text-center md:text-left">Services</span>
+            <ul className="list-none text-center md:text-left">
               {services.map((s) => (
                 <li
                   key={s}
@@ -172,9 +173,10 @@ const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div>
-            <span style={labelStyle}>Contact</span>
+          <div className="flex flex-col items-center md:items-stretch">
+            <span style={labelStyle} className="text-center md:text-left">Contact</span>
             <p
+              className="text-center md:text-left"
               style={{
                 fontSize: 14,
                 color: "rgba(255,255,255,0.40)",

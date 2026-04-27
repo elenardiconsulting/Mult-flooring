@@ -131,6 +131,13 @@ export default function ProjectsPage() {
         fontFamily: "var(--font-family)",
       }}
     >
+      <SEO
+        title="Flooring Installation Projects — MA, RI & CT"
+        description="Browse our portfolio of hardwood, vinyl and laminate flooring installations across Massachusetts, Rhode Island and Connecticut. Residential, commercial and hospitality projects."
+        canonical="/projects"
+        keywords="hardwood flooring projects Massachusetts, flooring installation portfolio MA, floor installation before after, hardwood floor examples"
+        schema={projectsSchema}
+      />
       <Navbar />
 
       {/* PAGE HEADER */}

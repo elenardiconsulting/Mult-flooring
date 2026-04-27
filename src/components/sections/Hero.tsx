@@ -206,7 +206,7 @@ const Hero = () => {
                           }}
                           style={{
                             display: "inline-block",
-                            color: line.accent
+                            color: line.accent && isDesktop
                               ? "var(--color-accent-mid)"
                               : undefined,
                             willChange: "transform",

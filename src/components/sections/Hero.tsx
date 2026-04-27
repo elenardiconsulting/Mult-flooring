@@ -228,10 +228,10 @@ const Hero = () => {
               style={{ fontSize: "clamp(56px, 7vw, 96px)", lineHeight: "1.05", fontWeight: 700 }}
             >
               {(() => {
-                const lines: { words: string[]; accent?: boolean }[] = [
-                  { words: ["The", "floor"] },
-                  { words: ["beneath", "every"] },
-                  { words: ["great", "space."], accent: true },
+                const lines: { words: string[]; rotating?: boolean }[] = [
+                  { words: ["The", "renovation", "crew"] },
+                  { words: ["New", "England"] },
+                  { words: ["homeowners"], rotating: true },
                 ];
                 let wordIndex = 0;
                 return lines.map((line, li) => (
@@ -258,9 +258,6 @@ const Hero = () => {
                             }}
                             style={{
                               display: "inline-block",
-                              color: line.accent
-                                ? "var(--color-accent-mid)"
-                                : undefined,
                               willChange: "transform",
                             }}
                           >
@@ -269,6 +266,20 @@ const Hero = () => {
                         </span>
                       );
                     })}
+                    {line.rotating && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6, duration: 0.5 }}
+                        style={{
+                          display: "inline-block",
+                          color: "var(--color-accent-mid)",
+                          verticalAlign: "bottom",
+                        }}
+                      >
+                        <DesktopRotatingWord />
+                      </motion.span>
+                    )}
                   </span>
                 ));
               })()}
@@ -279,9 +290,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-              className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
+              className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[440px] mb-10"
             >
-              Hardwood, vinyl and laminate, supplied and installed by our certified crew.
+              Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
             </motion.p>
 
             {/* Button Group */}
@@ -291,11 +302,11 @@ const Hero = () => {
               transition={{ delay: 0.48, duration: 0.5, ease: easeExpo }}
               className="flex flex-wrap gap-[14px]"
             >
-              <Link to="/floors">
+              <a href="#contact">
                 <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer">
-                  Explore Floors
+                  Get a Free Quote
                 </button>
-              </Link>
+              </a>
               <Link to="/projects">
                 <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer">
                   View Our Work

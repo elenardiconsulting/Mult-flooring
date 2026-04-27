@@ -197,7 +197,7 @@ const Footer = () => {
 
         {/* Bottom bar */}
         <div
-          className="flex justify-between items-center max-sm:flex-col max-sm:gap-2 max-sm:text-center"
+          className="flex justify-between items-center max-md:flex-col max-md:gap-[6px] max-md:text-center"
           style={{
             marginTop: 48,
             paddingTop: 24,

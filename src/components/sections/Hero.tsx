@@ -170,17 +170,17 @@ const Hero = () => {
 
         {/* Side Overlays */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-[180px] pointer-events-none z-[1]"
+          className="absolute left-0 top-0 bottom-0 w-[120px] pointer-events-none z-[1]"
           style={{
             backgroundImage:
-              'linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.85) 25%, rgba(240, 230, 216, 0.40) 55%, rgba(212, 149, 107, 0.08) 80%, transparent 100%)',
+              'linear-gradient(to right, rgba(240, 230, 216, 0.75) 0%, rgba(240, 230, 216, 0.40) 35%, rgba(240, 230, 216, 0.12) 65%, transparent 100%)',
           }}
         />
         <div
-          className="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none z-[1]"
+          className="absolute bottom-0 left-0 right-0 h-[80px] pointer-events-none z-[1]"
           style={{
             backgroundImage:
-              'linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.60) 40%, transparent 100%)',
+              'linear-gradient(to top, rgba(240, 230, 216, 0.55) 0%, rgba(240, 230, 216, 0.20) 50%, transparent 100%)',
           }}
         />
 

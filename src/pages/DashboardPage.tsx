@@ -17,7 +17,8 @@ import { supabase, type Lead, type LeadStatus } from '@/lib/supabase'
 import {
   registerServiceWorker,
   requestNotificationPermission,
-  showNotification,
+  subscribeUserToPush,
+  unsubscribeFromPush,
 } from '@/lib/pushNotifications'
 import logo from '@/assets/mult-flooring-logo.png'
 
@@ -203,8 +204,8 @@ export default function DashboardPage() {
     setToasts((prev) => [t, ...prev].slice(0, 4))
 
   const handleEnableNotifications = async () => {
-    const perm = await requestNotificationPermission()
-    setPermission(perm)
+    const ok = await subscribeUserToPush()
+    setPermission(ok ? 'granted' : (typeof Notification !== 'undefined' ? Notification.permission : 'denied'))
   }
 
   useEffect(() => {
@@ -221,13 +222,20 @@ export default function DashboardPage() {
     }
     fetchLeads()
 
-    // Register service worker (no-op inside Lovable preview iframes)
-    registerServiceWorker()
+    // Register SW and (if already permitted) re-subscribe to push.
+    const initPush = async () => {
+      const reg = await registerServiceWorker()
+      if (!reg) return
+      await navigator.serviceWorker.ready
+      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+        await subscribeUserToPush()
+      }
+    }
+    initPush()
 
-    // Soft-prompt for permission after 3 s — only if still default
+    // Soft-prompt for permission after 3s — only if still default
     const permTimer = window.setTimeout(() => {
       if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
-        // Don't auto-request without user gesture in some browsers; just keep banner visible.
         setPermission(Notification.permission)
       }
     }, 3000)
@@ -242,15 +250,9 @@ export default function DashboardPage() {
             const lead = payload.new as Lead
             setLeads((prev) => [lead, ...prev])
 
-            // Only fire notifications after the initial fetch resolves
+            // Push notifications now arrive server-side via VAPID.
+            // Keep only the in-app toast.
             if (initialLoadDone.current) {
-              showNotification('New Lead — Mult Flooring', {
-                body: `${lead.name} submitted a quote request.\n${
-                  lead.project_type || 'Project type not specified'
-                }`,
-                tag: lead.id,
-                data: '/dashboard',
-              })
               addToast({
                 id: lead.id,
                 name: lead.name,
@@ -283,6 +285,7 @@ export default function DashboardPage() {
   const newCount = useMemo(() => leads.filter((l) => l.status === 'new').length, [leads])
 
   const handleSignOut = async () => {
+    await unsubscribeFromPush()
     await supabase.auth.signOut()
     navigate('/login', { replace: true })
   }

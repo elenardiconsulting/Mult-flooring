@@ -12,12 +12,22 @@ const SectionLabel = React.forwardRef<HTMLSpanElement, SectionLabelProps>(
       <span
         ref={ref}
         className={cn(
-          "block mb-3 text-[11px] font-normal uppercase tracking-[0.12em] text-text-muted",
+          "mb-3 text-[11px] font-normal uppercase tracking-[0.12em] text-text-muted inline-flex items-center gap-[10px]",
           className,
         )}
         {...props}
       >
-        {children}
+        <span
+          aria-hidden="true"
+          style={{
+            display: "inline-block",
+            width: 20,
+            height: 1,
+            background: "var(--color-accent-mid)",
+            flexShrink: 0,
+          }}
+        />
+        <span>{children}</span>
       </span>
     );
   },

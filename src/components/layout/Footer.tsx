@@ -86,6 +86,34 @@ const ContactLink = ({ href, children }: { href: string; children: React.ReactNo
   </a>
 );
 
+const CITIES = [
+  // Massachusetts
+  "West Bridgewater, MA",
+  "Brockton, MA",
+  "Boston, MA",
+  "Newton, MA",
+  "Brookline, MA",
+  "Wellesley, MA",
+  "Quincy, MA",
+  "Plymouth, MA",
+  "Attleboro, MA",
+  "Taunton, MA",
+  "Bridgewater, MA",
+  "Easton, MA",
+  "Stoughton, MA",
+  "Canton, MA",
+  "Norwood, MA",
+  // Rhode Island
+  "Providence, RI",
+  "Cranston, RI",
+  "Warwick, RI",
+  "Pawtucket, RI",
+  // Connecticut
+  "Hartford, CT",
+  "Stamford, CT",
+  "Bridgeport, CT",
+];
+
 const Footer = () => {
   const services = [
     "Hardwood Installation",
@@ -103,6 +131,50 @@ const Footer = () => {
       className="md:py-14 md:px-[var(--padding-x)] py-10 px-[var(--padding-x-mobile)]"
     >
       <div className="mx-auto" style={{ maxWidth: "var(--max-width)" }}>
+        {/* Areas We Serve strip */}
+        <div
+          className="flex flex-col md:flex-row md:items-start md:gap-12 gap-4"
+          style={{
+            paddingBottom: 32,
+            marginBottom: 40,
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          <span
+            className="text-center md:text-left"
+            style={{
+              flexShrink: 0,
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: "0.12em",
+              color: "rgba(255,255,255,0.30)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Areas We Serve
+          </span>
+          <div
+            className="flex flex-wrap justify-center md:justify-start"
+            style={{ flex: 1, columnGap: 6, rowGap: 4 }}
+          >
+            {CITIES.map((city, idx) => (
+              <span
+                key={city}
+                style={{
+                  fontSize: 12,
+                  color: "rgba(255,255,255,0.38)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {city}
+                {idx < CITIES.length - 1 && (
+                  <span style={{ color: "rgba(255,255,255,0.15)" }}> · </span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* Body */}
         <div
           className="grid gap-8 md:gap-12 grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] text-center md:text-left"

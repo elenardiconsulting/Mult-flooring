@@ -51,7 +51,7 @@ const Navbar = () => {
       {onDarkHero && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-[120px] -z-10"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[120px] z-0"
           style={{
             background:
               "linear-gradient(to bottom, rgba(15,10,5,0.55) 0%, rgba(15,10,5,0.25) 60%, rgba(15,10,5,0) 100%)",

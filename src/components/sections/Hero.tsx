@@ -227,7 +227,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] font-normal max-md:font-medium leading-[1.6] text-[var(--color-text-secondary)] max-md:text-[var(--color-text-primary)] max-w-[400px] mb-10"
+            className="text-[17px] font-normal max-md:font-medium leading-[1.6] text-[var(--color-text-secondary)] max-md:text-white max-w-[400px] mb-10 max-md:[text-shadow:0_1px_4px_rgba(0,0,0,0.5)]"
           >
             Hardwood, vinyl and laminate, supplied and installed by our certified crew.
           </motion.p>

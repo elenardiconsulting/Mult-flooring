@@ -367,8 +367,8 @@ const MobileHeroContent: React.FC = () => {
           display: "inline-flex",
           alignItems: "center",
           gap: 8,
-          background: "rgba(201, 168, 76, 0.15)",
-          border: "1px solid rgba(201, 168, 76, 0.35)",
+          background: "rgba(138,92,45, 0.15)",
+          border: "1px solid rgba(138,92,45, 0.35)",
           borderRadius: 999,
           padding: "5px 14px",
           width: "fit-content",
@@ -419,7 +419,7 @@ const MobileHeroContent: React.FC = () => {
         <span
           style={{
             color: "#8A5C2D",
-            textShadow: "0px 4px 24px rgba(201,168,76,0.35)",
+            textShadow: "0px 4px 24px rgba(138,92,45,0.35)",
           }}
         >
           great space.
@@ -463,7 +463,7 @@ const MobileHeroContent: React.FC = () => {
               color: "#ffffff",
               letterSpacing: "0.02em",
               background: `linear-gradient(135deg, #8A5C2D 0%, #6E481F 100%)`,
-              boxShadow: "0 10px 32px rgba(201, 168, 76, 0.30)",
+              boxShadow: "0 10px 32px rgba(138,92,45, 0.30)",
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-start",

@@ -82,7 +82,9 @@ const Hero = () => {
   const desktopLeftOverlay =
     "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.92) 15%, rgba(240, 230, 216, 0.70) 30%, rgba(240, 230, 216, 0.30) 50%, rgba(240, 230, 216, 0.08) 70%, transparent 100%)";
   const mobileLeftOverlay =
-    "linear-gradient(to right, rgba(240, 230, 216, 0.55) 0%, rgba(240, 230, 216, 0.25) 50%, transparent 100%)";
+    "linear-gradient(to right, rgba(240, 230, 216, 0.72) 0%, rgba(240, 230, 216, 0.45) 45%, rgba(240, 230, 216, 0.10) 75%, transparent 100%)";
+  const mobileTopOverlay =
+    "linear-gradient(to bottom, rgba(240, 230, 216, 0.85) 0%, rgba(240, 230, 216, 0.40) 60%, transparent 100%)";
   const desktopBottomOverlay =
     "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)";
   const mobileBottomOverlay =
@@ -153,6 +155,16 @@ const Hero = () => {
         }}
       />
 
+      {/* Top Overlay (mobile only) */}
+      {!isDesktop && (
+        <div
+          className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
+          style={{
+            height: 120,
+            backgroundImage: mobileTopOverlay,
+          }}
+        />
+      )}
       {/* Content */}
       <div
         className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] lg:pr-[520px] pt-[80px]"
@@ -215,7 +227,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
+            className="text-[17px] font-normal max-md:font-medium leading-[1.6] text-[var(--color-text-secondary)] max-md:text-[var(--color-text-primary)] max-w-[400px] mb-10"
           >
             Hardwood, vinyl and laminate, supplied and installed by our certified crew.
           </motion.p>
@@ -233,7 +245,7 @@ const Hero = () => {
               </button>
             </Link>
             <Link to="/projects" className="max-lg:w-full">
-              <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full">
+              <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] max-md:text-[var(--color-text-primary)] max-md:font-medium hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full">
                 View Our Work
               </button>
             </Link>
@@ -250,7 +262,7 @@ const Hero = () => {
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.projects}
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
                 Projects
               </span>
             </div>
@@ -259,7 +271,7 @@ const Hero = () => {
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.years}yrs+
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
                 Experience
               </span>
             </div>
@@ -268,7 +280,7 @@ const Hero = () => {
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
                 {COMPANY.rating}★
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
                 Google Rating
               </span>
             </div>

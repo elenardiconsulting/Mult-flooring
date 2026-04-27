@@ -263,3 +263,22 @@ h2 {
   letter-spacing: -0.02em;
 }
 
+
+/* Areas We Serve — accordion smooth open/close */
+.areas-accordion summary::-webkit-details-marker { display: none; }
+.areas-accordion summary::marker { content: ""; }
+.areas-accordion-content {
+  display: grid;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+}
+.areas-accordion:not([open]) .areas-accordion-content {
+  display: none;
+}
+.areas-accordion[open] .areas-accordion-content {
+  animation: areas-accordion-down 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes areas-accordion-down {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

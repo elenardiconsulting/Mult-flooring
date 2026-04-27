@@ -65,7 +65,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Links - Centralizados */}
-        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-[36px]">
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-[36px] z-10">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

@@ -82,7 +82,11 @@ const Hero = () => {
   const desktopLeftOverlay =
     "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.92) 15%, rgba(240, 230, 216, 0.70) 30%, rgba(240, 230, 216, 0.30) 50%, rgba(240, 230, 216, 0.08) 70%, transparent 100%)";
   const mobileLeftOverlay =
-    "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.95) 40%, rgba(240, 230, 216, 0.70) 70%, transparent 100%)";
+    "linear-gradient(to right, rgba(240, 230, 216, 0.55) 0%, rgba(240, 230, 216, 0.25) 50%, transparent 100%)";
+  const desktopBottomOverlay =
+    "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)";
+  const mobileBottomOverlay =
+    "linear-gradient(to top, rgba(240, 230, 216, 0.65) 0%, rgba(240, 230, 216, 0.20) 40%, transparent 100%)";
 
   return (
     <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] overflow-hidden">
@@ -137,7 +141,7 @@ const Hero = () => {
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          backgroundImage: isMobile ? mobileLeftOverlay : desktopLeftOverlay,
+          backgroundImage: isDesktop ? desktopLeftOverlay : mobileLeftOverlay,
         }}
       />
 
@@ -145,8 +149,7 @@ const Hero = () => {
       <div
         className="absolute bottom-0 left-0 right-0 h-[100px] z-[1] pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)",
+          backgroundImage: isDesktop ? desktopBottomOverlay : mobileBottomOverlay,
         }}
       />
 

@@ -305,6 +305,7 @@ export default function DashboardPage() {
 
   return (
     <div
+      className="dashboard-layout"
       style={{
         display: 'flex',
         minHeight: '100vh',

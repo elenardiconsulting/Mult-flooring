@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { COMPANY, NAV_LINKS } from "@/lib/constants";
 import BrandButton from "@/components/ui/mult-button";
@@ -7,23 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/mult-flooring-logo.png";
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const closeMenu = () => setIsMobileMenuOpen(false);
-
-  // On mobile (< md), navbar sits above the dark hero when not scrolled.
-  // Invert logo to white and lighten hamburger for contrast.
-  const onDarkHero = !isScrolled && !isMobileMenuOpen;
 
   const Logo = () => (
     <div className="relative inline-flex items-center">
@@ -40,12 +26,9 @@ const Navbar = () => {
     <nav
       className={cn(
         "fixed top-0 left-0 w-full z-[500] transition-all duration-300 ease-expo",
-        isScrolled
-          ? "h-[60px] md:h-[68px] bg-[rgba(250,247,244,0.92)] border-b border-[var(--color-border)] backdrop-blur-lg"
-          : "h-[60px] md:h-[68px] bg-transparent border-b border-transparent"
+        "h-[60px] md:h-[68px] bg-[rgba(250,247,244,0.92)] border-b border-[var(--color-border)] backdrop-blur-lg"
       )}
     >
-      {/* Header illumination is handled by Hero's top gradient (no nav-side overlay needed). */}
       <div className="max-w-[var(--max-width)] mx-auto h-full px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] flex items-center justify-between relative">
         {/* Logo */}
         <Link
@@ -63,12 +46,7 @@ const Navbar = () => {
             <Link
               key={link.href}
               to={link.href}
-              className={cn(
-                "text-sm font-normal tracking-[0.01em] transition-colors duration-base ease-expo",
-                onDarkHero
-                  ? "text-white/90 hover:text-white"
-                  : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
-              )}
+              className="text-sm font-normal tracking-[0.01em] transition-colors duration-base ease-expo text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
             >
               {link.label}
             </Link>
@@ -92,22 +70,19 @@ const Navbar = () => {
           >
             <span
               className={cn(
-                "h-[1.5px] transition-all duration-300 w-full",
-                onDarkHero ? "bg-white/85" : "bg-[var(--color-text-primary)]",
+                "h-[1.5px] transition-all duration-300 w-full bg-[var(--color-text-primary)]",
                 isMobileMenuOpen ? "rotate-45 translate-y-[7.5px]" : ""
               )}
             />
             <span
               className={cn(
-                "h-[1.5px] transition-all duration-300 w-full",
-                onDarkHero ? "bg-white/85" : "bg-[var(--color-text-primary)]",
+                "h-[1.5px] transition-all duration-300 w-full bg-[var(--color-text-primary)]",
                 isMobileMenuOpen ? "opacity-0" : ""
               )}
             />
             <span
               className={cn(
-                "h-[1.5px] transition-all duration-300 w-full",
-                onDarkHero ? "bg-white/85" : "bg-[var(--color-text-primary)]",
+                "h-[1.5px] transition-all duration-300 w-full bg-[var(--color-text-primary)]",
                 isMobileMenuOpen ? "-rotate-45 -translate-y-[7.5px]" : ""
               )}
             />

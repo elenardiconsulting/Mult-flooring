@@ -26,8 +26,9 @@ export const COMPANY = {
     schedule: "Schedule Consultation",
   },
   social: {
-    instagram: "https://instagram.com/multflooring",
-    facebook: "https://facebook.com/multflooring",
+    instagram:
+      "https://www.instagram.com/tonyspainting_remodeling?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    facebook: "https://www.facebook.com/tonyspaintingmvLLC",
   },
 } as const;
 

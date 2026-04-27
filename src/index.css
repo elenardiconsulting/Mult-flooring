@@ -236,3 +236,20 @@ button {
   display: inline;
 }
 
+/* ── Display typography for public site headings ── */
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Exceptions: dashboard and login stay in Inter */
+.dashboard-layout h1,
+.dashboard-layout h2,
+.login-page h1,
+.login-page h2 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+

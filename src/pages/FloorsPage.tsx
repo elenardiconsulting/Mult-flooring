@@ -373,7 +373,7 @@ function PageHeader() {
             >
               Hardwood. Vinyl.
               <br />
-              Laminate.
+              <span className="gradient-text">Laminate.</span>
             </h1>
             <p
               style={{

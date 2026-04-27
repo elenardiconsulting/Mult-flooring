@@ -235,7 +235,7 @@ export default function ContactPage() {
                 whiteSpace: "pre-line",
               }}
             >
-              {"Let's talk about\nyour floor."}
+              Let's talk about{"\n"}your <span className="gradient-text">floor.</span>
             </h1>
             <p
               style={{

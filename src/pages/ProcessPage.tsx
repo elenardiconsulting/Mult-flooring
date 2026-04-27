@@ -143,7 +143,7 @@ export default function ProcessPage() {
                 whiteSpace: "pre-line",
               }}
             >
-              {"From first call to\nfinal walkthrough."}
+              From first call to{"\n"}<span className="gradient-text">final walkthrough.</span>
             </h1>
             <p
               style={{

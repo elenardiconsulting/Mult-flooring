@@ -461,7 +461,7 @@ const MobileHeroContent: React.FC = () => {
           maxWidth: 320,
         }}
       >
-        Hardwood, vinyl and laminate, supplied and installed by our certified crew.
+        Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
       </motion.p>
 
       {/* Primary button */}

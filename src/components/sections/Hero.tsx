@@ -21,6 +21,9 @@ const HERO_IMAGES = [
   },
 ];
 
+const GOLD = "#C9A84C";
+const EASE_EXPO = [0.16, 1, 0.3, 1] as any;
+
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -76,22 +79,28 @@ const Hero = () => {
     };
   }, [isDesktop]);
 
-  const easeExpo = [0.16, 1, 0.3, 1] as any;
+  const easeExpo = EASE_EXPO;
   const heroParallax = useParallax(40);
 
+  // Desktop overlays (unchanged)
   const desktopLeftOverlay =
     "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.92) 15%, rgba(240, 230, 216, 0.70) 30%, rgba(240, 230, 216, 0.30) 50%, rgba(240, 230, 216, 0.08) 70%, transparent 100%)";
-  const mobileLeftOverlay =
-    "linear-gradient(to right, rgba(240, 230, 216, 0.72) 0%, rgba(240, 230, 216, 0.45) 45%, rgba(240, 230, 216, 0.10) 75%, transparent 100%)";
-  const mobileTopOverlay =
-    "linear-gradient(to bottom, rgba(240, 230, 216, 0.85) 0%, rgba(240, 230, 216, 0.40) 60%, transparent 100%)";
   const desktopBottomOverlay =
     "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)";
-  const mobileBottomOverlay =
-    "linear-gradient(to top, rgba(240, 230, 216, 0.65) 0%, rgba(240, 230, 216, 0.20) 40%, transparent 100%)";
+
+  // Mobile single dark overlay (premium)
+  const mobileDarkOverlay =
+    "linear-gradient(to bottom, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.50) 35%, rgba(0, 0, 0, 0.60) 65%, rgba(0, 0, 0, 0.88) 100%)";
 
   return (
-    <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] overflow-hidden">
+    <section
+      className={
+        isDesktop
+          ? "relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] overflow-hidden"
+          : "relative w-full bg-black overflow-hidden"
+      }
+      style={!isDesktop ? { minHeight: "100svh" } : undefined}
+    >
       {/* Full-bleed Image / Slideshow */}
       <div
         ref={heroParallax.ref}
@@ -139,161 +148,162 @@ const Hero = () => {
         )}
       </div>
 
-      {/* Left Overlay */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          backgroundImage: isDesktop ? desktopLeftOverlay : mobileLeftOverlay,
-        }}
-      />
+      {/* DESKTOP overlays (unchanged) */}
+      {isDesktop && (
+        <>
+          <div
+            className="absolute inset-0 z-[1] pointer-events-none"
+            style={{ backgroundImage: desktopLeftOverlay }}
+          />
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[100px] z-[1] pointer-events-none"
+            style={{ backgroundImage: desktopBottomOverlay }}
+          />
+        </>
+      )}
 
-      {/* Bottom Overlay */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-[100px] z-[1] pointer-events-none"
-        style={{
-          backgroundImage: isDesktop ? desktopBottomOverlay : mobileBottomOverlay,
-        }}
-      />
-
-      {/* Top Overlay (mobile only) */}
+      {/* MOBILE single dark premium overlay */}
       {!isDesktop && (
         <div
-          className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
-          style={{
-            height: 120,
-            backgroundImage: mobileTopOverlay,
-          }}
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{ backgroundImage: mobileDarkOverlay }}
         />
       )}
-      {/* Content */}
-      <div
-        className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] lg:pr-[520px] pt-[80px]"
-      >
-        <div className="max-w-[640px]">
-          {/* Headline, word-by-word reveal */}
-          <h1
-            className="text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] mb-[28px] max-md:[text-shadow:0_2px_8px_rgba(0,0,0,0.45)]"
-            style={{ fontSize: "clamp(56px, 7vw, 96px)", lineHeight: "1.05", fontWeight: 700 }}
-          >
-            {(() => {
-              const lines: { words: string[]; accent?: boolean }[] = [
-                { words: ["The", "floor"] },
-                { words: ["beneath", "every"] },
-                { words: ["great", "space."], accent: true },
-              ];
-              let wordIndex = 0;
-              return lines.map((line, li) => (
-                <span key={li} style={{ display: "block" }}>
-                  {line.words.map((word) => {
-                    const i = wordIndex++;
-                    return (
-                      <span
-                        key={`${li}-${i}`}
-                        style={{
-                          display: "inline-block",
-                          overflow: "hidden",
-                          marginRight: "0.25em",
-                          verticalAlign: "bottom",
-                        }}
-                      >
-                        <motion.span
-                          initial={{ y: "110%", opacity: 0 }}
-                          animate={{ y: "0%", opacity: 1 }}
-                          transition={{
-                            duration: 0.7,
-                            delay: i * 0.08,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
+
+      {/* DESKTOP Content (unchanged) */}
+      {isDesktop && (
+        <div
+          className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] lg:pr-[520px] pt-[80px]"
+        >
+          <div className="max-w-[640px]">
+            {/* Headline, word-by-word reveal */}
+            <h1
+              className="text-[var(--color-text-primary)] tracking-[-0.02em] mb-[28px]"
+              style={{ fontSize: "clamp(56px, 7vw, 96px)", lineHeight: "1.05", fontWeight: 700 }}
+            >
+              {(() => {
+                const lines: { words: string[]; accent?: boolean }[] = [
+                  { words: ["The", "floor"] },
+                  { words: ["beneath", "every"] },
+                  { words: ["great", "space."], accent: true },
+                ];
+                let wordIndex = 0;
+                return lines.map((line, li) => (
+                  <span key={li} style={{ display: "block" }}>
+                    {line.words.map((word) => {
+                      const i = wordIndex++;
+                      return (
+                        <span
+                          key={`${li}-${i}`}
                           style={{
                             display: "inline-block",
-                            color: line.accent && isDesktop
-                              ? "var(--color-accent-mid)"
-                              : undefined,
-                            willChange: "transform",
+                            overflow: "hidden",
+                            marginRight: "0.25em",
+                            verticalAlign: "bottom",
                           }}
                         >
-                          {word}
-                        </motion.span>
-                      </span>
-                    );
-                  })}
+                          <motion.span
+                            initial={{ y: "110%", opacity: 0 }}
+                            animate={{ y: "0%", opacity: 1 }}
+                            transition={{
+                              duration: 0.7,
+                              delay: i * 0.08,
+                              ease: [0.16, 1, 0.3, 1],
+                            }}
+                            style={{
+                              display: "inline-block",
+                              color: line.accent
+                                ? "var(--color-accent-mid)"
+                                : undefined,
+                              willChange: "transform",
+                            }}
+                          >
+                            {word}
+                          </motion.span>
+                        </span>
+                      );
+                    })}
+                  </span>
+                ));
+              })()}
+            </h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
+              className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
+            >
+              Hardwood, vinyl and laminate, supplied and installed by our certified crew.
+            </motion.p>
+
+            {/* Button Group */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.48, duration: 0.5, ease: easeExpo }}
+              className="flex flex-wrap gap-[14px]"
+            >
+              <Link to="/floors">
+                <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer">
+                  Explore Floors
+                </button>
+              </Link>
+              <Link to="/projects">
+                <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer">
+                  View Our Work
+                </button>
+              </Link>
+            </motion.div>
+
+            {/* Stats Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
+              className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10"
+            >
+              <div className="flex flex-col">
+                <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
+                  {COMPANY.projects}
                 </span>
-              ));
-            })()}
-          </h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] font-normal max-md:font-medium leading-[1.6] text-[var(--color-text-secondary)] max-md:text-white max-w-[400px] mb-10 max-md:[text-shadow:0_1px_4px_rgba(0,0,0,0.5)]"
-          >
-            Hardwood, vinyl and laminate, supplied and installed by our certified crew.
-          </motion.p>
-
-          {/* Button Group */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.48, duration: 0.5, ease: easeExpo }}
-            className="flex flex-wrap gap-[14px] max-lg:flex-col"
-          >
-            <Link to="/floors" className="max-lg:w-full">
-              <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer max-lg:w-full">
-                Explore Floors
-              </button>
-            </Link>
-            <Link to="/projects" className="max-lg:w-full">
-              <button
-                className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] max-md:text-white max-md:font-medium max-md:border-white/40 hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.45)]"
-              >
-                View Our Work
-              </button>
-            </Link>
-          </motion.div>
-
-          {/* Stats Section */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
-            className="mt-12 pt-8 border-t border-[var(--color-border)] max-md:border-white/30 flex gap-10 max-sm:gap-6"
-          >
-            <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
-                {COMPANY.projects}
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-white/85 mt-0.5 max-md:[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
-                Projects
-              </span>
-            </div>
-            <div className="w-[1px] h-8 self-center bg-[var(--color-border)] max-md:bg-white/30" />
-            <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
-                {COMPANY.years}yrs+
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-white/85 mt-0.5 max-md:[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
-                Experience
-              </span>
-            </div>
-            <div className="w-[1px] h-8 self-center bg-[var(--color-border)] max-md:bg-white/30" />
-            <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
-                {COMPANY.rating}★
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-white/85 mt-0.5 max-md:[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
-                Google Rating
-              </span>
-            </div>
-          </motion.div>
+                <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+                  Projects
+                </span>
+              </div>
+              <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
+              <div className="flex flex-col">
+                <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
+                  {COMPANY.years}yrs+
+                </span>
+                <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+                  Experience
+                </span>
+              </div>
+              <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
+              <div className="flex flex-col">
+                <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
+                  {COMPANY.rating}★
+                </span>
+                <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
+                  Google Rating
+                </span>
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* MOBILE Content (redesigned) */}
+      {!isDesktop && <MobileHeroContent />}
 
       {/* Right - Contact Form (desktop only) */}
-      <div className="hidden lg:flex absolute z-[3] right-[var(--padding-x)] top-1/2 -translate-y-1/2 items-center">
-        <HeroContactForm />
-      </div>
+      {isDesktop && (
+        <div className="hidden lg:flex absolute z-[3] right-[var(--padding-x)] top-1/2 -translate-y-1/2 items-center">
+          <HeroContactForm />
+        </div>
+      )}
 
       {/* Slideshow dots (desktop only) */}
       {isDesktop && (
@@ -336,5 +346,286 @@ const Hero = () => {
     </section>
   );
 };
+
+/* ─────────── MOBILE HERO CONTENT ─────────── */
+
+const MobileHeroContent: React.FC = () => {
+  return (
+    <div
+      className="absolute inset-0 z-[2] flex flex-col justify-end text-left"
+      style={{
+        padding: "100px 20px 48px",
+        minHeight: "100svh",
+      }}
+    >
+      {/* Badge */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.6, ease: EASE_EXPO }}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 8,
+          background: "rgba(201, 168, 76, 0.15)",
+          border: "1px solid rgba(201, 168, 76, 0.35)",
+          borderRadius: 999,
+          padding: "5px 14px",
+          width: "fit-content",
+          marginBottom: 20,
+        }}
+      >
+        <span
+          style={{
+            width: 6,
+            height: 6,
+            borderRadius: "50%",
+            background: GOLD,
+            display: "inline-block",
+          }}
+        />
+        <span
+          style={{
+            color: "rgba(255,255,255,0.80)",
+            fontSize: 10,
+            textTransform: "uppercase",
+            letterSpacing: "0.12em",
+            fontWeight: 500,
+          }}
+        >
+          20+ Years · Licensed & Insured
+        </span>
+      </motion.div>
+
+      {/* Headline */}
+      <motion.h1
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.6, ease: EASE_EXPO }}
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(42px, 11vw, 58px)",
+          fontWeight: 700,
+          lineHeight: 1.08,
+          letterSpacing: "-0.02em",
+          marginBottom: 16,
+          color: "#ffffff",
+          textShadow: "0px 4px 20px rgba(0,0,0,0.4)",
+        }}
+      >
+        The floor beneath every{" "}
+        <span
+          style={{
+            color: GOLD,
+            textShadow: "0px 4px 24px rgba(201,168,76,0.25)",
+          }}
+        >
+          great space.
+        </span>
+      </motion.h1>
+
+      {/* Subtitle */}
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35, duration: 0.6, ease: EASE_EXPO }}
+        style={{
+          fontSize: 15,
+          fontWeight: 400,
+          lineHeight: 1.55,
+          color: "rgba(229, 229, 229, 0.85)",
+          marginBottom: 32,
+          maxWidth: 320,
+        }}
+      >
+        Hardwood, vinyl and laminate, supplied and installed by our certified crew.
+      </motion.p>
+
+      {/* Primary button */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.6, ease: EASE_EXPO }}
+      >
+        <Link to="/floors" style={{ display: "block", width: "100%" }}>
+          <button
+            style={{
+              width: "100%",
+              padding: "17px 24px",
+              borderRadius: 12,
+              border: "none",
+              cursor: "pointer",
+              fontSize: 16,
+              fontWeight: 600,
+              fontFamily: "var(--font-family)",
+              color: "#ffffff",
+              letterSpacing: "0.02em",
+              background: `linear-gradient(135deg, ${GOLD} 0%, #AA8951 100%)`,
+              boxShadow: "0 10px 30px rgba(201, 168, 76, 0.28)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+            }}
+          >
+            Explore Floors
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </Link>
+
+        {/* Secondary button */}
+        <Link
+          to="/projects"
+          style={{
+            display: "block",
+            textAlign: "center",
+            width: "100%",
+            marginTop: 16,
+          }}
+        >
+          <span
+            style={{
+              position: "relative",
+              display: "inline-block",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "rgba(255,255,255,0.75)",
+              fontFamily: "var(--font-family)",
+              padding: 0,
+            }}
+          >
+            View Our Work
+            <span
+              style={{
+                content: "''",
+                position: "absolute",
+                bottom: -2,
+                left: 0,
+                right: 0,
+                height: 1,
+                background: GOLD,
+                opacity: 0.6,
+              }}
+            />
+          </span>
+        </Link>
+      </motion.div>
+
+      {/* Stats */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.65, duration: 0.6, ease: EASE_EXPO }}
+        style={{
+          marginTop: 36,
+          paddingTop: 24,
+          borderTop: "1px solid rgba(255,255,255,0.10)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <MobileStat
+          label="Projects"
+          value={String(COMPANY.projects)}
+          icon={
+            <>
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </>
+          }
+        />
+        <StatDivider />
+        <MobileStat
+          label="Experience"
+          value={`${COMPANY.years}yrs+`}
+          icon={
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          }
+        />
+        <StatDivider />
+        <MobileStat
+          label="Rating"
+          value={`${COMPANY.rating}★`}
+          icon={
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          }
+        />
+      </motion.div>
+    </div>
+  );
+};
+
+const StatDivider = () => (
+  <div
+    style={{
+      width: 1,
+      height: 36,
+      background: "rgba(255,255,255,0.12)",
+      alignSelf: "center",
+    }}
+  />
+);
+
+const MobileStat: React.FC<{
+  label: string;
+  value: string;
+  icon: React.ReactNode;
+}> = ({ label, value, icon }) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 6,
+      flex: 1,
+    }}
+  >
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={GOLD}
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {icon}
+    </svg>
+    <span
+      style={{
+        fontSize: 22,
+        fontWeight: 700,
+        color: "#ffffff",
+        letterSpacing: "-0.02em",
+        lineHeight: 1.0,
+      }}
+    >
+      {value}
+    </span>
+    <span
+      style={{
+        fontSize: 9,
+        textTransform: "uppercase",
+        letterSpacing: "0.12em",
+        color: "rgba(255,255,255,0.45)",
+      }}
+    >
+      {label}
+    </span>
+  </div>
+);
 
 export default Hero;

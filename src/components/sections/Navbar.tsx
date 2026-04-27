@@ -21,12 +21,19 @@ const Navbar = () => {
 
   const closeMenu = () => setIsMobileMenuOpen(false);
 
+  // On mobile (< md), navbar sits above the dark hero when not scrolled.
+  // Invert logo to white and lighten hamburger for contrast.
+  const onDarkHero = !isScrolled && !isMobileMenuOpen;
+
   const Logo = () => (
     <div className="flex items-center">
       <img
         src={logo}
         alt="Mult Flooring"
-        className="h-[62px] md:h-[70px] w-auto object-contain"
+        className={cn(
+          "h-[62px] md:h-[70px] w-auto object-contain transition-[filter] duration-300",
+          onDarkHero ? "max-md:[filter:brightness(0)_invert(1)]" : ""
+        )}
       />
     </div>
   );
@@ -70,25 +77,28 @@ const Navbar = () => {
           </div>
 
           <button
-            className="md:hidden flex flex-col justify-center items-end gap-[6px] w-[22px] h-[22px]"
+            className="md:hidden flex flex-col justify-center items-end gap-[6px] w-[24px] h-[22px]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Menu"
           >
             <span
               className={cn(
-                "h-[1.5px] bg-[var(--color-text-primary)] transition-all duration-300 w-full",
+                "h-[1.5px] transition-all duration-300 w-full",
+                onDarkHero ? "bg-white/85" : "bg-[var(--color-text-primary)]",
                 isMobileMenuOpen ? "rotate-45 translate-y-[7.5px]" : ""
               )}
             />
             <span
               className={cn(
-                "h-[1.5px] bg-[var(--color-text-primary)] transition-all duration-300 w-full",
+                "h-[1.5px] transition-all duration-300 w-full",
+                onDarkHero ? "bg-white/85" : "bg-[var(--color-text-primary)]",
                 isMobileMenuOpen ? "opacity-0" : ""
               )}
             />
             <span
               className={cn(
-                "h-[1.5px] bg-[var(--color-text-primary)] transition-all duration-300 w-full",
+                "h-[1.5px] transition-all duration-300 w-full",
+                onDarkHero ? "bg-white/85" : "bg-[var(--color-text-primary)]",
                 isMobileMenuOpen ? "-rotate-45 -translate-y-[7.5px]" : ""
               )}
             />

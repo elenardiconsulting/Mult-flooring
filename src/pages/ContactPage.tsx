@@ -4,8 +4,29 @@ import Footer from "@/components/layout/Footer";
 import SectionLabel from "@/components/ui/mult-section-label";
 import BrandButton from "@/components/ui/mult-button";
 import Divider from "@/components/ui/mult-divider";
+import SEO from "@/components/SEO";
 import { COMPANY } from "@/lib/constants";
 import { supabase } from '@/lib/supabase'
+
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contact Mult Flooring",
+  description: "Request a free flooring quote or consultation. Serving MA, RI and CT.",
+  mainEntity: {
+    "@type": "LocalBusiness",
+    name: "Mult Flooring",
+    telephone: "+15085104007",
+    email: "multflooring@gmail.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "240 W Center St",
+      addressLocality: "West Bridgewater",
+      addressRegion: "MA",
+      postalCode: "02379",
+    },
+  },
+};
 
 const inputStyle: React.CSSProperties = {
   width: "100%",

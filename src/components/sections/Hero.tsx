@@ -172,7 +172,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
-            className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10 max-sm:gap-6"
+            className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10 max-sm:gap-6 justify-center"
           >
             <div className="flex flex-col">
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">

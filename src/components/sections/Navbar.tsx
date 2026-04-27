@@ -58,7 +58,16 @@ const Navbar = () => {
       )}
       <div className="max-w-[var(--max-width)] mx-auto h-full px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] flex items-center justify-between relative">
         {/* Logo */}
-        <Link to="/" className="flex-shrink-0 z-10" onClick={closeMenu}>
+        <Link
+          to="/"
+          className={cn(
+            "relative flex-shrink-0 z-20 opacity-100",
+            onDarkHero &&
+              "before:content-[''] before:pointer-events-none before:absolute before:-z-10 before:left-1/2 before:top-1/2 before:h-[150px] before:w-[240px] before:-translate-x-[48%] before:-translate-y-[52%] before:rounded-full before:blur-[18px] before:bg-[radial-gradient(circle_at_12%_12%,rgba(255,245,225,0.72)_0%,rgba(255,245,225,0.42)_22%,rgba(255,245,225,0.18)_42%,rgba(255,245,225,0)_68%)]"
+          )}
+          style={{ opacity: 1 }}
+          onClick={closeMenu}
+        >
           <Logo />
         </Link>
 

@@ -414,7 +414,7 @@ const Hero = () => {
 
       {/* Right - Contact Form (desktop only) */}
       {isDesktop && (
-        <div className="hidden lg:flex absolute z-[3] right-[var(--padding-x)] top-1/2 -translate-y-1/2 items-center">
+        <div className="hidden lg:flex absolute z-[3] right-[calc(var(--padding-x)+48px)] top-1/2 -translate-y-1/2 items-center">
           <HeroContactForm />
         </div>
       )}

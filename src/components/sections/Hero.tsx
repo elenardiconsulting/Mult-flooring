@@ -358,44 +358,7 @@ const MobileHeroContent: React.FC = () => {
         minHeight: "100svh",
       }}
     >
-      {/* Badge */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.6, ease: EASE_EXPO }}
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 8,
-          background: "rgba(138,92,45, 0.15)",
-          border: "1px solid rgba(138,92,45, 0.35)",
-          borderRadius: 999,
-          padding: "5px 14px",
-          width: "fit-content",
-          marginBottom: 20,
-        }}
-      >
-        <span
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: GOLD,
-            display: "inline-block",
-          }}
-        />
-        <span
-          style={{
-            color: "rgba(255,255,255,0.80)",
-            fontSize: 10,
-            textTransform: "uppercase",
-            letterSpacing: "0.12em",
-            fontWeight: 500,
-          }}
-        >
-          20+ Years · Licensed & Insured
-        </span>
-      </motion.div>
+      {/* Badge removed */}
 
       {/* Headline */}
       <motion.h1

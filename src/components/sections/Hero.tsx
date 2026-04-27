@@ -258,31 +258,31 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
-            className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10 max-sm:gap-6"
+            className="mt-12 pt-8 border-t border-[var(--color-border)] max-md:border-white/30 flex gap-10 max-sm:gap-6"
           >
             <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
+              <span className="text-[24px] font-bold text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
                 {COMPANY.projects}
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-white/85 mt-0.5 max-md:[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
                 Projects
               </span>
             </div>
-            <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
+            <div className="w-[1px] h-8 self-center bg-[var(--color-border)] max-md:bg-white/30" />
             <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
+              <span className="text-[24px] font-bold text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
                 {COMPANY.years}yrs+
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-white/85 mt-0.5 max-md:[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
                 Experience
               </span>
             </div>
-            <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
+            <div className="w-[1px] h-8 self-center bg-[var(--color-border)] max-md:bg-white/30" />
             <div className="flex flex-col">
-              <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
+              <span className="text-[24px] font-bold text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
                 {COMPANY.rating}★
               </span>
-              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-[var(--color-text-secondary)] mt-0.5">
+              <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] max-md:text-white/85 mt-0.5 max-md:[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
                 Google Rating
               </span>
             </div>

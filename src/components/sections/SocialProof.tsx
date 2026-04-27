@@ -1,55 +1,90 @@
-import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import SectionLabel from "@/components/ui/mult-section-label";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/constants";
 
 const easeExpo = [0.16, 1, 0.3, 1] as any;
 
 const SocialProof = () => {
-  const loop = [...TESTIMONIALS, ...TESTIMONIALS];
-  const [isPaused, setIsPaused] = useState(false);
-  const resumeTimer = useRef<number | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [index, setIndex] = useState(0);
+  const [maxIndex, setMaxIndex] = useState(TESTIMONIALS.length - 1);
 
-  const pause = () => {
-    if (resumeTimer.current) {
-      window.clearTimeout(resumeTimer.current);
-      resumeTimer.current = null;
+  // Touch/swipe refs
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const isSwiping = useRef(false);
+
+  const computeMaxIndex = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    const child = el.firstElementChild as HTMLElement | null;
+    if (!child) return;
+    const cardWidth = child.getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(el).columnGap || "16") || 16;
+    const step = cardWidth + gap;
+    const visible = Math.max(1, Math.floor((el.parentElement?.clientWidth || el.clientWidth) / step));
+    setMaxIndex(Math.max(0, TESTIMONIALS.length - visible));
+  };
+
+  useEffect(() => {
+    computeMaxIndex();
+    const onResize = () => {
+      computeMaxIndex();
+      setIndex((i) => Math.min(i, Math.max(0, TESTIMONIALS.length - 1)));
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const goTo = (next: number) => {
+    const clamped = Math.max(0, Math.min(maxIndex, next));
+    setIndex(clamped);
+  };
+
+  const prev = () => goTo(index - 1);
+  const next = () => goTo(index + 1);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    isSwiping.current = false;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    const dx = e.touches[0].clientX - touchStartX.current;
+    const dy = e.touches[0].clientY - touchStartY.current;
+    if (!isSwiping.current && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      isSwiping.current = true;
     }
-    setIsPaused(true);
   };
 
-  const scheduleResume = () => {
-    if (resumeTimer.current) window.clearTimeout(resumeTimer.current);
-    resumeTimer.current = window.setTimeout(() => setIsPaused(false), 2000);
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (!isSwiping.current) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const threshold = 40;
+    if (dx <= -threshold) next();
+    else if (dx >= threshold) prev();
+    isSwiping.current = false;
   };
 
-  const resumeNow = () => {
-    if (resumeTimer.current) {
-      window.clearTimeout(resumeTimer.current);
-      resumeTimer.current = null;
-    }
-    setIsPaused(false);
-  };
+  // Compute translate based on first card width + gap
+  const [translatePx, setTranslatePx] = useState(0);
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const child = el.firstElementChild as HTMLElement | null;
+    if (!child) return;
+    const cardWidth = child.getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(el).columnGap || "16") || 16;
+    setTranslatePx(index * (cardWidth + gap));
+  }, [index]);
 
   return (
     <section
       style={{ paddingTop: "var(--section-py)", paddingBottom: "var(--section-py)" }}
       className="bg-[var(--color-bg-base)] max-md:py-[var(--section-py-mobile)]"
     >
-      {/* Inline keyframes for marquee */}
-      <style>{`
-        @keyframes mult-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-        .mult-marquee-track {
-          animation: mult-marquee 40s linear infinite;
-        }
-        .mult-marquee-track:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -109,79 +144,32 @@ const SocialProof = () => {
         </div>
       </motion.div>
 
-      {/* Marquee */}
-      <div className="relative w-full" style={{ position: "relative" }}>
-        {/* Paused badge */}
-        <AnimatePresence>
-          {isPaused && (
-            <motion.div
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.2 }}
-              style={{
-                position: "absolute",
-                top: -8,
-                right: 16,
-                zIndex: 3,
-                fontSize: 10,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                color: "var(--color-text-muted)",
-                background: "var(--color-bg-surface)",
-                border: "1px solid var(--color-border)",
-                borderRadius: "var(--radius-pill)",
-                padding: "3px 10px",
-                pointerEvents: "none",
-              }}
-            >
-              Paused · Swipe to browse
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="relative w-full overflow-hidden">
+      {/* Carousel */}
+      <div className="relative w-full">
+        <div
+          className="relative w-full overflow-hidden"
+          style={{ paddingLeft: "var(--padding-x)", paddingRight: "var(--padding-x)" }}
+        >
           <div
-            className="absolute left-0 top-0 bottom-0 z-[1] pointer-events-none"
+            ref={trackRef}
+            className="flex gap-4"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
             style={{
-              width: 80,
-              background:
-                "linear-gradient(to right, var(--color-bg-base) 0%, transparent 100%)",
-            }}
-          />
-          <div
-            className="absolute right-0 top-0 bottom-0 z-[1] pointer-events-none"
-            style={{
-              width: 80,
-              background:
-                "linear-gradient(to left, var(--color-bg-base) 0%, transparent 100%)",
-            }}
-          />
-
-          <div
-            className="mult-marquee-track flex gap-4"
-            onTouchStart={pause}
-            onTouchEnd={scheduleResume}
-            onMouseDown={pause}
-            onMouseUp={resumeNow}
-            onMouseLeave={() => isPaused && scheduleResume()}
-            style={{
-              width: isPaused ? "auto" : "max-content",
-              animationPlayState: isPaused ? "paused" : "running",
-              overflowX: isPaused ? "auto" : "visible",
-              scrollSnapType: isPaused ? ("x mandatory" as any) : "none",
-              WebkitOverflowScrolling: "touch",
+              transform: `translateX(-${translatePx}px)`,
+              transition: "transform 600ms cubic-bezier(0.16, 1, 0.3, 1)",
+              touchAction: "pan-y",
+              willChange: "transform",
             }}
           >
-            {loop.map((t, i) => (
+            {TESTIMONIALS.map((t, i) => (
               <article
                 key={i}
-                className="flex-shrink-0 bg-[var(--color-bg-surface)] border border-[var(--color-border)]"
+                className="flex-shrink-0 bg-[var(--color-bg-surface)] border border-[var(--color-border)] max-md:w-[85vw] md:w-[320px]"
                 style={{
-                  width: 320,
                   borderRadius: "var(--radius-md)",
                   padding: 28,
-                  scrollSnapAlign: isPaused ? "start" : "none",
                   flexShrink: 0,
                 }}
               >
@@ -224,6 +212,56 @@ const SocialProof = () => {
                 </p>
               </article>
             ))}
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div
+          className="max-w-[var(--max-width)] mx-auto mt-8 flex items-center justify-between gap-4"
+          style={{ paddingLeft: "var(--padding-x)", paddingRight: "var(--padding-x)" }}
+        >
+          {/* Dots */}
+          <div className="flex items-center gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                style={{
+                  width: i === index ? 24 : 8,
+                  height: 8,
+                  borderRadius: 999,
+                  background:
+                    i === index ? "var(--color-accent-mid)" : "var(--color-border)",
+                  transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Arrows */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={prev}
+              disabled={index === 0}
+              aria-label="Previous testimonial"
+              className="flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-accent-mid)] hover:text-white hover:border-[var(--color-accent-mid)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-bg-surface)] disabled:hover:text-[var(--color-text-primary)] disabled:hover:border-[var(--color-border)]"
+              style={{ width: 44, height: 44 }}
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={next}
+              disabled={index >= maxIndex}
+              aria-label="Next testimonial"
+              className="flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg-surface)] text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-accent-mid)] hover:text-white hover:border-[var(--color-accent-mid)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-bg-surface)] disabled:hover:text-[var(--color-text-primary)] disabled:hover:border-[var(--color-border)]"
+              style={{ width: 44, height: 44 }}
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
         </div>
       </div>

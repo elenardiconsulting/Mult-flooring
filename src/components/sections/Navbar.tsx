@@ -32,7 +32,7 @@ const Navbar = () => {
         alt="Mult Flooring"
         className={cn(
           "h-[62px] md:h-[70px] w-auto object-contain transition-[filter] duration-300",
-          onDarkHero ? "max-md:[filter:brightness(0)_invert(1)]" : ""
+          onDarkHero ? "max-lg:[filter:brightness(0)_invert(1)]" : ""
         )}
       />
     </div>

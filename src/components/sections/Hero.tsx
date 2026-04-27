@@ -90,7 +90,7 @@ const Hero = () => {
 
   // Mobile single dark overlay (premium)
   const mobileDarkOverlay =
-    "linear-gradient(to bottom, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.50) 35%, rgba(0, 0, 0, 0.60) 65%, rgba(0, 0, 0, 0.88) 100%)";
+    "linear-gradient(to bottom, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.45) 30%, rgba(0, 0, 0, 0.55) 65%, rgba(0, 0, 0, 0.90) 100%)";
 
   return (
     <section
@@ -404,20 +404,22 @@ const MobileHeroContent: React.FC = () => {
         transition={{ delay: 0.2, duration: 0.6, ease: EASE_EXPO }}
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "clamp(42px, 11vw, 58px)",
+          fontSize: "clamp(48px, 12vw, 62px)",
           fontWeight: 700,
-          lineHeight: 1.08,
+          lineHeight: 1.05,
           letterSpacing: "-0.02em",
           marginBottom: 16,
           color: "#ffffff",
-          textShadow: "0px 4px 20px rgba(0,0,0,0.4)",
+          textShadow: "0px 4px 20px rgba(0,0,0,0.5)",
         }}
       >
-        The floor beneath every{" "}
+        The floor<br />
+        beneath<br />
+        every<br />
         <span
           style={{
-            color: GOLD,
-            textShadow: "0px 4px 24px rgba(201,168,76,0.25)",
+            color: "#C9A84C",
+            textShadow: "0px 4px 24px rgba(201,168,76,0.35)",
           }}
         >
           great space.
@@ -451,25 +453,26 @@ const MobileHeroContent: React.FC = () => {
           <button
             style={{
               width: "100%",
-              padding: "17px 24px",
+              padding: "18px 24px",
               borderRadius: 12,
               border: "none",
               cursor: "pointer",
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: 600,
               fontFamily: "var(--font-family)",
               color: "#ffffff",
               letterSpacing: "0.02em",
-              background: `linear-gradient(135deg, ${GOLD} 0%, #AA8951 100%)`,
-              boxShadow: "0 10px 30px rgba(201, 168, 76, 0.28)",
+              background: `linear-gradient(135deg, #C9A84C 0%, #A8893E 100%)`,
+              boxShadow: "0 10px 32px rgba(201, 168, 76, 0.30)",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "flex-start",
               gap: 10,
             }}
           >
-            Explore Floors
+            <span>Explore Floors</span>
             <svg
+              style={{ marginLeft: "auto" }}
               width="18"
               height="18"
               viewBox="0 0 24 24"

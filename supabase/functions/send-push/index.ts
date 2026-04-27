@@ -101,7 +101,7 @@ async function signVapidJwt(
   const sig = await crypto.subtle.sign(
     { name: 'ECDSA', hash: 'SHA-256' },
     key,
-    enc.encode(signingInput),
+    toBuffer(enc.encode(signingInput)),
   )
 
   return `${signingInput}.${uint8ArrayToB64url(new Uint8Array(sig))}`

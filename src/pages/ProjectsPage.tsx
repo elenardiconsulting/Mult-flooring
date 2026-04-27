@@ -147,7 +147,7 @@ export default function ProjectsPage() {
                 whiteSpace: "pre-line",
               }}
             >
-              {"Projects that speak\nfor themselves."}
+              Projects that speak{"\n"}for <span className="gradient-text">themselves.</span>
             </h1>
             <p
               style={{

@@ -285,7 +285,7 @@ export default function CabinetsPage() {
                 whiteSpace: "pre-line",
               }}
             >
-              {"Cabinets built\nto last a lifetime."}
+              Cabinets built{"\n"}to last a <span className="gradient-text">lifetime.</span>
             </h1>
             <p
               style={{

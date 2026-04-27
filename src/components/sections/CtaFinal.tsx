@@ -142,7 +142,7 @@ const CtaFinal = () => {
           >
             The floor you've been
             <br />
-            imagining starts here.
+            imagining <span className="gradient-text">starts here.</span>
           </h2>
           <p
             style={{

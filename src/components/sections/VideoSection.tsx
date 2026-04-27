@@ -282,7 +282,8 @@ const VideoSection = () => {
                 whiteSpace: "pre-line",
               }}
             >
-              {"Craftsmanship you\ncan see."}
+              Craftsmanship you{"\n"}
+              <span className="gradient-text">can see.</span>
             </h2>
           </div>
           <p

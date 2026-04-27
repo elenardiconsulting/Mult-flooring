@@ -76,7 +76,7 @@ const FloorPreview: React.FC = () => {
                 lineHeight: "var(--leading-tight)",
               }}
             >
-              Hardwood. Vinyl. Laminate.
+              Hardwood. <span className="gradient-text">Vinyl.</span> Laminate.
             </h2>
           </div>
           <Link

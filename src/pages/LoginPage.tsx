@@ -50,7 +50,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', background: '#faf7f4', fontFamily: 'var(--font-family)' }}>
+    <div className="login-page" style={{ minHeight: '100vh', display: 'flex', background: '#faf7f4', fontFamily: 'var(--font-family)' }}>
       {/* LEFT — branding */}
       <aside
         className="login-branding"

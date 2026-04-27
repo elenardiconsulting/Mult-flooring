@@ -318,7 +318,7 @@ export default function ProjectsPage() {
                         ? "calc(50% - 8px)" 
                         : "100%",
                       flexShrink: 0,
-                      aspectRatio: "4 / 3",
+                      aspectRatio: "3 / 2",
                       borderRadius: "var(--radius-md)",
                       overflow: "hidden",
                       position: "relative",

@@ -277,6 +277,45 @@ const Hero = () => {
       <div className="hidden lg:flex absolute z-[3] right-[var(--padding-x)] top-1/2 -translate-y-1/2 items-center">
         <HeroContactForm />
       </div>
+
+      {/* Slideshow dots (desktop only) */}
+      {isDesktop && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 32,
+            left: "var(--padding-x)",
+            zIndex: 3,
+            display: "flex",
+            gap: 6,
+          }}
+        >
+          {HERO_IMAGES.map((_, index) => {
+            const active = index === currentImage;
+            return (
+              <button
+                key={index}
+                type="button"
+                aria-label={`Show image ${index + 1}`}
+                onClick={() => setCurrentImage(index)}
+                style={{
+                  width: active ? 24 : 6,
+                  height: 6,
+                  borderRadius: "var(--radius-pill)",
+                  background: active
+                    ? "rgba(240, 230, 216, 0.90)"
+                    : "rgba(240, 230, 216, 0.40)",
+                  transition:
+                    "width 400ms var(--ease-out-expo), background 400ms",
+                  cursor: "pointer",
+                  border: "none",
+                  padding: 0,
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };

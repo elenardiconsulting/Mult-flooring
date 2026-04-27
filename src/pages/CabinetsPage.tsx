@@ -273,6 +273,13 @@ export default function CabinetsPage() {
         background: "var(--color-bg-base)",
       }}
     >
+      <SEO
+        title="Kitchen Cabinets & Bathroom Vanities — Massachusetts"
+        description="Solid wood kitchen cabinets, bathroom vanities and laundry room storage. Supplied and installed across MA, RI and CT. Free in-home consultation. Call (508) 510-4007."
+        canonical="/cabinets"
+        keywords="kitchen cabinets Massachusetts, bathroom vanities MA, cabinet installation West Bridgewater, solid wood cabinets MA, kitchen remodel Massachusetts"
+        schema={cabinetsSchema}
+      />
       <Navbar />
 
       {/* ───── PAGE HEADER ───── */}

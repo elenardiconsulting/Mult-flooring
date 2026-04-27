@@ -33,7 +33,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const WhyChoose = () => {
   return (
     <section
-      className="relative w-full bg-[var(--color-bg-base)]"
+      className="relative w-full bg-[var(--color-bg-base)] max-md:!py-[32px]"
       style={{
         paddingTop: "var(--section-py)",
         paddingBottom: "var(--section-py)",

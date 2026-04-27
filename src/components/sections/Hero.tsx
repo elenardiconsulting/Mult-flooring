@@ -172,7 +172,7 @@ const Hero = () => {
         <div className="max-w-[640px]">
           {/* Headline, word-by-word reveal */}
           <h1
-            className="text-[var(--color-text-primary)] tracking-[-0.02em] mb-[28px]"
+            className="text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] mb-[28px] max-md:[text-shadow:0_2px_8px_rgba(0,0,0,0.45)]"
             style={{ fontSize: "clamp(56px, 7vw, 96px)", lineHeight: "1.05", fontWeight: 700 }}
           >
             {(() => {

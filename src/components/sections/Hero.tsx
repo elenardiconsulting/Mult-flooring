@@ -24,6 +24,52 @@ const HERO_IMAGES = [
 const GOLD = "#8A5C2D";
 const EASE_EXPO = [0.16, 1, 0.3, 1] as any;
 
+const ROTATING_WORDS = [
+  "trust.",
+  "rely on.",
+  "call first.",
+  "recommend.",
+  "come back to.",
+  "believe in.",
+];
+
+/* Typewriter hook for rotating words */
+const useTypewriter = (words: string[]) => {
+  const [text, setText] = React.useState("");
+  const [wordIndex, setWordIndex] = React.useState(0);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+
+  React.useEffect(() => {
+    const current = words[wordIndex];
+    const typingSpeed = isDeleting ? 45 : 90;
+    const pauseAtFull = 1800;
+    const pauseEmpty = 250;
+
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!isDeleting && text === current) {
+      timeout = setTimeout(() => setIsDeleting(true), pauseAtFull);
+    } else if (isDeleting && text === "") {
+      timeout = setTimeout(() => {
+        setIsDeleting(false);
+        setWordIndex((i) => (i + 1) % words.length);
+      }, pauseEmpty);
+    } else {
+      timeout = setTimeout(() => {
+        setText((prev) =>
+          isDeleting
+            ? current.substring(0, prev.length - 1)
+            : current.substring(0, prev.length + 1)
+        );
+      }, typingSpeed);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, wordIndex, words]);
+
+  return text;
+};
+
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);

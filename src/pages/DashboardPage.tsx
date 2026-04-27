@@ -19,6 +19,7 @@ import {
   requestNotificationPermission,
   showNotification,
 } from '@/lib/pushNotifications'
+import logo from '@/assets/mult-flooring-logo.png'
 
 /* ───────────────── push toast type ───────────────── */
 type LeadToast = {
@@ -313,10 +314,11 @@ export default function DashboardPage() {
       {/* ───── DESKTOP SIDEBAR ───── */}
       <aside className="dash-sidebar">
         <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-          <div>
-            <span style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>MULT</span>
-            <span style={{ fontSize: 16, fontWeight: 400, color: '#C47C3A' }}> FLOORING</span>
-          </div>
+          <img
+            src={logo}
+            alt="Mult Flooring"
+            style={{ height: 40, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+          />
           <div
             style={{
               fontSize: 10,
@@ -578,10 +580,11 @@ export default function DashboardPage() {
               }}
             >
               <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                <div>
-                  <span style={{ fontSize: 16, fontWeight: 700, color: '#fff' }}>MULT</span>
-                  <span style={{ fontSize: 16, fontWeight: 400, color: '#C47C3A' }}> FLOORING</span>
-                </div>
+                <img
+                  src={logo}
+                  alt="Mult Flooring"
+                  style={{ height: 40, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+                />
                 <div
                   style={{
                     fontSize: 10,

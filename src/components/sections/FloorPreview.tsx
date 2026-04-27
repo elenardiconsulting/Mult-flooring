@@ -90,7 +90,7 @@ const FloorPreview: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6 md:mb-12"
         >
           <div>
             <h2
@@ -112,8 +112,8 @@ const FloorPreview: React.FC = () => {
           </Link>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-[2px]">
+        {/* Desktop Grid (≥ lg) */}
+        <div className="hidden lg:grid grid-cols-4 gap-[2px]">
           {CATEGORIES.map((cat, i) => (
             <FloorCard
               key={cat.label}
@@ -126,6 +126,87 @@ const FloorPreview: React.FC = () => {
               ].join(" ")}
             />
           ))}
+        </div>
+
+        {/* Mobile Grid (< lg) */}
+        <div
+          className="grid lg:hidden"
+          style={{ gridTemplateColumns: "1fr 1fr", gap: "10px" }}
+        >
+          {MOBILE_CATEGORIES.map((cat, i) => {
+            const isSecondRow = i >= 2;
+            const overlay = isSecondRow
+              ? "linear-gradient(to top, rgba(26,26,26,0.75) 0%, rgba(26,26,26,0.20) 45%, transparent 100%)"
+              : "linear-gradient(to top, rgba(26,26,26,0.80) 0%, rgba(26,26,26,0.30) 50%, rgba(26,26,26,0.05) 100%)";
+            return (
+              <Link
+                key={cat.label}
+                to="/floors"
+                style={{
+                  borderRadius: "12px",
+                  overflow: "hidden",
+                  position: "relative",
+                  aspectRatio: "1 / 1",
+                  cursor: "pointer",
+                  display: "block",
+                }}
+              >
+                <img
+                  src={cat.image}
+                  alt={cat.label}
+                  loading="lazy"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    transition: "transform 500ms",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: overlay,
+                    pointerEvents: "none",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: "14px 14px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: 600,
+                      color: "#ffffff",
+                      letterSpacing: "-0.01em",
+                      marginBottom: "4px",
+                      fontFamily: "var(--font-display)",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {cat.label}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      color: "rgba(255,255,255,0.70)",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {cat.sub}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

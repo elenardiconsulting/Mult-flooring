@@ -143,7 +143,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
+            className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[500px] mb-10 mx-auto"
           >
             Hardwood, vinyl and laminate, supplied and installed by our certified crew.
           </motion.p>
@@ -153,7 +153,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.48, duration: 0.5, ease: easeExpo }}
-            className="flex flex-wrap gap-[14px] max-lg:flex-col"
+            className="flex flex-wrap gap-[14px] max-lg:flex-col justify-center"
           >
             <Link to="/floors" className="max-lg:w-full">
               <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer max-lg:w-full">

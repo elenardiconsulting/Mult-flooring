@@ -81,6 +81,13 @@ export default function FloorsPage() {
         fontFamily: "var(--font-family)",
       }}
     >
+      <SEO
+        title="Hardwood, Vinyl & Laminate Flooring — Massachusetts"
+        description="Browse Red Oak, White Oak, Parquet, Vinyl LVP and Laminate flooring. Supplied and installed by our certified crew across MA, RI and CT. Free samples available."
+        canonical="/floors"
+        keywords="hardwood flooring Massachusetts, red oak flooring MA, white oak hardwood, vinyl LVP flooring, laminate flooring, parquet flooring installation"
+        schema={floorsSchema}
+      />
       <Navbar />
 
       {/* ────────── 1. PAGE HEADER ────────── */}

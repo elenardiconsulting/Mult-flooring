@@ -7,6 +7,7 @@ import heroNewImg from "@/assets/hero-new.jpg";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,25 +17,62 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const easeExpo = [0.16, 1, 0.3, 1] as any;
   const heroParallax = useParallax(40);
 
+  const desktopLeftOverlay =
+    "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.92) 15%, rgba(240, 230, 216, 0.70) 30%, rgba(240, 230, 216, 0.30) 50%, rgba(240, 230, 216, 0.08) 70%, transparent 100%)";
+  const mobileLeftOverlay =
+    "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.95) 40%, rgba(240, 230, 216, 0.70) 70%, transparent 100%)";
+
   return (
-    <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
-      {/* Mobile background texture */}
-      <div className="absolute inset-0 z-0 lg:hidden">
-        <img
+    <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] overflow-hidden">
+      {/* Full-bleed Image */}
+      <div
+        ref={heroParallax.ref}
+        className="absolute inset-0 z-0 overflow-hidden"
+      >
+        <motion.img
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
           src={heroNewImg}
-          alt=""
-          className="w-full h-full object-cover opacity-[0.08]"
+          alt="Premium wooden floor interior"
+          loading="eager"
+          className="w-full h-full object-cover object-[center_right]"
+          style={{ y: heroParallax.y, willChange: "transform" }}
         />
       </div>
 
-      {/* Left Column - Content */}
-      <div className="relative z-10 flex flex-col justify-center px-[var(--padding-x-mobile)] lg:px-0 lg:pl-[var(--padding-x)] lg:pr-[56px] pt-[100px] lg:pt-[100px] pb-12 lg:pb-0">
-        <div className="max-w-[640px]">
-          {/* License Badge removed */}
+      {/* Left Overlay */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          backgroundImage: isMobile ? mobileLeftOverlay : desktopLeftOverlay,
+        }}
+      />
 
+      {/* Bottom Overlay */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[100px] z-[1] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)",
+        }}
+      />
+
+      {/* Content */}
+      <div
+        className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[var(--padding-x)] pr-[var(--padding-x-mobile)] md:pr-[50%] pt-[80px]"
+      >
+        <div className="max-w-[640px]">
           {/* Headline, word-by-word reveal */}
           <h1
             className="text-[var(--color-text-primary)] font-bold tracking-[-0.03em] mb-[28px]"
@@ -152,40 +190,6 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Right Column - Image */}
-      <div
-        ref={heroParallax.ref}
-        className="hidden lg:block relative overflow-hidden h-full"
-      >
-        <motion.img
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
-          src={heroNewImg}
-          alt="Premium wooden floor interior"
-          className="w-full h-full object-cover object-left"
-          style={{ y: heroParallax.y, willChange: "transform" }}
-        />
-
-        {/* Side Overlays */}
-        <div
-          className="absolute left-0 top-0 bottom-0 w-[120px] pointer-events-none z-[1]"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, rgba(240, 230, 216, 0.75) 0%, rgba(240, 230, 216, 0.40) 35%, rgba(240, 230, 216, 0.12) 65%, transparent 100%)',
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-0 right-0 h-[80px] pointer-events-none z-[1]"
-          style={{
-            backgroundImage:
-              'linear-gradient(to top, rgba(240, 230, 216, 0.55) 0%, rgba(240, 230, 216, 0.20) 50%, transparent 100%)',
-          }}
-        />
-
-      </div>
-
     </section>
   );
 };

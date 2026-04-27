@@ -70,26 +70,9 @@ const Hero = () => {
 
       {/* Content */}
       <div
-        className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[var(--padding-x)] pr-[var(--padding-x-mobile)] md:pr-[50%] pt-[80px]"
+        className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] md:pr-[50%] pt-[80px]"
       >
-        <div className="max-w-[640px] relative inline-flex flex-col">
-          {/* Backdrop blur glass */}
-          <div
-            aria-hidden="true"
-            className="absolute pointer-events-none"
-            style={{
-              inset: "-28px -32px -28px -28px",
-              borderRadius: "16px",
-              background: "rgba(240, 230, 216, 0.45)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              zIndex: -1,
-              WebkitMaskImage:
-                "linear-gradient(to right, black 0%, black 60%, transparent 100%)",
-              maskImage:
-                "linear-gradient(to right, black 0%, black 60%, transparent 100%)",
-            }}
-          />
+        <div className="max-w-[640px]">
           {/* Headline, word-by-word reveal */}
           <h1
             className="text-[var(--color-text-primary)] tracking-[-0.03em] mb-[28px]"

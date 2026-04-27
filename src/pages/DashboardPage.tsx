@@ -317,7 +317,7 @@ export default function DashboardPage() {
           <img
             src={logo}
             alt="Mult Flooring"
-            style={{ height: 40, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+            style={{ height: 58, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
           />
           <div
             style={{
@@ -583,7 +583,7 @@ export default function DashboardPage() {
                 <img
                   src={logo}
                   alt="Mult Flooring"
-                  style={{ height: 40, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+                  style={{ height: 58, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
                 />
                 <div
                   style={{

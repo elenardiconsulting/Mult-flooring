@@ -506,7 +506,7 @@ const MobileHeroContent: React.FC = () => {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
-        </Link>
+        </a>
 
         {/* Secondary button */}
         <Link

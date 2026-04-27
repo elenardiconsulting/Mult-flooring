@@ -117,7 +117,7 @@ const CtaFinal = () => {
 
       {/* Content */}
       <div
-        className="relative z-[1] mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-center"
+        className="relative z-[1] mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-center max-md:!p-[48px_20px]"
         style={{
           maxWidth: "var(--max-width)",
           padding: "96px var(--padding-x)",

@@ -60,7 +60,7 @@ const WhyChoose = () => {
             lineHeight: "var(--leading-snug)",
           }}
         >
-          Why Choose Mult Flooring
+          Why Choose <span className="gradient-text">Mult Flooring</span>
         </motion.h2>
 
         {/* Features grid */}

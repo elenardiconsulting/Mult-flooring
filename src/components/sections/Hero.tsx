@@ -381,8 +381,8 @@ const MobileHeroContent: React.FC = () => {
         every<br />
         <span
           style={{
-            color: "#8A5C2D",
-            textShadow: "0px 4px 24px rgba(138,92,45,0.35)",
+            color: "#D4956B",
+            textShadow: "0px 4px 24px rgba(212,149,107,0.40)",
           }}
         >
           great space.

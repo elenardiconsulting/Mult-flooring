@@ -24,7 +24,10 @@ const Gallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [config, setConfig] = useState({ cols: 1 });
   const trackRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef<number | null>(null);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const isSwiping = useRef(false);
+  const isDesktop = config.cols > 1;
 
   useEffect(() => {
     const getConfig = () => {
@@ -56,14 +59,28 @@ const Gallery = () => {
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    isSwiping.current = false;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    const deltaX = Math.abs(e.touches[0].clientX - touchStartX.current);
+    const deltaY = Math.abs(e.touches[0].clientY - touchStartY.current);
+    if (deltaX > deltaY && deltaX > 8) {
+      isSwiping.current = true;
+      if (e.cancelable) e.preventDefault();
+    }
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
+    if (!isSwiping.current) return;
     const delta = e.changedTouches[0].clientX - touchStartX.current;
-    if (delta > 50) prev();
-    else if (delta < -50) next();
-    touchStartX.current = null;
+    if (delta < -40) {
+      setCurrentIndex((i) => Math.min(i + 1, totalSlides - 1));
+    } else if (delta > 40) {
+      setCurrentIndex((i) => Math.max(i - 1, 0));
+    }
+    isSwiping.current = false;
   };
 
   // Body scroll lock
@@ -249,15 +266,17 @@ const Gallery = () => {
           {/* Carousel */}
           <div 
             ref={trackRef}
-            style={{ position: "relative", width: "100%", overflow: "hidden" }}
+            style={{ position: "relative", width: "100%", overflow: "hidden", touchAction: "pan-y" }}
             onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
             <motion.div
-              drag="x"
+              drag={isDesktop ? "x" : false}
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.1}
               onDragEnd={(_, { offset }) => {
+                if (!isDesktop) return;
                 if (offset.x < -50) next();
                 if (offset.x > 50) prev();
               }}

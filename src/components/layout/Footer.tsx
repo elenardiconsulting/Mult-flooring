@@ -1,4 +1,5 @@
 import { COMPANY } from "@/lib/constants";
+import logo from "@/assets/mult-flooring-logo.png";
 
 const labelStyle: React.CSSProperties = {
   fontSize: 11,
@@ -108,13 +109,16 @@ const Footer = () => {
         >
           {/* Brand */}
           <div>
-            <div style={{ fontSize: 20 }}>
-              <span style={{ fontWeight: 600, color: "#ffffff" }}>MULT</span>
-              <span style={{ fontWeight: 400, color: "var(--color-accent-mid)" }}>
-                {" "}
-                FLOORING
-              </span>
-            </div>
+            <img
+              src={logo}
+              alt="Mult Flooring"
+              style={{
+                height: 32,
+                width: "auto",
+                display: "block",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
             <p
               style={{
                 fontSize: 14,

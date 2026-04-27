@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 w-full z-[var(--z-nav)] transition-all duration-300 ease-expo",
+        "fixed top-0 left-0 w-full z-[500] transition-all duration-300 ease-expo",
         isScrolled
           ? "h-[60px] md:h-[68px] bg-[rgba(250,247,244,0.92)] border-b border-[var(--color-border)] backdrop-blur-lg"
           : "h-[60px] md:h-[68px] bg-transparent border-b border-transparent"
@@ -60,11 +60,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className={cn(
-            "relative flex-shrink-0 z-20 opacity-100",
-            onDarkHero &&
-              "before:content-[''] before:pointer-events-none before:absolute before:-z-10 before:left-1/2 before:top-1/2 before:h-[150px] before:w-[240px] before:-translate-x-[48%] before:-translate-y-[52%] before:rounded-full before:blur-[18px] before:bg-[radial-gradient(circle_at_12%_12%,rgba(255,245,225,0.72)_0%,rgba(255,245,225,0.42)_22%,rgba(255,245,225,0.18)_42%,rgba(255,245,225,0)_68%)]"
-          )}
+          className="relative flex-shrink-0 z-20 opacity-100"
           style={{ opacity: 1 }}
           onClick={closeMenu}
         >

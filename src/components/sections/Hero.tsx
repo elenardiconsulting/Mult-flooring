@@ -194,12 +194,25 @@ const Hero = () => {
         )}
       </div>
 
-      {/* DESKTOP overlays (unchanged) */}
+      {/* Header illumination gradient — sits above bg image, below dark overlay.
+          Brightens only the header band and fades to transparent at its bottom. */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
+        style={{
+          height: isDesktop ? 88 : 80,
+          background:
+            "linear-gradient(to bottom, rgba(255, 248, 235, 0.65) 0%, rgba(255, 248, 235, 0.35) 35%, rgba(255, 248, 235, 0.15) 65%, rgba(255, 248, 235, 0.00) 100%)",
+          mixBlendMode: "soft-light",
+        }}
+      />
+
+      {/* DESKTOP overlays — start below header so they don't darken the nav area */}
       {isDesktop && (
         <>
           <div
-            className="absolute inset-0 z-[1] pointer-events-none"
-            style={{ backgroundImage: desktopLeftOverlay }}
+            className="absolute left-0 right-0 bottom-0 z-[1] pointer-events-none"
+            style={{ top: 68, backgroundImage: desktopLeftOverlay }}
           />
           <div
             className="absolute bottom-0 left-0 right-0 h-[100px] z-[1] pointer-events-none"
@@ -208,11 +221,11 @@ const Hero = () => {
         </>
       )}
 
-      {/* MOBILE single dark premium overlay */}
+      {/* MOBILE single dark premium overlay — starts below header */}
       {!isDesktop && (
         <div
-          className="absolute inset-0 z-[1] pointer-events-none"
-          style={{ backgroundImage: mobileDarkOverlay }}
+          className="absolute left-0 right-0 bottom-0 z-[1] pointer-events-none"
+          style={{ top: 60, backgroundImage: mobileDarkOverlay }}
         />
       )}
 

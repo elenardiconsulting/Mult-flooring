@@ -141,7 +141,7 @@ const Hero = () => {
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          backgroundImage: isMobile ? mobileLeftOverlay : desktopLeftOverlay,
+          backgroundImage: isDesktop ? desktopLeftOverlay : mobileLeftOverlay,
         }}
       />
 
@@ -149,8 +149,7 @@ const Hero = () => {
       <div
         className="absolute bottom-0 left-0 right-0 h-[100px] z-[1] pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)",
+          backgroundImage: isDesktop ? desktopBottomOverlay : mobileBottomOverlay,
         }}
       />
 

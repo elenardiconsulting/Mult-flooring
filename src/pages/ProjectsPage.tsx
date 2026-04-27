@@ -313,12 +313,12 @@ export default function ProjectsPage() {
                     onClick={() => openLightbox(originalIndex)}
                     style={{
                       width: config.cols === 4 
-                        ? "calc(25% - 12px)" 
+                        ? "calc(26% - 8px)" 
                         : config.cols === 2 
-                        ? "calc(50% - 8px)" 
-                        : "100%",
+                        ? "calc(48% - 8px)" 
+                        : "85vw",
                       flexShrink: 0,
-                      aspectRatio: "3 / 2",
+                      aspectRatio: "1 / 1",
                       borderRadius: "var(--radius-md)",
                       overflow: "hidden",
                       position: "relative",

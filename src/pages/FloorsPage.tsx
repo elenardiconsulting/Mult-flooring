@@ -5,6 +5,7 @@ import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import Tag from "@/components/ui/mult-tag";
 import Divider from "@/components/ui/mult-divider";
+import SEO from "@/components/SEO";
 import {
   FLOORS,
   FLOOR_CATEGORIES,
@@ -12,6 +13,35 @@ import {
 } from "@/lib/constants";
 
 const EASE_EXPO = [0.16, 1, 0.3, 1] as const;
+
+const floorsSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Hardwood Flooring Collections — Mult Flooring",
+  description:
+    "Red Oak, White Oak, Parquet, Vinyl LVP and Laminate flooring available in Massachusetts.",
+  numberOfItems: 13,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Red Oak Hardwood Flooring",
+      url: "https://multflooring.com/floors",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "White Oak Hardwood Flooring",
+      url: "https://multflooring.com/floors",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Parquet Flooring",
+      url: "https://multflooring.com/floors",
+    },
+  ],
+};
 
 export default function FloorsPage() {
   const [activeCategory, setActiveCategory] =

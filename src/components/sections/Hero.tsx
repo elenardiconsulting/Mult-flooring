@@ -470,7 +470,7 @@ const MobileHeroContent: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6, ease: EASE_EXPO }}
       >
-        <Link to="/floors" style={{ display: "block", width: "100%" }}>
+        <a href="#contact" style={{ display: "block", width: "100%" }}>
           <button
             style={{
               width: "100%",
@@ -491,7 +491,7 @@ const MobileHeroContent: React.FC = () => {
               gap: 10,
             }}
           >
-            <span>Explore Floors</span>
+            <span>Get a Free Quote</span>
             <svg
               style={{ marginLeft: "auto" }}
               width="18"

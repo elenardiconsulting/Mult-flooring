@@ -82,7 +82,9 @@ const Hero = () => {
   const desktopLeftOverlay =
     "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.92) 15%, rgba(240, 230, 216, 0.70) 30%, rgba(240, 230, 216, 0.30) 50%, rgba(240, 230, 216, 0.08) 70%, transparent 100%)";
   const mobileLeftOverlay =
-    "linear-gradient(to right, rgba(240, 230, 216, 0.55) 0%, rgba(240, 230, 216, 0.25) 50%, transparent 100%)";
+    "linear-gradient(to right, rgba(240, 230, 216, 0.72) 0%, rgba(240, 230, 216, 0.45) 45%, rgba(240, 230, 216, 0.10) 75%, transparent 100%)";
+  const mobileTopOverlay =
+    "linear-gradient(to bottom, rgba(240, 230, 216, 0.85) 0%, rgba(240, 230, 216, 0.40) 60%, transparent 100%)";
   const desktopBottomOverlay =
     "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)";
   const mobileBottomOverlay =

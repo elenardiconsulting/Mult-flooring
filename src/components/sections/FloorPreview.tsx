@@ -77,7 +77,7 @@ const FloorPreview: React.FC = () => {
   return (
     <section
       id="floors-preview"
-      className="bg-[var(--color-bg-base)]"
+      className="bg-[var(--color-bg-base)] max-md:!py-[32px]"
       style={{
         paddingTop: "var(--section-py)",
         paddingBottom: "var(--section-py)",

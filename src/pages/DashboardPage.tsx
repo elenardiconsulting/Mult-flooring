@@ -1953,18 +1953,49 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                   >
                     {cell.date.getDate()}
                   </span>
-                  {hasEvents && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        bottom: 4,
-                        width: 4,
-                        height: 4,
-                        borderRadius: '50%',
-                        background: _isSelected ? '#fff' : '#C47C3A',
-                      }}
-                    />
-                  )}
+                  {hasEvents && (() => {
+                    const dotCount = Math.min(dayLeads.length, 3)
+                    const dotColor = _isSelected
+                      ? '#ffffff'
+                      : _isToday
+                        ? '#7a4f1e'
+                        : '#C47C3A'
+                    const dotShadow = _isSelected
+                      ? '0 0 0 2px rgba(255, 255, 255, 0.30)'
+                      : _isToday
+                        ? '0 0 0 2px rgba(122, 79, 30, 0.25)'
+                        : '0 0 0 2px rgba(196, 124, 58, 0.25)'
+                    const singleSize = 8
+                    const multiSize = 6
+                    const size = dotCount === 1 ? singleSize : multiSize
+                    return (
+                      <span
+                        style={{
+                          position: 'absolute',
+                          bottom: dotCount === 1 ? 6 : 5,
+                          left: 0,
+                          right: 0,
+                          display: 'flex',
+                          gap: 3,
+                          justifyContent: 'center',
+                          pointerEvents: 'none',
+                        }}
+                      >
+                        {Array.from({ length: dotCount }).map((_, idx) => (
+                          <span
+                            key={idx}
+                            style={{
+                              width: size,
+                              height: size,
+                              borderRadius: '50%',
+                              background: dotColor,
+                              boxShadow: dotShadow,
+                            }}
+                          />
+                        ))}
+                      </span>
+                    )
+                  })()}
                 </button>
               )
             })}

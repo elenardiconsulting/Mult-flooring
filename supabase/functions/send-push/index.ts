@@ -38,6 +38,14 @@ function concatUint8(...arrs: Uint8Array[]): Uint8Array {
   return out
 }
 
+// Convert Uint8Array (which may be backed by SharedArrayBuffer in TS types)
+// to a plain ArrayBuffer for Web Crypto APIs
+function toBuffer(arr: Uint8Array): ArrayBuffer {
+  const buf = new ArrayBuffer(arr.byteLength)
+  new Uint8Array(buf).set(arr)
+  return buf
+}
+
 // Convert raw P-256 public key (65 bytes, 0x04 || X || Y) to JWK
 function rawPublicKeyToJwk(raw: Uint8Array): JsonWebKey {
   if (raw.length !== 65 || raw[0] !== 0x04) {

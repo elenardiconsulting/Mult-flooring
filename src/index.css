@@ -243,6 +243,16 @@ h1, h2 {
   letter-spacing: -0.01em;
 }
 
+h2 {
+  color: var(--color-text-primary);
+}
+
+@media (prefers-color-scheme: light) {
+  h2 {
+    color: #0f0f0f;
+  }
+}
+
 /* Exceptions: dashboard and login stay in Inter */
 .dashboard-layout h1,
 .dashboard-layout h2,

@@ -128,11 +128,11 @@ const Hero = () => {
   const easeExpo = EASE_EXPO;
   const heroParallax = useParallax(40);
 
-  // Desktop overlays (unchanged)
+  // Desktop overlays — darker, warmer, luxury
   const desktopLeftOverlay =
-    "linear-gradient(to right, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.92) 15%, rgba(240, 230, 216, 0.70) 30%, rgba(240, 230, 216, 0.30) 50%, rgba(240, 230, 216, 0.08) 70%, transparent 100%)";
+    "linear-gradient(to right, rgba(15, 10, 5, 0.82) 0%, rgba(15, 10, 5, 0.65) 25%, rgba(15, 10, 5, 0.35) 52%, rgba(15, 10, 5, 0.08) 72%, transparent 100%)";
   const desktopBottomOverlay =
-    "linear-gradient(to top, var(--color-bg-surface) 0%, rgba(240, 230, 216, 0.40) 50%, transparent 100%)";
+    "linear-gradient(to top, rgba(15, 10, 5, 0.60) 0%, rgba(15, 10, 5, 0.20) 45%, transparent 100%)";
 
   // Mobile single dark overlay (premium)
   const mobileDarkOverlay =
@@ -224,20 +224,22 @@ const Hero = () => {
           <div className="max-w-[640px]">
             {/* Headline, natural flow on 2 lines */}
             <h1
-              className="hero-desktop-headline text-[var(--color-text-primary)] mb-[28px]"
+              className="hero-desktop-headline mb-[28px]"
               style={{
                 fontSize: "clamp(36px, 4.2vw, 58px)",
                 lineHeight: 1.1,
                 fontWeight: 700,
                 letterSpacing: "-0.02em",
                 maxWidth: 580,
+                color: "#ffffff",
+                textShadow: "0 2px 24px rgba(0,0,0,0.35)",
               }}
             >
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                style={{ color: "var(--color-text-primary)" }}
+                style={{ color: "#ffffff" }}
               >
                 New England's most trusted renovation{" "}
               </motion.span>
@@ -246,7 +248,7 @@ const Hero = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
                 style={{
-                  color: "var(--color-accent-mid)",
+                  color: "#C9A84C",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -259,7 +261,8 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-              className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[440px] mb-10"
+              className="text-[17px] font-normal leading-[1.6] max-w-[440px] mb-10"
+              style={{ color: "rgba(240, 230, 216, 0.80)" }}
             >
               Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
             </motion.p>
@@ -277,7 +280,21 @@ const Hero = () => {
                 </button>
               </a>
               <Link to="/projects">
-                <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer">
+                <button
+                  className="bg-transparent text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer"
+                  style={{
+                    border: "1px solid rgba(240, 230, 216, 0.30)",
+                    color: "rgba(240, 230, 216, 0.75)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = "#ffffff";
+                    e.currentTarget.style.borderColor = "rgba(240, 230, 216, 0.55)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = "rgba(240, 230, 216, 0.75)";
+                    e.currentTarget.style.borderColor = "rgba(240, 230, 216, 0.30)";
+                  }}
+                >
                   View Our Work
                 </button>
               </Link>
@@ -288,33 +305,104 @@ const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
-              className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10"
+              className="mt-12"
             >
-              <div className="flex flex-col">
-                <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
-                  {COMPANY.projects}
-                </span>
-                <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
-                  Projects
-                </span>
-              </div>
-              <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
-              <div className="flex flex-col">
-                <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
-                  {COMPANY.years}yrs+
-                </span>
-                <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
-                  Experience
-                </span>
-              </div>
-              <div className="w-[1px] h-8 self-center bg-[var(--color-border)]" />
-              <div className="flex flex-col">
-                <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">
-                  {COMPANY.rating}★
-                </span>
-                <span className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)] mt-0.5">
-                  Google Rating
-                </span>
+              {/* Decorative gold line */}
+              <div
+                style={{
+                  width: "100%",
+                  height: 1,
+                  background:
+                    "linear-gradient(to right, transparent, rgba(201,168,76,0.30), transparent)",
+                  marginBottom: 20,
+                }}
+              />
+              <div className="flex gap-12 items-start">
+                {/* Stat 1 — Projects */}
+                <div className="flex flex-col items-center" style={{ gap: 6 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                  <span
+                    style={{
+                      fontSize: "clamp(22px, 2.5vw, 28px)",
+                      fontWeight: 700,
+                      color: "#ffffff",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {COMPANY.projects}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: "rgba(240,230,216,0.50)",
+                    }}
+                  >
+                    Projects
+                  </span>
+                </div>
+                <div className="w-[1px] h-12 self-center" style={{ background: "rgba(240, 230, 216, 0.20)" }} />
+                {/* Stat 2 — Experience */}
+                <div className="flex flex-col items-center" style={{ gap: 6 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="8" r="6" />
+                    <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+                  </svg>
+                  <span
+                    style={{
+                      fontSize: "clamp(22px, 2.5vw, 28px)",
+                      fontWeight: 700,
+                      color: "#ffffff",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {COMPANY.years}yrs+
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: "rgba(240,230,216,0.50)",
+                    }}
+                  >
+                    Experience
+                  </span>
+                </div>
+                <div className="w-[1px] h-12 self-center" style={{ background: "rgba(240, 230, 216, 0.20)" }} />
+                {/* Stat 3 — Rating */}
+                <div className="flex flex-col items-center" style={{ gap: 6 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                  <span
+                    style={{
+                      fontSize: "clamp(22px, 2.5vw, 28px)",
+                      fontWeight: 700,
+                      color: "#ffffff",
+                      letterSpacing: "-0.02em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {COMPANY.rating}★
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: "rgba(240,230,216,0.50)",
+                    }}
+                  >
+                    Google Rating
+                  </span>
+                </div>
               </div>
             </motion.div>
           </div>

@@ -34,6 +34,31 @@ const CATEGORIES: CategoryCard[] = [
   },
 ];
 
+// Mobile-only card content (different copy + lighter overlay on row 2)
+const MOBILE_CATEGORIES: { label: string; sub: string; image: string }[] = [
+  {
+    label: "Oak",
+    sub: "Red & White Oak",
+    image: "/floors/red-oak-3.png",
+  },
+  {
+    label: "Wide Plank",
+    sub: '6", 7", 8" and 9"',
+    image: "/floors/white-oak-8.png",
+  },
+  {
+    label: "Parquet",
+    sub: "Herringbone patterns",
+    image: "/floors/white-oak-parquet.png",
+  },
+  {
+    label: "Vinyl & LVP",
+    sub: "Waterproof options",
+    image:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=900&q=80",
+  },
+];
+
 // Corner radius classes per index, for both desktop (4 cols) and mobile (2x2)
 const cornerClassesDesktop = [
   "lg:rounded-tl-md",

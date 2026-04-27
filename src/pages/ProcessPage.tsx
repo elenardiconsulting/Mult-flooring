@@ -6,7 +6,48 @@ import Footer from "@/components/layout/Footer";
 import SectionLabel from "@/components/ui/mult-section-label";
 import BrandButton from "@/components/ui/mult-button";
 import Divider from "@/components/ui/mult-divider";
+import SEO from "@/components/SEO";
 import { COMPANY } from "@/lib/constants";
+
+const processSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How Hardwood Floor Installation Works",
+  description:
+    "Our 5-step flooring installation process from consultation to final walkthrough.",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Free Consultation",
+      text: "In-home or virtual consultation to assess your space and discuss your vision.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Material Selection",
+      text: "Browse our catalog and receive free samples delivered to your door.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Measurement & Quote",
+      text: "Precise measurements and detailed written quote with no hidden fees.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Installation",
+      text: "Certified crew installs your floor with a clean site and final walkthrough.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 5,
+      name: "Warranty & Follow-up",
+      text: "Workmanship warranty and 30-day follow-up call included.",
+    },
+  ],
+};
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -114,6 +155,13 @@ export default function ProcessPage() {
         fontFamily: "var(--font-family)",
       }}
     >
+      <SEO
+        title="How Flooring Installation Works — Mult Flooring"
+        description="Our 5-step process: free consultation, material selection, measurement, installation and warranty. Serving MA, RI and CT. No hidden fees, certified crew."
+        canonical="/process"
+        keywords="hardwood floor installation process, how flooring installation works, flooring consultation Massachusetts, floor installation steps"
+        schema={processSchema}
+      />
       <Navbar />
 
       {/* HEADER */}

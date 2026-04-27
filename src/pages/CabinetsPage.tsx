@@ -7,7 +7,27 @@ import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import Divider from "@/components/ui/mult-divider";
 import Tag from "@/components/ui/mult-tag";
+import SEO from "@/components/SEO";
 import { COMPANY } from "@/lib/constants";
+
+const cabinetsSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Kitchen Cabinet Installation",
+  provider: {
+    "@type": "LocalBusiness",
+    name: "Mult Flooring",
+    telephone: "+15085104007",
+  },
+  areaServed: ["Massachusetts", "Rhode Island", "Connecticut"],
+  description:
+    "Solid wood kitchen cabinets, bathroom vanities and laundry room storage supplied and installed across MA, RI and CT.",
+  offers: {
+    "@type": "Offer",
+    availability: "https://schema.org/InStock",
+    priceCurrency: "USD",
+  },
+};
 
 import cabKitchenClassicWhite from "@/assets/cabinets/kitchen-classic-white.jpg";
 import cabShowroomShaker from "@/assets/cabinets/showroom-shaker.jpg";
@@ -253,6 +273,13 @@ export default function CabinetsPage() {
         background: "var(--color-bg-base)",
       }}
     >
+      <SEO
+        title="Kitchen Cabinets & Bathroom Vanities — Massachusetts"
+        description="Solid wood kitchen cabinets, bathroom vanities and laundry room storage. Supplied and installed across MA, RI and CT. Free in-home consultation. Call (508) 510-4007."
+        canonical="/cabinets"
+        keywords="kitchen cabinets Massachusetts, bathroom vanities MA, cabinet installation West Bridgewater, solid wood cabinets MA, kitchen remodel Massachusetts"
+        schema={cabinetsSchema}
+      />
       <Navbar />
 
       {/* ───── PAGE HEADER ───── */}

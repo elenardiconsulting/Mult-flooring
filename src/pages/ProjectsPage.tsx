@@ -5,7 +5,20 @@ import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/layout/Footer";
 import SectionLabel from "@/components/ui/mult-section-label";
 import BrandButton from "@/components/ui/mult-button";
+import SEO from "@/components/SEO";
 import { COMPANY, PROJECTS } from "@/lib/constants";
+
+const projectsSchema = {
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  name: "Flooring Installation Projects — Mult Flooring",
+  description:
+    "Portfolio of hardwood, vinyl and laminate flooring installations across Massachusetts, Rhode Island and Connecticut.",
+  provider: {
+    "@type": "LocalBusiness",
+    name: "Mult Flooring",
+  },
+};
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -118,6 +131,13 @@ export default function ProjectsPage() {
         fontFamily: "var(--font-family)",
       }}
     >
+      <SEO
+        title="Flooring Installation Projects — MA, RI & CT"
+        description="Browse our portfolio of hardwood, vinyl and laminate flooring installations across Massachusetts, Rhode Island and Connecticut. Residential, commercial and hospitality projects."
+        canonical="/projects"
+        keywords="hardwood flooring projects Massachusetts, flooring installation portfolio MA, floor installation before after, hardwood floor examples"
+        schema={projectsSchema}
+      />
       <Navbar />
 
       {/* PAGE HEADER */}

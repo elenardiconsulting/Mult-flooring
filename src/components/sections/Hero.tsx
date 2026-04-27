@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
 import { useParallax } from "@/hooks/useParallax";
 import heroNewImg from "@/assets/hero-new.jpg";
+import HeroContactForm from "./HeroContactForm";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);

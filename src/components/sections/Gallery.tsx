@@ -135,7 +135,7 @@ const Gallery = () => {
                   lineHeight: 1.05,
                 }}
               >
-                Our projects.
+                Our <span className="gradient-text">projects.</span>
               </h2>
             </div>
 

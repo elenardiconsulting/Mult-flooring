@@ -46,7 +46,7 @@ const SocialProof = () => {
           >
             Trusted by homeowners
             <br />
-            across New England.
+            across <span className="gradient-text">New England.</span>
           </h2>
         </div>
 

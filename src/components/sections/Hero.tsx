@@ -245,7 +245,9 @@ const Hero = () => {
               </button>
             </Link>
             <Link to="/projects" className="max-lg:w-full">
-              <button className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] max-md:text-[var(--color-text-primary)] max-md:font-medium hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full">
+              <button
+                className="bg-transparent border border-[var(--color-border)] hover:border-[var(--color-border-strong)] text-[var(--color-text-secondary)] max-md:text-white max-md:font-medium max-md:border-white/40 hover:text-[var(--color-text-primary)] text-[15px] font-normal px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] cursor-pointer max-lg:w-full max-md:[text-shadow:0_1px_3px_rgba(0,0,0,0.45)]"
+              >
                 View Our Work
               </button>
             </Link>

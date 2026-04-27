@@ -29,7 +29,7 @@ const Gallery = () => {
   useEffect(() => {
     const getConfig = () => {
       const w = window.innerWidth;
-      if (w >= 1024) return { cols: 4 };
+      if (w >= 1024) return { cols: 3 };
       if (w >= 768) return { cols: 2 };
       return { cols: 1 };
     };
@@ -275,8 +275,8 @@ const Gallery = () => {
                     className="gallery-card group"
                     onClick={() => openLightbox(originalIndex)}
                     style={{
-                      width: config.cols === 4 
-                        ? "calc(26% - 8px)" 
+                      width: config.cols === 3 
+                        ? "calc(33.333% - 11px)" 
                         : config.cols === 2 
                         ? "calc(48% - 8px)" 
                         : "85vw",

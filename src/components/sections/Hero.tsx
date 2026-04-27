@@ -191,6 +191,11 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Right - Contact Form (desktop only) */}
+      <div className="hidden lg:flex absolute z-[3] right-[var(--padding-x)] top-1/2 -translate-y-1/2 items-center">
+        <HeroContactForm />
+      </div>
     </section>
   );
 };

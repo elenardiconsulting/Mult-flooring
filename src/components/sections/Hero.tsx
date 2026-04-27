@@ -172,7 +172,7 @@ const Hero = () => {
         <div className="max-w-[640px]">
           {/* Headline, word-by-word reveal */}
           <h1
-            className="text-[var(--color-text-primary)] tracking-[-0.02em] mb-[28px]"
+            className="text-[var(--color-text-primary)] max-md:text-white tracking-[-0.02em] mb-[28px] max-md:[text-shadow:0_2px_8px_rgba(0,0,0,0.45)]"
             style={{ fontSize: "clamp(56px, 7vw, 96px)", lineHeight: "1.05", fontWeight: 700 }}
           >
             {(() => {
@@ -206,7 +206,7 @@ const Hero = () => {
                           }}
                           style={{
                             display: "inline-block",
-                            color: line.accent
+                            color: line.accent && isDesktop
                               ? "var(--color-accent-mid)"
                               : undefined,
                             willChange: "transform",
@@ -227,7 +227,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] font-normal max-md:font-medium leading-[1.6] text-[var(--color-text-secondary)] max-md:text-[var(--color-text-primary)] max-w-[400px] mb-10"
+            className="text-[17px] font-normal max-md:font-medium leading-[1.6] text-[var(--color-text-secondary)] max-md:text-white max-w-[400px] mb-10 max-md:[text-shadow:0_1px_4px_rgba(0,0,0,0.5)]"
           >
             Hardwood, vinyl and laminate, supplied and installed by our certified crew.
           </motion.p>

@@ -26,21 +26,19 @@ const Navbar = () => {
   const onDarkHero = !isScrolled && !isMobileMenuOpen;
 
   const Logo = () => (
-    <div className="relative flex items-center">
-      {/* Subtle radial halo behind logo when over dark hero — improves contrast without recoloring the asset */}
-      {onDarkHero && (
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10"
-          style={{
-            width: "180%",
-            height: "220%",
-            background:
-              "radial-gradient(ellipse at center, rgba(250,247,244,0.35) 0%, rgba(250,247,244,0.18) 45%, rgba(250,247,244,0) 75%)",
-            filter: "blur(2px)",
-          }}
-        />
-      )}
+    <div
+      className="relative inline-flex items-center"
+      style={
+        onDarkHero
+          ? {
+              padding: "8px 14px",
+              borderRadius: 999,
+              background:
+                "radial-gradient(circle, rgba(255,248,235,0.45) 0%, rgba(255,248,235,0.18) 45%, rgba(255,248,235,0) 75%)",
+            }
+          : undefined
+      }
+    >
       <img
         src={logo}
         alt="Mult Flooring"

@@ -155,6 +155,13 @@ export default function ProcessPage() {
         fontFamily: "var(--font-family)",
       }}
     >
+      <SEO
+        title="How Flooring Installation Works — Mult Flooring"
+        description="Our 5-step process: free consultation, material selection, measurement, installation and warranty. Serving MA, RI and CT. No hidden fees, certified crew."
+        canonical="/process"
+        keywords="hardwood floor installation process, how flooring installation works, flooring consultation Massachusetts, floor installation steps"
+        schema={processSchema}
+      />
       <Navbar />
 
       {/* HEADER */}

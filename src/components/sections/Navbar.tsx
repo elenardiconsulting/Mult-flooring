@@ -47,6 +47,17 @@ const Navbar = () => {
           : "h-[60px] md:h-[68px] bg-transparent border-b border-transparent"
       )}
     >
+      {/* Subtle top gradient for contrast when over dark hero (does not affect layout) */}
+      {onDarkHero && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[120px] z-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(15,10,5,0.55) 0%, rgba(15,10,5,0.25) 60%, rgba(15,10,5,0) 100%)",
+          }}
+        />
+      )}
       <div className="max-w-[var(--max-width)] mx-auto h-full px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] flex items-center justify-between relative">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0 z-10" onClick={closeMenu}>
@@ -54,12 +65,17 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Links - Centralizados */}
-        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-[36px]">
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-[36px] z-10">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               to={link.href}
-              className="text-sm font-normal text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] tracking-[0.01em] transition-colors duration-base ease-expo"
+              className={cn(
+                "text-sm font-normal tracking-[0.01em] transition-colors duration-base ease-expo",
+                onDarkHero
+                  ? "text-white/90 hover:text-white"
+                  : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+              )}
             >
               {link.label}
             </Link>

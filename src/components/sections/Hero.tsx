@@ -70,9 +70,26 @@ const Hero = () => {
 
       {/* Content */}
       <div
-        className="absolute inset-0 z-[2] flex flex-col items-center justify-center px-[var(--padding-x-mobile)] md:px-[var(--padding-x)] pt-[80px] text-center"
+        className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[var(--padding-x)] pr-[var(--padding-x-mobile)] md:pr-[50%] pt-[80px]"
       >
-        <div className="max-w-[760px] relative inline-flex flex-col items-center">
+        <div className="max-w-[640px] relative inline-flex flex-col">
+          {/* Backdrop blur glass */}
+          <div
+            aria-hidden="true"
+            className="absolute pointer-events-none"
+            style={{
+              inset: "-28px -32px -28px -28px",
+              borderRadius: "16px",
+              background: "rgba(240, 230, 216, 0.45)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              zIndex: -1,
+              WebkitMaskImage:
+                "linear-gradient(to right, black 0%, black 60%, transparent 100%)",
+              maskImage:
+                "linear-gradient(to right, black 0%, black 60%, transparent 100%)",
+            }}
+          />
           {/* Headline, word-by-word reveal */}
           <h1
             className="text-[var(--color-text-primary)] tracking-[-0.03em] mb-[28px]"
@@ -130,7 +147,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6, ease: easeExpo }}
-            className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[500px] mb-10 mx-auto"
+            className="text-[17px] font-normal leading-[1.6] text-[var(--color-text-secondary)] max-w-[400px] mb-10"
           >
             Hardwood, vinyl and laminate, supplied and installed by our certified crew.
           </motion.p>
@@ -140,7 +157,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.48, duration: 0.5, ease: easeExpo }}
-            className="flex flex-wrap gap-[14px] max-lg:flex-col justify-center"
+            className="flex flex-wrap gap-[14px] max-lg:flex-col"
           >
             <Link to="/floors" className="max-lg:w-full">
               <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer max-lg:w-full">
@@ -159,7 +176,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.65, duration: 0.6, ease: easeExpo }}
-            className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10 max-sm:gap-6 justify-center"
+            className="mt-12 pt-8 border-t border-[var(--color-border)] flex gap-10 max-sm:gap-6"
           >
             <div className="flex flex-col">
               <span className="text-[24px] font-bold text-[var(--color-text-primary)] tracking-[-0.02em]">

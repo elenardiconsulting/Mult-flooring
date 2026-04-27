@@ -9,15 +9,15 @@ import HeroContactForm from "./HeroContactForm";
 const HERO_IMAGES = [
   {
     src: heroNewImg,
-    alt: "Luxury living room with hardwood floor",
+    alt: "Luxury living room with premium hardwood flooring installed by Mult Flooring MA",
   },
   {
     src: "/hero/hero-bedroom.jpg",
-    alt: "Master bedroom with wood flooring",
+    alt: "Master bedroom with Red Oak hardwood floor installation in Massachusetts",
   },
   {
     src: "/hero/hero-kitchen.jpg",
-    alt: "Modern kitchen with premium flooring",
+    alt: "Modern kitchen with hardwood flooring installed by Mult Flooring West Bridgewater",
   },
 ];
 

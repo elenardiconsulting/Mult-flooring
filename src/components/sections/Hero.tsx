@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
 import { useParallax } from "@/hooks/useParallax";
 import heroNewImg from "@/assets/hero-new.jpg";
+import HeroContactForm from "./HeroContactForm";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -70,7 +71,7 @@ const Hero = () => {
 
       {/* Content */}
       <div
-        className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] md:pr-[50%] pt-[80px]"
+        className="absolute inset-0 z-[2] flex flex-col justify-center pl-[var(--padding-x-mobile)] md:pl-[calc(var(--padding-x)+48px)] pr-[var(--padding-x-mobile)] lg:pr-[520px] pt-[80px]"
       >
         <div className="max-w-[640px]">
           {/* Headline, word-by-word reveal */}
@@ -189,6 +190,11 @@ const Hero = () => {
             </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Right - Contact Form (desktop only) */}
+      <div className="hidden lg:flex absolute z-[3] right-[var(--padding-x)] top-1/2 -translate-y-1/2 items-center">
+        <HeroContactForm />
       </div>
     </section>
   );

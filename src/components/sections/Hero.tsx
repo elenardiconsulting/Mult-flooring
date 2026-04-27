@@ -6,9 +6,28 @@ import { useParallax } from "@/hooks/useParallax";
 import heroNewImg from "@/assets/hero-new.jpg";
 import HeroContactForm from "./HeroContactForm";
 
+const HERO_IMAGES = [
+  {
+    src: heroNewImg,
+    alt: "Luxury living room with hardwood floor",
+  },
+  {
+    src: "/hero/hero-bedroom.jpg",
+    alt: "Master bedroom with wood flooring",
+  },
+  {
+    src: "/hero/hero-kitchen.jpg",
+    alt: "Modern kitchen with premium flooring",
+  },
+];
+
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== "undefined" ? window.innerWidth >= 1024 : true
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +44,38 @@ const Hero = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Auto-advance crossfade (desktop only)
+  useEffect(() => {
+    if (!isDesktop) return;
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isDesktop]);
+
+  // Preload remaining slideshow images (desktop only)
+  useEffect(() => {
+    if (!isDesktop) return;
+    const links: HTMLLinkElement[] = [];
+    HERO_IMAGES.slice(1).forEach((img) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = img.src as string;
+      document.head.appendChild(link);
+      links.push(link);
+    });
+    return () => {
+      links.forEach((l) => l.parentNode?.removeChild(l));
+    };
+  }, [isDesktop]);
+
   const easeExpo = [0.16, 1, 0.3, 1] as any;
   const heroParallax = useParallax(40);
 
@@ -35,21 +86,51 @@ const Hero = () => {
 
   return (
     <section className="relative h-[100vh] min-h-[680px] w-full bg-[var(--color-bg-surface)] overflow-hidden">
-      {/* Full-bleed Image */}
+      {/* Full-bleed Image / Slideshow */}
       <div
         ref={heroParallax.ref}
         className="absolute inset-0 z-0 overflow-hidden"
       >
-        <motion.img
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
-          src={heroNewImg}
-          alt="Premium wooden floor interior"
-          loading="eager"
-          className="w-full h-full object-cover object-[center_right]"
-          style={{ y: heroParallax.y, willChange: "transform" }}
-        />
+        {isDesktop ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
+            className="absolute inset-0"
+            style={{ y: heroParallax.y, willChange: "transform" }}
+          >
+            {HERO_IMAGES.map((img, index) => (
+              <img
+                key={typeof img.src === "string" ? img.src : index}
+                src={img.src as string}
+                alt={img.alt}
+                loading={index === 0 ? "eager" : "lazy"}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  opacity: index === currentImage ? 1 : 0,
+                  transition: "opacity 1.2s ease-in-out",
+                  zIndex: index === currentImage ? 1 : 0,
+                }}
+              />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.img
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
+            src={heroNewImg}
+            alt="Premium wooden floor interior"
+            loading="eager"
+            className="w-full h-full object-cover object-[center_right]"
+            style={{ y: heroParallax.y, willChange: "transform" }}
+          />
+        )}
       </div>
 
       {/* Left Overlay */}
@@ -196,6 +277,45 @@ const Hero = () => {
       <div className="hidden lg:flex absolute z-[3] right-[var(--padding-x)] top-1/2 -translate-y-1/2 items-center">
         <HeroContactForm />
       </div>
+
+      {/* Slideshow dots (desktop only) */}
+      {isDesktop && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 32,
+            left: "var(--padding-x)",
+            zIndex: 3,
+            display: "flex",
+            gap: 6,
+          }}
+        >
+          {HERO_IMAGES.map((_, index) => {
+            const active = index === currentImage;
+            return (
+              <button
+                key={index}
+                type="button"
+                aria-label={`Show image ${index + 1}`}
+                onClick={() => setCurrentImage(index)}
+                style={{
+                  width: active ? 24 : 6,
+                  height: 6,
+                  borderRadius: "var(--radius-pill)",
+                  background: active
+                    ? "rgba(240, 230, 216, 0.90)"
+                    : "rgba(240, 230, 216, 0.40)",
+                  transition:
+                    "width 400ms var(--ease-out-expo), background 400ms",
+                  cursor: "pointer",
+                  border: "none",
+                  padding: 0,
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };

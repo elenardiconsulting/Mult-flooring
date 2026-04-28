@@ -152,7 +152,7 @@ const CtaFinal = () => {
               marginTop: 16,
             }}
           >
-            Free in-home consultation. No pressure, no commitment. Our team covers MA, RI and CT.
+            Free in-home consultation. No pressure, no commitment. Our team covers New England.
           </p>
 
           <div className="flex flex-col gap-3" style={{ marginTop: 32 }}>

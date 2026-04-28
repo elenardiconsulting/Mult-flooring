@@ -61,7 +61,7 @@ const PROCESS_STEPS = [
     details: [
       "In-home or virtual options available",
       "Available Mon to Sat, 8am to 6pm",
-      "Covers MA, RI and CT",
+      "Covers New England",
       "Bring your inspiration, photos, mood boards, anything",
     ],
   },
@@ -157,7 +157,7 @@ export default function ProcessPage() {
     >
       <SEO
         title="How Flooring Installation Works — Mult Flooring"
-        description="Our 5-step process: free consultation, material selection, measurement, installation and warranty. Serving MA, RI and CT. No hidden fees, certified crew."
+        description="Our 5-step process: free consultation, material selection, measurement, installation and warranty. Serving New England. No hidden fees, certified crew."
         canonical="/process"
         keywords="hardwood floor installation process, how flooring installation works, flooring consultation Massachusetts, floor installation steps"
         schema={processSchema}

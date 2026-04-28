@@ -252,7 +252,7 @@ const Hero = () => {
               className="text-[17px] font-normal leading-[1.6] max-w-[440px] mb-10"
               style={{ color: "rgba(240, 230, 216, 0.80)" }}
             >
-              Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
+              Floors, cabinets, painting and tile — fully installed by our certified crew across New England.
             </motion.p>
 
             {/* Button Group */}
@@ -518,7 +518,7 @@ const MobileHeroContent: React.FC = () => {
           maxWidth: 360,
         }}
       >
-        Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
+        Floors, cabinets, painting and tile — fully installed by our certified crew across New England.
       </motion.p>
 
       {/* Primary CTA — solid accent, full width */}

@@ -76,7 +76,7 @@ const Index = () => {
     <Layout>
       <SEO
         title="Hardwood Flooring Installation in Massachusetts | Mult Flooring"
-        description="Professional hardwood, vinyl and laminate flooring installation serving MA, RI and CT. Free in-home consultation. 20+ years experience. Call (508) 510-4007."
+        description="Professional hardwood, vinyl and laminate flooring installation serving New England. Free in-home consultation. 20+ years experience. Call (508) 510-4007."
         canonical="/"
         keywords="hardwood flooring installation Massachusetts, hardwood floor installer MA, vinyl flooring installation, laminate flooring MA, flooring contractor West Bridgewater"
         schema={homeSchema}

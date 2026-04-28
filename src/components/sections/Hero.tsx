@@ -467,7 +467,7 @@ const MobileHeroContent: React.FC = () => {
         transition={{ delay: 0.2, duration: 0.6, ease: EASE_EXPO }}
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "clamp(46px, 12.5vw, 64px)",
+          fontSize: "clamp(38px, 10vw, 54px)",
           fontWeight: 700,
           lineHeight: 1.0,
           letterSpacing: "-0.02em",

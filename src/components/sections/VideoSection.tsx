@@ -44,6 +44,28 @@ type VideoCardProps = {
 };
 
 const VideoCard = ({ video, index = 0, animateOnView = false }: VideoCardProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Pause video when offscreen to save CPU/GPU and avoid scroll jank
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.play().catch(() => {});
+          } else {
+            el.pause();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   const cardInner = (
     <div
       style={{
@@ -52,15 +74,14 @@ const VideoCard = ({ video, index = 0, animateOnView = false }: VideoCardProps) 
         padding: 2,
       }}
     >
-      <motion.div
+      <div
         aria-hidden
-        animate={{ background: GRADIENT_FRAMES }}
-        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
         style={{
           position: "absolute",
           inset: 0,
           borderRadius: 14,
           zIndex: 0,
+          background: GRADIENT_FRAMES[0],
         }}
       />
       <div
@@ -74,10 +95,12 @@ const VideoCard = ({ video, index = 0, animateOnView = false }: VideoCardProps) 
         }}
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
+          preload="metadata"
           src={video.src}
           style={{
             width: "100%",

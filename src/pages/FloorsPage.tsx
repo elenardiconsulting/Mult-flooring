@@ -816,7 +816,7 @@ function FloorDetail({
                   window.location.href = "/#contact";
                 }}
               >
-                Get a Free Quote
+                Request a Consultation
               </BrandButton>
               <BrandButton
                 variant="secondary"

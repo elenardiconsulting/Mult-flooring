@@ -330,7 +330,7 @@ export default function CabinetsPage() {
             <div className="flex flex-wrap gap-3 mt-8">
               <Link to="/contact">
                 <BrandButton variant="primary" size="md">
-                  Get a Free Quote
+                  Request a Consultation
                 </BrandButton>
               </Link>
               <a href={`tel:${PHONE_RAW}`}>
@@ -860,7 +860,7 @@ export default function CabinetsPage() {
                           size="md"
                           className="w-full"
                         >
-                          Get a Free Quote
+                          Request a Consultation
                         </BrandButton>
                       </Link>
                       <a

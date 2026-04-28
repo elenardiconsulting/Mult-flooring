@@ -159,6 +159,23 @@ const CtaFinal = () => {
             <div className="flex items-center gap-[10px]">
               <PhoneIcon />
               <a
+                href="tel:7748237239"
+                style={{
+                  fontSize: 16,
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.85)",
+                  transition: "color var(--duration-base)",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
+              >
+                (774) 823-7239
+              </a>
+            </div>
+
+            <div className="flex items-center gap-[10px]">
+              <PhoneIcon />
+              <a
                 href="tel:5085104007"
                 style={{
                   fontSize: 16,

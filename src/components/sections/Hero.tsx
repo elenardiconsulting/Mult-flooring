@@ -476,13 +476,17 @@ const MobileHeroContent: React.FC = () => {
           textShadow: "0px 4px 20px rgba(0,0,0,0.5)",
         }}
       >
-        Transforming
-        <br />
-        homes with
-        <br />
-        intention
-        <br />
-        and detail.
+        New England's<br />
+        most trusted<br />
+        renovation{" "}
+        <span
+          style={{
+            color: "#C9A84C",
+            textShadow: "0px 4px 24px rgba(201,168,76,0.40)",
+          }}
+        >
+          <MobileRotatingWord />
+        </span>
       </motion.h1>
 
       {/* Accent underline */}
@@ -514,7 +518,7 @@ const MobileHeroContent: React.FC = () => {
           maxWidth: 360,
         }}
       >
-        Since 2004, Tony's team has brought precision and care to every project in the region.
+        Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
       </motion.p>
 
       {/* Primary CTA — solid accent, full width */}

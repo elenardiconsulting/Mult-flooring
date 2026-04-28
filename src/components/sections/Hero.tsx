@@ -71,7 +71,6 @@ const useTypewriter = (words: string[]) => {
 };
 
 const Hero = () => {
-  const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [isDesktop, setIsDesktop] = useState(
@@ -79,24 +78,13 @@ const Hero = () => {
   );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+    const check = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsDesktop(window.innerWidth >= 1024);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
     check();
-    window.addEventListener("resize", check);
+    window.addEventListener("resize", check, { passive: true });
     return () => window.removeEventListener("resize", check);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Auto-advance crossfade (desktop only)

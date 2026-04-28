@@ -647,56 +647,43 @@ const FloorsPage = () => {
       <Navbar />
 
       {/* ─── PAGE HEADER ─── */}
-      <section
+      <header
         style={{
-          background: "#1a1a1a",
+          background: "var(--color-bg-surface)",
           paddingTop: 140,
-          paddingBottom: 64,
+          paddingBottom: 72,
         }}
         className="px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]"
       >
         <div
-          style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}
-          className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-end"
+          className="mx-auto grid grid-cols-1 md:grid-cols-2 items-end gap-16"
+          style={{ maxWidth: "var(--max-width)" }}
         >
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <SectionLabel style={{ color: "rgba(201,168,76,0.80)" }}>
-              Digital Showroom
-            </SectionLabel>
+            <SectionLabel>Digital Showroom</SectionLabel>
             <h1
               style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(44px, 6vw, 76px)",
-                fontWeight: 700,
+                fontSize: "clamp(40px, 5.5vw, 72px)",
+                fontWeight: 500,
                 letterSpacing: "-0.025em",
-                lineHeight: 1.0,
-                color: "#ffffff",
+                lineHeight: 1,
                 marginTop: 12,
+                color: "var(--color-text-primary)",
+                whiteSpace: "pre-line",
               }}
             >
-              Find your
-              <br />
-              <span
-                style={{
-                  background:
-                    "linear-gradient(135deg, #C9A84C 0%, #E8C87A 50%, #C9A84C 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                perfect floor.
-              </span>
+              Find your{"\n"}
+              <span className="gradient-text">perfect floor.</span>
             </h1>
             <p
               style={{
                 fontSize: 17,
                 lineHeight: 1.7,
-                color: "rgba(255,255,255,0.60)",
+                color: "var(--color-text-secondary)",
                 marginTop: 20,
                 maxWidth: 420,
               }}
@@ -704,17 +691,30 @@ const FloorsPage = () => {
               Browse our complete collection of hardwood, vinyl and laminate.
               Click any swatch to see full details and get a free sample.
             </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <Link to="/contact">
+                <BrandButton variant="primary" size="md">
+                  Request a Consultation
+                </BrandButton>
+              </Link>
+              {COMPANY?.phone && (
+                <a href={`tel:${COMPANY.phoneRaw ?? COMPANY.phone.replace(/[^0-9+]/g, "")}`}>
+                  <BrandButton variant="secondary" size="md">
+                    Call {COMPANY.phone}
+                  </BrandButton>
+                </a>
+              )}
+            </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+            transition={{ duration: 0.7, ease: EASE }}
             style={{
-              display: "flex",
-              gap: 0,
-              borderTop: "1px solid rgba(255,255,255,0.10)",
-              paddingTop: 24,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gap: 16,
             }}
           >
             {[
@@ -725,18 +725,18 @@ const FloorsPage = () => {
               <div
                 key={i}
                 style={{
-                  flex: 1,
-                  paddingLeft: i === 0 ? 0 : 20,
-                  borderLeft:
-                    i === 0 ? "none" : "1px solid rgba(255,255,255,0.10)",
+                  background: "var(--color-bg-base)",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "var(--radius-lg)",
+                  padding: "20px 16px",
                 }}
               >
                 <div
                   style={{
-                    fontSize: "clamp(28px, 3.4vw, 40px)",
+                    fontSize: "clamp(26px, 3vw, 36px)",
                     fontFamily: "var(--font-display)",
                     fontWeight: 600,
-                    color: "#C9A84C",
+                    color: "var(--color-accent)",
                     letterSpacing: "-0.02em",
                     lineHeight: 1,
                   }}
@@ -748,8 +748,8 @@ const FloorsPage = () => {
                     fontSize: 11,
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
-                    color: "rgba(255,255,255,0.40)",
-                    marginTop: 8,
+                    color: "var(--color-text-muted)",
+                    marginTop: 10,
                   }}
                 >
                   {s.l}
@@ -758,7 +758,7 @@ const FloorsPage = () => {
             ))}
           </motion.div>
         </div>
-      </section>
+      </header>
 
       {/* ─── FILTER BAR ─── */}
       <motion.section

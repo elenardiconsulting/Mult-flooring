@@ -641,7 +641,7 @@ const FloorsPage = () => {
     <>
       <SEO
         title="Digital Showroom — Floor Samples | Mult Flooring"
-        description="Browse 23 hardwood, vinyl and laminate floor finishes. Free samples delivered. Installation across MA, RI and CT."
+        description="Browse 23 hardwood, vinyl and laminate floor finishes. Free samples delivered. Installation across New England."
         canonical="https://multflooring.com/floors"
       />
       <Navbar />
@@ -1422,7 +1422,7 @@ const FloorsPage = () => {
                               }}
                             >
                               Free samples delivered to your door. Installation
-                              across MA, RI and CT.
+                              across New England.
                             </p>
                           </div>
                         </div>

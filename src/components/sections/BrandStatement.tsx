@@ -188,7 +188,7 @@ const ManifestoColumn = () => (
         maxWidth: "440px",
       }}
     >
-      We supply and install hardwood, vinyl and laminate for homeowners, contractors and businesses across MA, RI and CT. Our own warehouse means we have the stock, and our certified crew means we have the people to get it done.
+      We supply and install hardwood, vinyl and laminate for homeowners, contractors and businesses across New England. Our own warehouse means we have the stock, and our certified crew means we have the people to get it done.
     </p>
   </>
 );

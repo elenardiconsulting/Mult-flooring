@@ -12,7 +12,7 @@ const contactSchema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
   name: "Contact Mult Flooring",
-  description: "Request a free flooring quote or consultation. Serving MA, RI and CT.",
+  description: "Request a free flooring quote or consultation. Serving New England.",
   mainEntity: {
     "@type": "LocalBusiness",
     name: "Mult Flooring",
@@ -229,7 +229,7 @@ export default function ContactPage() {
     >
       <SEO
         title="Get a Free Flooring Quote — West Bridgewater, MA"
-        description="Request a free in-home flooring consultation. Hardwood, vinyl, laminate and cabinet installation across MA, RI and CT. Call (508) 510-4007 or submit online."
+        description="Request a free in-home flooring consultation. Hardwood, vinyl, laminate and cabinet installation across New England. Call (508) 510-4007 or submit online."
         canonical="/contact"
         keywords="free flooring quote Massachusetts, flooring consultation MA, hardwood floor estimate, contact flooring contractor West Bridgewater"
         schema={contactSchema}

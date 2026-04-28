@@ -456,69 +456,78 @@ const MobileHeroContent: React.FC = () => {
     <div
       className="absolute inset-0 z-[2] flex flex-col justify-end text-left"
       style={{
-        padding: "100px 20px 48px",
+        padding: "100px 24px 40px",
         minHeight: "100svh",
       }}
     >
-      {/* Badge removed */}
-
-      {/* Headline */}
+      {/* Headline — serif, bold, large */}
       <motion.h1
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6, ease: EASE_EXPO }}
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "clamp(48px, 12vw, 62px)",
+          fontSize: "clamp(46px, 12.5vw, 64px)",
           fontWeight: 700,
-          lineHeight: 1.05,
+          lineHeight: 1.0,
           letterSpacing: "-0.02em",
-          marginBottom: 16,
+          marginBottom: 18,
           color: "#ffffff",
           textShadow: "0px 4px 20px rgba(0,0,0,0.5)",
         }}
       >
-        New England's<br />
-        most trusted<br />
-        renovation{" "}
-        <span
-          style={{
-            color: "#C9A84C",
-            textShadow: "0px 4px 24px rgba(201,168,76,0.40)",
-          }}
-        >
-          <MobileRotatingWord />
-        </span>
+        Transforming
+        <br />
+        homes with
+        <br />
+        intention
+        <br />
+        and detail.
       </motion.h1>
+
+      {/* Accent underline */}
+      <motion.div
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: 1, opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.7, ease: EASE_EXPO }}
+        style={{
+          width: 64,
+          height: 3,
+          background: "var(--color-accent)",
+          borderRadius: 2,
+          transformOrigin: "left",
+          marginBottom: 22,
+        }}
+      />
 
       {/* Subtitle */}
       <motion.p
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.35, duration: 0.6, ease: EASE_EXPO }}
+        transition={{ delay: 0.45, duration: 0.6, ease: EASE_EXPO }}
         style={{
-          fontSize: 15,
+          fontSize: 16,
           fontWeight: 400,
           lineHeight: 1.55,
           color: "rgba(229, 229, 229, 0.85)",
-          marginBottom: 32,
-          maxWidth: 320,
+          marginBottom: 28,
+          maxWidth: 360,
         }}
       >
-        Floors, cabinets, painting and tile — fully installed by our certified crew across MA, RI and CT.
+        Since 2004, Tony's team has brought precision and care to every project in the region.
       </motion.p>
 
-      {/* Primary button */}
+      {/* Primary CTA — solid accent, full width */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.6, ease: EASE_EXPO }}
+        transition={{ delay: 0.55, duration: 0.6, ease: EASE_EXPO }}
       >
         <a href="#contact" style={{ display: "block", width: "100%" }}>
           <button
             style={{
               width: "100%",
-              padding: "18px 24px",
+              padding: "20px 24px",
               borderRadius: 12,
               border: "none",
               cursor: "pointer",
@@ -526,125 +535,62 @@ const MobileHeroContent: React.FC = () => {
               fontWeight: 600,
               fontFamily: "var(--font-family)",
               color: "#ffffff",
-              letterSpacing: "0.02em",
-              background: `linear-gradient(135deg, #8A5C2D 0%, #6E481F 100%)`,
-              boxShadow: "0 10px 32px rgba(138,92,45, 0.30)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              gap: 10,
+              letterSpacing: "0.01em",
+              background: "var(--color-accent)",
+              boxShadow: "0 12px 32px rgba(196, 60, 47, 0.30)",
+              textAlign: "center",
             }}
           >
-            <span>Request a Consultation</span>
-            <svg
-              style={{ marginLeft: "auto" }}
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            Request a Consultation
           </button>
         </a>
-
-        {/* Secondary button */}
-        <Link
-          to="/projects"
-          style={{
-            display: "block",
-            textAlign: "center",
-            width: "100%",
-            marginTop: 16,
-          }}
-        >
-          <span
-            style={{
-              position: "relative",
-              display: "inline-block",
-              fontSize: 14,
-              fontWeight: 500,
-              color: "rgba(255,255,255,0.75)",
-              fontFamily: "var(--font-family)",
-              padding: 0,
-            }}
-          >
-            View Our Work
-            <span
-              style={{
-                content: "''",
-                position: "absolute",
-                bottom: -2,
-                left: 0,
-                right: 0,
-                height: 1,
-                background: GOLD,
-                opacity: 0.6,
-              }}
-            />
-          </span>
-        </Link>
       </motion.div>
 
-      {/* Stats */}
+      {/* Stats row — icon left + value/label stacked right */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.65, duration: 0.6, ease: EASE_EXPO }}
+        transition={{ delay: 0.7, duration: 0.6, ease: EASE_EXPO }}
         style={{
-          marginTop: 36,
-          paddingTop: 24,
-          borderTop: "1px solid rgba(255,255,255,0.10)",
+          marginTop: 28,
+          paddingTop: 22,
+          borderTop: "1px solid rgba(255,255,255,0.12)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          gap: 8,
         }}
       >
         <MobileStat
-          label="Projects"
-          value={String(COMPANY.projects)}
+          value="20+ Years"
+          label="Experience"
           icon={
             <>
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </>
           }
         />
-        <StatDivider />
         <MobileStat
-          label="Experience"
-          value={`${COMPANY.years}yrs+`}
-          icon={
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          }
-        />
-        <StatDivider />
-        <MobileStat
-          label="Rating"
-          value={`${COMPANY.rating}★`}
+          value="5-Star Rated"
+          label="Local Company"
           icon={
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          }
+        />
+        <MobileStat
+          value="Quality Work"
+          label="You Can Trust"
+          icon={
+            <>
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9 12l2 2 4-4" />
+            </>
           }
         />
       </motion.div>
     </div>
   );
 };
-
-const StatDivider = () => (
-  <div
-    style={{
-      width: 1,
-      height: 36,
-      background: "rgba(255,255,255,0.12)",
-      alignSelf: "center",
-    }}
-  />
-);
 
 const MobileStat: React.FC<{
   label: string;
@@ -654,45 +600,50 @@ const MobileStat: React.FC<{
   <div
     style={{
       display: "flex",
-      flexDirection: "column",
       alignItems: "center",
-      gap: 6,
+      gap: 8,
       flex: 1,
+      minWidth: 0,
     }}
   >
     <svg
-      width="20"
-      height="20"
+      width="18"
+      height="18"
       viewBox="0 0 24 24"
       fill="none"
-      stroke={GOLD}
+      stroke="var(--color-accent)"
       strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
+      style={{ flexShrink: 0 }}
     >
       {icon}
     </svg>
-    <span
-      style={{
-        fontSize: 22,
-        fontWeight: 700,
-        color: "#ffffff",
-        letterSpacing: "-0.02em",
-        lineHeight: 1.0,
-      }}
-    >
-      {value}
-    </span>
-    <span
-      style={{
-        fontSize: 9,
-        textTransform: "uppercase",
-        letterSpacing: "0.12em",
-        color: "rgba(255,255,255,0.45)",
-      }}
-    >
-      {label}
-    </span>
+    <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
+      <span
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          color: "#ffffff",
+          letterSpacing: "-0.01em",
+          lineHeight: 1.2,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {value}
+      </span>
+      <span
+        style={{
+          fontSize: 10,
+          color: "rgba(255,255,255,0.55)",
+          letterSpacing: "0.02em",
+          lineHeight: 1.2,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {label}
+      </span>
+    </div>
   </div>
 );
 

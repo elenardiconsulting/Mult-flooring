@@ -12,11 +12,11 @@ const Navbar = () => {
   const closeMenu = () => setIsMobileMenuOpen(false);
 
   const Logo = () => (
-    <div className="relative inline-flex items-center">
+    <div className="relative h-full flex items-center">
       <img
         src={logo}
         alt="Mult Flooring"
-        className="h-[51px] md:h-[60px] w-auto object-contain translate-y-[2px]"
+        className="h-[82px] md:h-[92px] w-auto object-contain"
         style={{ opacity: 1, filter: "none", mixBlendMode: "normal" }}
       />
     </div>

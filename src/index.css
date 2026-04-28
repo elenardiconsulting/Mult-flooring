@@ -237,7 +237,7 @@ button {
 }
 
 /* ── Display typography for public site headings ── */
-h1, h2 {
+h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.01em;

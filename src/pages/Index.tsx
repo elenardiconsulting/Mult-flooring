@@ -56,7 +56,7 @@ const homeSchema = {
   },
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "4.8",
+    ratingValue: "4.9",
     reviewCount: "200",
     bestRating: "5",
   },

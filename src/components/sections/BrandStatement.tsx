@@ -70,7 +70,7 @@ const BrandStatement = () => {
       delay: 0.15,
     },
     {
-      to: 4.8,
+      to: 4.9,
       format: (v: number) => `${v.toFixed(1)} ★`,
       label: "Google Rating",
       delay: 0.3,

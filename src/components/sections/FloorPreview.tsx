@@ -311,7 +311,7 @@ const DetailPanel = ({ swatch, onClose }: { swatch: Swatch; onClose: () => void 
             </BrandButton>
           </Link>
           <Link to="/floors" className="flex-1">
-            <BrandButton variant="outline" className="w-full h-14 text-base">
+            <BrandButton variant="secondary" className="w-full h-14 text-base">
               View All Variations
             </BrandButton>
           </Link>

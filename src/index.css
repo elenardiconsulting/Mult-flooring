@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&display=swap');
 
 @tailwind base;
@@ -34,8 +34,8 @@
     --color-accent-light:   #D4956B;
 
     /* ── TYPOGRAPHY ── */
-    --font-family:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-sans:            'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-family:          'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans:            'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-display:         'Playfair Display', Georgia, serif;
 
     --text-hero:            clamp(48px, 6.5vw, 88px);
@@ -237,7 +237,7 @@ button {
 }
 
 /* ── Display typography for public site headings ── */
-h1, h2 {
+h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.01em;

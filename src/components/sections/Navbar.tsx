@@ -16,7 +16,7 @@ const Navbar = () => {
       <img
         src={logo}
         alt="Mult Flooring"
-        className="h-[62px] md:h-[70px] w-auto object-contain"
+        className="h-[71px] md:h-[80px] w-auto object-contain"
         style={{ opacity: 1, filter: "none", mixBlendMode: "normal" }}
       />
     </div>

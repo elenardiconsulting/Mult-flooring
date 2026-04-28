@@ -17,7 +17,7 @@ export const COMPANY = {
   projects: "500+",
   years: "20",
   email: "contact@multflooring.com",
-  address: "Serving Massachusetts, Rhode Island & Connecticut",
+  address: "Serving New England",
   hours: "Mon to Sat, 8am to 6pm",
   cta: {
     primary: "Request a Consultation",

@@ -12,7 +12,7 @@ const FEATURES = [
     icon: Star,
     title: "4.9 Stars",
     description:
-      "Average 4.9-star rating on Google from homeowners across Massachusetts and Rhode Island.",
+      "Average 4.9-star rating on Google from homeowners across New England.",
   },
   {
     icon: Clock,

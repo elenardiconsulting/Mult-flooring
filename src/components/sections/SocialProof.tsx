@@ -166,7 +166,7 @@ const SocialProof = () => {
             {TESTIMONIALS.map((t, i) => (
               <article
                 key={i}
-                className="flex-shrink-0 bg-[var(--color-bg-surface)] border border-[var(--color-border)] max-md:w-[85vw] md:w-[320px] lg:w-[380px] md:aspect-[4/5] lg:aspect-square flex flex-col"
+                className="flex-shrink-0 bg-[var(--color-bg-surface)] border border-[var(--color-border)] max-md:w-[85vw] md:w-[320px] lg:w-[380px] h-fit flex flex-col"
                 style={{
                   borderRadius: "var(--radius-md)",
                   padding: 28,

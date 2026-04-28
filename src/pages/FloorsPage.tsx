@@ -769,7 +769,7 @@ const FloorsPage = () => {
           background: "var(--color-bg-surface)",
           borderBottom: "1px solid var(--color-border)",
           position: "sticky",
-          top: 68,
+          top: 60,
           zIndex: 400,
         }}
         className="py-4 md:py-6 px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]"

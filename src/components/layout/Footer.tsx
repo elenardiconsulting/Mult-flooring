@@ -227,7 +227,7 @@ const Footer = () => {
 
         {/* Body */}
         <div
-          className="grid gap-8 md:gap-12 grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] text-center md:text-left"
+          className="grid gap-8 md:gap-12 grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr_1.5fr] text-center md:text-left"
         >
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start">
@@ -314,6 +314,22 @@ const Footer = () => {
             <ContactLink href="mailto:multflooring@gmail.com">
               multflooring@gmail.com
             </ContactLink>
+          </div>
+
+          {/* Map */}
+          <div className="flex flex-col items-center md:items-stretch">
+            <span style={labelStyle} className="text-center md:text-left">Location</span>
+            <div className="w-full aspect-video md:aspect-square rounded-lg overflow-hidden border border-white/10 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2962.645014389146!2d-71.018318!3d42.028308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e4919161a06707%3A0x6e7619374092b37d!2s240%20W%20Center%20St%2C%20West%20Bridgewater%2C%20MA%2002379!5e0!3m2!1sen!2sus!4v1714150000000!5m2!1sen!2sus"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </div>
         </div>
 

@@ -214,7 +214,7 @@ const Hero = () => {
             <h1
               className="hero-desktop-headline mb-[28px]"
               style={{
-                fontSize: "clamp(36px, 4.2vw, 58px)",
+                fontSize: "clamp(32px, 3.6vw, 50px)",
                 lineHeight: 1.1,
                 fontWeight: 700,
                 letterSpacing: "-0.02em",

@@ -374,7 +374,7 @@ export default function ContactPage() {
           <div style={{ maxWidth: 480, margin: "0 auto", width: "100%" }}>
             {!submitted ? (
               <>
-                <SectionLabel>Request a free quote</SectionLabel>
+                <SectionLabel>Request a consultation</SectionLabel>
                 <h2
                   style={{
                     fontSize: "clamp(28px, 3vw, 40px)",

@@ -20,7 +20,7 @@ export const COMPANY = {
   address: "Serving Massachusetts, Rhode Island & Connecticut",
   hours: "Mon to Sat, 8am to 6pm",
   cta: {
-    primary: "Get a Free Quote",
+    primary: "Request a Consultation",
     collections: "Explore Collections",
     sample: "Order a Free Sample",
     schedule: "Schedule Consultation",

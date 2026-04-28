@@ -93,7 +93,7 @@ const HeroContactForm = () => {
                 lineHeight: 1.2,
               }}
             >
-              Request a free quote
+              Request a consultation
             </h3>
             <p
               className="text-[var(--color-text-secondary)]"
@@ -195,7 +195,7 @@ const HeroContactForm = () => {
               className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-[14px] font-medium rounded-[var(--radius-sm)] transition-colors duration-[260ms] border-none cursor-pointer disabled:opacity-60"
               style={{ height: 46, marginTop: 4 }}
             >
-              {loading ? "Sending..." : "Get my free quote"}
+              {loading ? "Sending..." : "Request a consultation"}
             </button>
 
             <p

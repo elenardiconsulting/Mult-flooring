@@ -264,7 +264,7 @@ const Hero = () => {
             >
               <a href="#contact">
                 <button className="bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[#ffffff] text-[15px] font-medium px-9 py-4 rounded-[var(--radius-sm)] transition-colors duration-[260ms] ease-[var(--ease-out-expo)] border-none cursor-pointer">
-                  Get a Free Quote
+                  Request a Consultation
                 </button>
               </a>
               <Link to="/projects">
@@ -535,7 +535,7 @@ const MobileHeroContent: React.FC = () => {
               gap: 10,
             }}
           >
-            <span>Get a Free Quote</span>
+            <span>Request a Consultation</span>
             <svg
               style={{ marginLeft: "auto" }}
               width="18"

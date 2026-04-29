@@ -514,7 +514,11 @@ export default function DashboardPage() {
               onClick={() => setActiveTab(item.id)}
               style={{
                 flex: 1,
+                minWidth: 0,
+                padding: '8px 4px',
+                fontSize: 10,
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
                 background: 'transparent',
@@ -522,7 +526,6 @@ export default function DashboardPage() {
                 cursor: 'pointer',
                 color: active ? '#C47C3A' : 'rgba(255,255,255,0.45)',
                 position: 'relative',
-                minHeight: 44,
               }}
               aria-label={item.label}
             >
@@ -532,7 +535,7 @@ export default function DashboardPage() {
                   style={{
                     position: 'absolute',
                     top: 12,
-                    right: 'calc(50% - 16px)',
+                    right: 'calc(50% - 14px)',
                     background: '#C47C3A',
                     color: '#fff',
                     fontSize: 9,
@@ -574,7 +577,7 @@ export default function DashboardPage() {
                 position: 'fixed',
                 top: 0,
                 left: 0,
-                bottom: 0,
+            bottom: 0, padding-bottom: env(safe-area-inset-bottom),
                 width: 260,
                 background: COLORS.sidebarBg,
                 zIndex: 95,
@@ -770,9 +773,11 @@ function NavItem({
 function StatusPill({
   status,
   onClick,
+  size = 'md',
 }: {
   status: LeadStatus
   onClick?: (e: React.MouseEvent) => void
+  size?: 'sm' | 'md'
 }) {
   const b = getStatusBadge(status)
   return (
@@ -781,9 +786,9 @@ function StatusPill({
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        padding: '4px 10px',
+        padding: size === 'sm' ? '3px 8px' : '4px 10px',
         borderRadius: 999,
-        fontSize: 11,
+        fontSize: size === 'sm' ? 10 : 11,
         fontWeight: 500,
         whiteSpace: 'nowrap',
         background: b.bg,
@@ -796,12 +801,12 @@ function StatusPill({
   )
 }
 
-function Avatar({ name }: { name: string }) {
+function Avatar({ name, size = 36 }: { name: string; size?: number }) {
   return (
     <div
       style={{
-        width: 36,
-        height: 36,
+        width: size,
+        height: size,
         borderRadius: '50%',
         background: COLORS.accentLight,
         color: COLORS.accent,
@@ -901,13 +906,15 @@ function OverviewTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                 key={lead.id}
                 style={{
                   background: '#fff',
-                  padding: '16px 20px',
+                  padding: '12px 14px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 16,
+                  gap: 10,
+                  width: '100%',
+                  overflow: 'hidden',
                 }}
               >
-                <Avatar name={lead.name} />
+                <Avatar name={lead.name} size={32} />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text }}>{lead.name}</div>
                   <div
@@ -923,7 +930,7 @@ function OverviewTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                     {lead.project_type || 'No type'} · {timeAgo(lead.created_at)}
                   </div>
                 </div>
-                <StatusPill status={lead.status} />
+                <StatusPill status={lead.status} size="sm" />
               </div>
             ))}
           </div>
@@ -1057,7 +1064,12 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
             display: 'flex',
             gap: 6,
             overflowX: 'auto',
-            flexWrap: 'wrap',
+            flexWrap: 'nowrap',
+            width: '100%',
+            WebkitOverflowScrolling: 'touch',
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+            paddingBottom: 2,
           }}
         >
           {filterOptions.map((opt) => {
@@ -1067,9 +1079,10 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                 key={opt.value}
                 onClick={() => setStatusFilter(opt.value)}
                 style={{
-                  padding: '6px 14px',
+                  padding: '5px 12px',
                   borderRadius: 999,
-                  fontSize: 12,
+                  fontSize: 11,
+                  flexShrink: 0,
                   fontWeight: 500,
                   cursor: 'pointer',
                   background: active ? COLORS.accent : '#fff',
@@ -1203,7 +1216,10 @@ function LeadCard({
         border: `1px solid ${COLORS.border}`,
         borderLeft: `3px solid ${status.color}`,
         borderRadius: 10,
-        padding: 20,
+        padding: 16,
+        width: '100%',
+        boxSizing: 'border-box',
+        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
@@ -1212,7 +1228,7 @@ function LeadCard({
       {/* HEADER */}
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', minWidth: 0 }}>
-          <Avatar name={lead.name} />
+          <Avatar name={lead.name} size={32} />
           <div style={{ minWidth: 0 }}>
             <div
               style={{
@@ -1240,7 +1256,7 @@ function LeadCard({
       </div>
 
       {/* CONTACTS */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         {lead.phone && (
           <a
             href={`tel:${lead.phone}`}
@@ -1307,9 +1323,7 @@ function LeadCard({
             fontSize: 12,
             color: '#666',
             lineHeight: 1.5,
-            display: '-webkit-box',
-            WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 3,
+            maxHeight: 48,
             overflow: 'hidden',
           }}
         >
@@ -1380,7 +1394,7 @@ function LeadCard({
         </div>
 
         <div style={{ position: 'relative' }} ref={dropdownRef}>
-          <StatusPill status={lead.status} onClick={() => setDropdownOpen((v) => !v)} />
+          <StatusPill status={lead.status} size="sm" onClick={() => setDropdownOpen((v) => !v)} />
           {dropdownOpen && (
             <div
               style={{
@@ -1606,20 +1620,22 @@ function PushToastContainer({
       <style>{`
         .dash-toast-container {
           position: fixed;
-          bottom: 24px;
-          right: 24px;
+          top: 72px;
+          left: 16px;
+          right: 16px;
           z-index: 9999;
           display: flex;
           flex-direction: column;
           gap: 8px;
           pointer-events: none;
         }
-        @media (max-width: 1023px) {
+        @media (min-width: 768px) {
           .dash-toast-container {
-            bottom: 80px;
-            right: 16px;
-            left: 16px;
             top: auto;
+            bottom: 24px;
+            right: 24px;
+            left: auto;
+            width: auto;
             align-items: flex-end;
           }
         }
@@ -1653,8 +1669,8 @@ function PushToast({
         border: '1px solid rgba(255,255,255,0.10)',
         borderRadius: 10,
         padding: '14px 16px',
-        width: 320,
-        maxWidth: 'calc(100vw - 32px)',
+        width: '100%',
+        maxWidth: '100%',
         pointerEvents: 'auto',
         display: 'flex',
         alignItems: 'center',
@@ -1838,10 +1854,10 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: 24,
+              marginBottom: 16,
             }}
           >
-            <div style={{ fontSize: 18, fontWeight: 500, color: '#1a1a1a' }}>
+            <div style={{ fontSize: 16, fontWeight: 500, color: '#1a1a1a' }}>
               {currentMonth.toLocaleDateString('en-US', {
                 month: 'long',
                 year: 'numeric',
@@ -1902,7 +1918,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(7, 1fr)',
-              gap: 2,
+              gap: 1,
             }}
           >
             {cells.map((cell, i) => {
@@ -1940,7 +1956,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderRadius: 8,
+                    borderRadius: 6,
                     cursor: otherMonth ? 'default' : 'pointer',
                     pointerEvents: otherMonth ? 'none' : 'auto',
                     position: 'relative',
@@ -2198,19 +2214,19 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                     <div
                       key={lead.id}
                       style={{
-                        padding: '16px 24px',
+                        padding: '12px 16px',
                         borderBottom: '1px solid #f0f0ee',
                         display: 'flex',
-                        gap: 12,
+                        gap: 10,
                         alignItems: 'flex-start',
                       }}
                     >
                       <div
                         style={{
-                          width: 48,
+                          width: 44,
                           flexShrink: 0,
                           textAlign: 'right',
-                          fontSize: 13,
+                          fontSize: 12,
                           fontWeight: 500,
                           color: '#1a1a1a',
                           paddingTop: 1,
@@ -2231,7 +2247,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                         }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a' }}>
+                        <div style={{ fontSize: 13, fontWeight: 500, color: '#1a1a1a', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {lead.name}
                         </div>
                         {lead.project_type && (
@@ -2263,7 +2279,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                       </div>
                       <span
                         style={{
-                          fontSize: 11,
+                          fontSize: 10,
                           padding: '3px 8px',
                           borderRadius: 999,
                           background: badge.bg,
@@ -2430,21 +2446,21 @@ function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
   return (
     <div className="analytics-grid">
       <div style={cardStyle}>
-        <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
+        <h3 style={{ fontSize: 13, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads by status
         </h3>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={statusData}>
-            <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
+            <XAxis dataKey="name" tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <YAxis allowDecimals={false} tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <Tooltip contentStyle={{ ...tooltipStyle, fontSize: 11 }} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
             <Bar dataKey="count" fill="#C47C3A" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
       <div style={cardStyle}>
-        <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
+        <h3 style={{ fontSize: 13, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads by project type
         </h3>
         <ResponsiveContainer width="100%" height={200}>
@@ -2460,21 +2476,21 @@ function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                 <Cell key={i} fill={pieColors[i % pieColors.length]} />
               ))}
             </Pie>
-            <Tooltip contentStyle={tooltipStyle} />
+            <Tooltip contentStyle={{ ...tooltipStyle, fontSize: 11 }} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
           </PieChart>
         </ResponsiveContainer>
       </div>
 
-      <div style={{ ...cardStyle, gridColumn: '1 / -1' }}>
-        <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
+      <div style={{ ...cardStyle, gridColumn: '1 / -1', height: 180 }}>
+        <h3 style={{ fontSize: 13, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads over time
         </h3>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={monthlyData}>
-            <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
+            <XAxis dataKey="month" tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <YAxis allowDecimals={false} tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <Tooltip contentStyle={{ ...tooltipStyle, fontSize: 11 }} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
             <Bar dataKey="count" fill="#C47C3A" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

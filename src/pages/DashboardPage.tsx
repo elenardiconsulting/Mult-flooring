@@ -1272,9 +1272,31 @@ function LeadCard({
             </div>
           </div>
         </div>
-        <div style={{ textAlign: 'right', flexShrink: 0 }}>
-          <StatusPill status={lead.status} />
-          <div style={{ fontSize: 11, color: COLORS.textFaint, marginTop: 4 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button
+              onClick={handleDelete}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 4,
+                cursor: 'pointer',
+                color: '#ccc',
+                borderRadius: 4,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'color 180ms',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#ff4444')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#ccc')}
+              title="Delete Lead"
+            >
+              <Icons.trash />
+            </button>
+            <StatusPill status={lead.status} />
+          </div>
+          <div style={{ fontSize: 11, color: COLORS.textFaint }}>
             {timeAgo(lead.created_at)}
           </div>
         </div>

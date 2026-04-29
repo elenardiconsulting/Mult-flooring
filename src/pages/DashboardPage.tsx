@@ -2145,9 +2145,10 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
             overflow: 'hidden',
             position: 'sticky',
             top: 88,
+            marginTop: 16,
           }}
         >
-          <div style={{ padding: '20px 24px', borderBottom: '1px solid #f0f0ee' }}>
+          <div style={{ padding: '16px', borderBottom: '1px solid #f0f0ee' }}>
             {selectedDate ? (
               <>
                 <div style={{ fontSize: 15, fontWeight: 500, color: '#1a1a1a' }}>

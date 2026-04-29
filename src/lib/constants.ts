@@ -9,14 +9,14 @@ import projFloorRefinishing from "@/assets/projects/floor-refinishing.jpg";
 
 export const COMPANY = {
   name: "Mult Flooring",
-  phone: "(508) 560-2310",
-  phoneRaw: "5085602310",
+  phone: "(508) 510-4007",
+  phoneRaw: "5085104007",
   website: "multflooring.com",
   license: "Licensed & Insured in New England",
   rating: "4.9",
   projects: "500+",
   years: "20",
-  email: "contact@multflooring.com",
+  email: "multflooring@gmail.com",
   address: "Serving New England",
   hours: "Mon to Sat, 8am to 6pm",
   cta: {

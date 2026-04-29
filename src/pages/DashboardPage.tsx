@@ -1822,8 +1822,10 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
             background: '#fff',
             border: `1px solid ${COLORS.border}`,
             borderRadius: 10,
-            padding: 24,
+            padding: 20,
             width: '100%',
+            maxWidth: 480,
+            margin: '0 auto',
           }}
         >
           {/* header */}

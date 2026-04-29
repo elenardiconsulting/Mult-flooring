@@ -176,6 +176,13 @@ const Icons = {
       <path d="M7 14l4-4 4 4 5-6" />
     </svg>
   ),
+  trash: (p: any) => (
+    <svg {...iconProps} width={14} height={14} {...p}>
+      <path d="M3 6h18" />
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    </svg>
+  ),
 }
 
 type Tab = 'overview' | 'leads' | 'calendar' | 'analytics'

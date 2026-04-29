@@ -1231,8 +1231,8 @@ function LeadCard({
       }}
     >
       {/* HEADER */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', minWidth: 0 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center', minWidth: 0 }}>
           <Avatar name={lead.name} size={32} />
           <div style={{ minWidth: 0 }}>
             <div

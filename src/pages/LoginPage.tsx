@@ -215,6 +215,40 @@ export default function LoginPage() {
               </div>
             )}
           </form>
+
+          <div style={{ marginTop: 24, padding: 16, background: '#f8f9fa', borderRadius: 'var(--radius-sm)', border: '1px dashed #dee2e6' }}>
+            <p style={{ fontSize: 13, color: '#6c757d', marginBottom: 8, textAlign: 'center' }}>
+              First time? Use your credentials to create an account.
+            </p>
+            <button
+              onClick={async () => {
+                setLoading(true)
+                setError(null)
+                const { error } = await supabase.auth.signUp({ email, password })
+                if (error) setError(error.message)
+                else {
+                  setError('Account created! Logging in...')
+                  setTimeout(() => navigate('/dashboard', { replace: true }), 1500)
+                }
+                setLoading(false)
+              }}
+              disabled={loading || !email || !password}
+              style={{
+                width: '100%',
+                height: 40,
+                background: 'transparent',
+                border: '1px solid var(--color-accent)',
+                color: 'var(--color-accent)',
+                fontSize: 14,
+                fontWeight: 500,
+                borderRadius: 'var(--radius-sm)',
+                cursor: loading || !email || !password ? 'not-allowed' : 'pointer',
+                opacity: loading || !email || !password ? 0.5 : 1
+              }}
+            >
+              Register Account
+            </button>
+          </div>
         </div>
       </main>
 

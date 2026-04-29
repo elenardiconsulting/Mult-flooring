@@ -1053,6 +1053,7 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
     <div>
       {/* TOOLBAR */}
       <div
+        className="leads-toolbar"
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -1164,6 +1165,7 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
           .leads-grid { grid-template-columns: 1fr; }
           .leads-search-wrap, .leads-search-wrap input { width: 100% !important; }
           .leads-grid { grid-template-columns: 1fr; gap: 12px; width: 100%; }
+          .leads-toolbar { flex-direction: column; gap: 10px; width: 100%; }
         }
       `}</style>
     </div>

@@ -395,7 +395,7 @@ export default function DashboardPage() {
           style={{
             background: '#fff',
             borderBottom: `1px solid ${COLORS.border}`,
-            height: 64,
+            height: 56,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -421,7 +421,7 @@ export default function DashboardPage() {
             >
               <Icons.menu />
             </button>
-            <h1 style={{ fontSize: 18, fontWeight: 500, color: COLORS.text, margin: 0 }}>
+            <h1 style={{ fontSize: 16, fontWeight: 500, color: COLORS.text, margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {tabTitle[activeTab]}
             </h1>
           </div>
@@ -688,8 +688,8 @@ export default function DashboardPage() {
             z-index: 50;
           }
           .dash-menu-btn { display: inline-flex !important; }
-          .dash-header { padding: 0 20px; }
-          .dash-content { padding: 20px; }
+          .dash-header { padding: 0 16px; height: 56px; }
+          .dash-content { padding: 16px; width: 100%; box-sizing: border-box; overflow-x: hidden; }
           .dash-date { display: none !important; }
         }
       `}</style>
@@ -937,7 +937,7 @@ function OverviewTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
           gap: 16px;
         }
         @media (max-width: 1023px) {
-          .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+          .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
         }
       `}</style>
     </div>
@@ -963,7 +963,7 @@ function MetricCard({
         background: COLORS.surface,
         border: `1px solid ${COLORS.border}`,
         borderRadius: 10,
-        padding: '20px 24px',
+        padding: 14px,
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -982,7 +982,7 @@ function MetricCard({
       </div>
       <div
         style={{
-          fontSize: 'clamp(28px, 4vw, 36px)',
+          fontSize: 'clamp(22px, 6vw, 32px)',
           fontWeight: 600,
           letterSpacing: '-0.02em',
           color: highlight ?? COLORS.text,
@@ -992,7 +992,7 @@ function MetricCard({
       >
         {value}
       </div>
-      <div style={{ fontSize: 12, color: COLORS.textMuted, marginTop: 4 }}>{sub}</div>
+      <div style={{ fontSize: 10, color: COLORS.textMuted, marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sub}</div>
     </div>
   )
 }
@@ -1126,7 +1126,7 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
           No leads match your filters.
         </div>
       ) : (
-        <div className="leads-grid">
+        <div className="leads-grid" style={{ width: '100%' }}>
           {filtered.map((lead) => (
             <LeadCard key={lead.id} lead={lead} onSchedule={setScheduleLead} />
           ))}
@@ -1147,6 +1147,7 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
         @media (max-width: 767px)  {
           .leads-grid { grid-template-columns: 1fr; }
           .leads-search-wrap, .leads-search-wrap input { width: 100% !important; }
+          .leads-grid { grid-template-columns: 1fr; gap: 12px; width: 100%; }
         }
       `}</style>
     </div>
@@ -1215,7 +1216,7 @@ function LeadCard({
           <div style={{ minWidth: 0 }}>
             <div
               style={{
-                fontSize: 15,
+              fontSize: 14,
                 fontWeight: 600,
                 color: COLORS.text,
                 overflow: 'hidden',
@@ -1244,7 +1245,7 @@ function LeadCard({
           <a
             href={`tel:${lead.phone}`}
             style={{
-              fontSize: 13,
+              fontSize: 12,
               color: '#555',
               textDecoration: 'none',
               display: 'inline-flex',
@@ -1262,7 +1263,7 @@ function LeadCard({
           <a
             href={`mailto:${lead.email}`}
             style={{
-              fontSize: 13,
+              fontSize: 12,
               color: '#555',
               textDecoration: 'none',
               display: 'inline-flex',
@@ -1303,7 +1304,7 @@ function LeadCard({
             background: COLORS.bg,
             borderRadius: 6,
             padding: '10px 12px',
-            fontSize: 13,
+            fontSize: 12,
             color: '#666',
             lineHeight: 1.5,
             display: '-webkit-box',
@@ -1338,13 +1339,13 @@ function LeadCard({
           placeholder="Add a note..."
           style={{
             width: '100%',
-            minHeight: 72,
+            minHeight: 64,
             resize: 'none',
             padding: '8px 10px',
             background: COLORS.bg,
             border: '1px solid transparent',
             borderRadius: 6,
-            fontSize: 13,
+            fontSize: 14,
             fontFamily: 'inherit',
             color: '#444',
             lineHeight: 1.5,
@@ -1486,6 +1487,7 @@ function ScheduleModal({ lead, onClose }: { lead: Lead; onClose: () => void }) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={onClose}
       style={{
         position: 'fixed',
@@ -1499,18 +1501,32 @@ function ScheduleModal({ lead, onClose }: { lead: Lead; onClose: () => void }) {
       className="schedule-overlay"
     >
       <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        exit={{ y: '100%' }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
         className="schedule-modal"
         style={{
           background: '#fff',
-          borderRadius: 12,
-          padding: 28,
-          width: 380,
-          maxWidth: '90vw',
+          borderRadius: '16px 16px 0 0',
+          padding: '24px 20px',
+          paddingBottom: 'calc(24px + env(safe-area-inset-bottom))',
+          width: '100%',
+          maxWidth: '100%',
+          position: 'fixed',
+          bottom: 0,
         }}
       >
+        <div
+          style={{
+            width: 36,
+            height: 4,
+            background: '#e0e0e0',
+            borderRadius: 2,
+            margin: '0 auto 20px',
+          }}
+        />
         <h3 style={{ fontSize: 18, fontWeight: 500, margin: 0, marginBottom: 4, color: COLORS.text }}>
           Schedule consultation
         </h3>
@@ -1567,18 +1583,6 @@ function ScheduleModal({ lead, onClose }: { lead: Lead; onClose: () => void }) {
             {saving ? 'Saving...' : 'Confirm'}
           </button>
         </div>
-
-        <style>{`
-          @media (max-width: 767px) {
-            .schedule-overlay { align-items: flex-end !important; }
-            .schedule-modal {
-              width: 100% !important;
-              max-width: 100% !important;
-              border-radius: 16px 16px 0 0 !important;
-              padding: 24px 20px 40px !important;
-            }
-          }
-        `}</style>
       </motion.div>
     </motion.div>
   )
@@ -1814,7 +1818,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
   const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
   return (
-    <div className="cal-grid">
+    <div className="cal-grid" style={{ padding: 16 }}>
       {/* LEFT — calendar + upcoming */}
       <div>
         <div
@@ -1824,7 +1828,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
             borderRadius: 10,
             padding: 20,
             width: '100%',
-            maxWidth: 480,
+            maxWidth: '100%',
             margin: '0 auto',
           }}
         >
@@ -1949,7 +1953,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                 >
                   <span
                     style={{
-                      fontSize: 13,
+                      fontSize: 'clamp(11px, 3vw, 13px)',
                       fontWeight: numWeight,
                       color: numColor,
                     }}
@@ -1975,7 +1979,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                       <span
                         style={{
                           position: 'absolute',
-                          bottom: dotCount === 1 ? 6 : 5,
+                          bottom: 3,
                           left: 0,
                           right: 0,
                           display: 'flex',
@@ -2029,7 +2033,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
         </div>
 
         {/* UPCOMING */}
-        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a', marginTop: 24, marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a', marginTop: 16, marginBottom: 12 }}>
           Upcoming
         </div>
         {upcoming.length === 0 ? (
@@ -2055,7 +2059,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 12,
-                    padding: '10px 14px',
+                    padding: '12px 16px',
                     background: '#f8f8f6',
                     borderRadius: 8,
                   }}
@@ -2429,7 +2433,7 @@ function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
         <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads by status
         </h3>
-        <ResponsiveContainer width="100%" height={240}>
+        <ResponsiveContainer width="100%" height={200}>
           <BarChart data={statusData}>
             <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
             <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
@@ -2443,7 +2447,7 @@ function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
         <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads by project type
         </h3>
-        <ResponsiveContainer width="100%" height={240}>
+        <ResponsiveContainer width="100%" height={200}>
           <PieChart>
             <Pie
               data={typeData}

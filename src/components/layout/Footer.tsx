@@ -349,6 +349,58 @@ const Footer = () => {
             Licensed &amp; Insured and MA and RI and CT
           </span>
         </div>
+
+        {/* Development Credit */}
+        <div
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.04)",
+            marginTop: 16,
+            paddingTop: 16,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 11,
+              color: "rgba(255,255,255,0.25)",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Website designed & developed by
+          </span>
+          <a
+            href="https://wa.me/13392428150"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.02em",
+              textDecoration: "none",
+              display: "inline-block",
+              background: "linear-gradient(135deg, #C9A84C 0%, #E8C87A 45%, #C9A84C 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              transition: "all 300ms ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "linear-gradient(135deg, #E8C87A 0%, #C9A84C 50%, #E8C87A 100%)";
+              e.currentTarget.style.WebkitBackgroundClip = "text";
+              e.currentTarget.style.WebkitTextFillColor = "transparent";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "linear-gradient(135deg, #C9A84C 0%, #E8C87A 45%, #C9A84C 100%)";
+              e.currentTarget.style.WebkitBackgroundClip = "text";
+              e.currentTarget.style.WebkitTextFillColor = "transparent";
+            }}
+          >
+            Elenardi Consulting
+          </a>
+        </div>
       </div>
     </footer>
   );

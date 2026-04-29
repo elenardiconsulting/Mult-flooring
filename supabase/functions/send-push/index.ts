@@ -205,7 +205,10 @@ async function sendWebPush(
   vapidSubject: string,
 ): Promise<Response> {
   const url = new URL(subscription.endpoint)
-  const audience = `${url.protocol}//${url.host}`
+  const isApple = subscription.endpoint.includes('web.push.apple.com')
+  
+  // Apple requires specific audience for web push
+  const audience = isApple ? 'https://web.push.apple.com' : `${url.protocol}//${url.host}`
 
   const jwt = await signVapidJwt(audience, vapidSubject, vapidPublicRaw, vapidPrivateRaw)
   const vapidPublicB64 = uint8ArrayToB64url(vapidPublicRaw)
@@ -220,14 +223,24 @@ async function sendWebPush(
     userAuth,
   )
 
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/octet-stream',
+    'Content-Encoding': 'aes128gcm',
+    'TTL': '86400',
+    'Authorization': `vapid t=${jwt},k=${vapidPublicB64}`,
+  }
+
+  // Apple exige Urgency e outros headers específicos para iOS
+  if (isApple) {
+    headers['apns-push-type'] = 'alert'
+    headers['apns-priority'] = '10'
+    headers['apns-expiration'] = String(Math.floor(Date.now() / 1000) + 86400)
+    headers['Urgency'] = 'high'
+  }
+
   return await fetch(subscription.endpoint, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/octet-stream',
-      'Content-Encoding': 'aes128gcm',
-      'TTL': '86400',
-      'Authorization': `vapid t=${jwt}, k=${vapidPublicB64}`,
-    },
+    headers,
     body,
   })
 }
@@ -278,6 +291,10 @@ Deno.serve(async (req) => {
 
     const results = await Promise.allSettled(
       subscriptions.map(async (sub: any) => {
+        const isApple = sub.endpoint.includes('web.push.apple.com')
+        console.log(`[send-push] Sending to: ${sub.endpoint.slice(0, 50)}...`)
+        console.log(`[send-push] isApple: ${isApple}`)
+
         const res = await sendWebPush(
           { endpoint: sub.endpoint, p256dh: sub.p256dh, auth: sub.auth },
           payload,
@@ -286,15 +303,20 @@ Deno.serve(async (req) => {
           vapidSubject,
         )
 
+        console.log(`[send-push] Response status: ${res.status}`)
+
         if (!res.ok) {
+          const errorBody = await res.text()
+          console.error(`[send-push] Error body: ${errorBody}`)
+          
           // Clean up dead subscriptions
           if (res.status === 410 || res.status === 404) {
             await supabase
               .from('push_subscriptions')
               .delete()
-              .eq('endpoint', sub.endpoint)
+              .eq('id', sub.id)
           }
-          throw new Error(`Push failed: ${res.status} ${await res.text()}`)
+          throw new Error(`Push failed: ${res.status} ${errorBody}`)
         }
         return { endpoint: sub.endpoint, status: res.status }
       }),

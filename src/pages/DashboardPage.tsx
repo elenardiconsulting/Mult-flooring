@@ -395,7 +395,7 @@ export default function DashboardPage() {
           style={{
             background: '#fff',
             borderBottom: `1px solid ${COLORS.border}`,
-            height: 64,
+            height: 56,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -421,7 +421,7 @@ export default function DashboardPage() {
             >
               <Icons.menu />
             </button>
-            <h1 style={{ fontSize: 18, fontWeight: 500, color: COLORS.text, margin: 0 }}>
+            <h1 style={{ fontSize: 16, fontWeight: 500, color: COLORS.text, margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {tabTitle[activeTab]}
             </h1>
           </div>
@@ -514,7 +514,11 @@ export default function DashboardPage() {
               onClick={() => setActiveTab(item.id)}
               style={{
                 flex: 1,
+                minWidth: 0,
+                padding: '8px 4px',
+                fontSize: 10,
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
                 background: 'transparent',
@@ -522,7 +526,6 @@ export default function DashboardPage() {
                 cursor: 'pointer',
                 color: active ? '#C47C3A' : 'rgba(255,255,255,0.45)',
                 position: 'relative',
-                minHeight: 44,
               }}
               aria-label={item.label}
             >
@@ -532,7 +535,7 @@ export default function DashboardPage() {
                   style={{
                     position: 'absolute',
                     top: 12,
-                    right: 'calc(50% - 16px)',
+                    right: 'calc(50% - 14px)',
                     background: '#C47C3A',
                     color: '#fff',
                     fontSize: 9,
@@ -575,7 +578,10 @@ export default function DashboardPage() {
                 top: 0,
                 left: 0,
                 bottom: 0,
-                width: 260,
+                width: 280,
+                maxWidth: '85vw',
+                height: '100dvh',
+                overflowY: 'auto',
                 background: COLORS.sidebarBg,
                 zIndex: 95,
                 display: 'flex',
@@ -688,8 +694,8 @@ export default function DashboardPage() {
             z-index: 50;
           }
           .dash-menu-btn { display: inline-flex !important; }
-          .dash-header { padding: 0 20px; }
-          .dash-content { padding: 20px; }
+          .dash-header { padding: 0 16px; height: 56px; }
+          .dash-content { padding: 16px; width: 100%; box-sizing: border-box; overflow-x: hidden; }
           .dash-date { display: none !important; }
         }
       `}</style>
@@ -770,9 +776,11 @@ function NavItem({
 function StatusPill({
   status,
   onClick,
+  size = 'md',
 }: {
   status: LeadStatus
   onClick?: (e: React.MouseEvent) => void
+  size?: 'sm' | 'md'
 }) {
   const b = getStatusBadge(status)
   return (
@@ -781,9 +789,9 @@ function StatusPill({
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        padding: '4px 10px',
+        padding: size === 'sm' ? '3px 8px' : '4px 10px',
         borderRadius: 999,
-        fontSize: 11,
+        fontSize: size === 'sm' ? 10 : 11,
         fontWeight: 500,
         whiteSpace: 'nowrap',
         background: b.bg,
@@ -796,12 +804,12 @@ function StatusPill({
   )
 }
 
-function Avatar({ name }: { name: string }) {
+function Avatar({ name, size = 36 }: { name: string; size?: number }) {
   return (
     <div
       style={{
-        width: 36,
-        height: 36,
+        width: size,
+        height: size,
         borderRadius: '50%',
         background: COLORS.accentLight,
         color: COLORS.accent,
@@ -901,13 +909,15 @@ function OverviewTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                 key={lead.id}
                 style={{
                   background: '#fff',
-                  padding: '16px 20px',
+                  padding: '12px 14px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 16,
+                  gap: 10,
+                  width: '100%',
+                  overflow: 'hidden',
                 }}
               >
-                <Avatar name={lead.name} />
+                <Avatar name={lead.name} size={32} />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.text }}>{lead.name}</div>
                   <div
@@ -923,7 +933,7 @@ function OverviewTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                     {lead.project_type || 'No type'} · {timeAgo(lead.created_at)}
                   </div>
                 </div>
-                <StatusPill status={lead.status} />
+                <StatusPill status={lead.status} size="sm" />
               </div>
             ))}
           </div>
@@ -937,7 +947,7 @@ function OverviewTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
           gap: 16px;
         }
         @media (max-width: 1023px) {
-          .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+          .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
         }
       `}</style>
     </div>
@@ -963,7 +973,7 @@ function MetricCard({
         background: COLORS.surface,
         border: `1px solid ${COLORS.border}`,
         borderRadius: 10,
-        padding: '20px 24px',
+        padding: 14,
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -982,7 +992,7 @@ function MetricCard({
       </div>
       <div
         style={{
-          fontSize: 'clamp(28px, 4vw, 36px)',
+          fontSize: 'clamp(22px, 6vw, 32px)',
           fontWeight: 600,
           letterSpacing: '-0.02em',
           color: highlight ?? COLORS.text,
@@ -992,7 +1002,7 @@ function MetricCard({
       >
         {value}
       </div>
-      <div style={{ fontSize: 12, color: COLORS.textMuted, marginTop: 4 }}>{sub}</div>
+      <div style={{ fontSize: 10, color: COLORS.textMuted, marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sub}</div>
     </div>
   )
 }
@@ -1043,6 +1053,7 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
     <div>
       {/* TOOLBAR */}
       <div
+        className="leads-toolbar"
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -1057,7 +1068,12 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
             display: 'flex',
             gap: 6,
             overflowX: 'auto',
-            flexWrap: 'wrap',
+            flexWrap: 'nowrap',
+            width: '100%',
+            WebkitOverflowScrolling: 'touch',
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+            paddingBottom: 2,
           }}
         >
           {filterOptions.map((opt) => {
@@ -1067,9 +1083,10 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                 key={opt.value}
                 onClick={() => setStatusFilter(opt.value)}
                 style={{
-                  padding: '6px 14px',
+                  padding: '5px 12px',
                   borderRadius: 999,
-                  fontSize: 12,
+                  fontSize: 11,
+                  flexShrink: 0,
                   fontWeight: 500,
                   cursor: 'pointer',
                   background: active ? COLORS.accent : '#fff',
@@ -1126,7 +1143,7 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
           No leads match your filters.
         </div>
       ) : (
-        <div className="leads-grid">
+        <div className="leads-grid" style={{ width: '100%' }}>
           {filtered.map((lead) => (
             <LeadCard key={lead.id} lead={lead} onSchedule={setScheduleLead} />
           ))}
@@ -1147,6 +1164,8 @@ function LeadsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
         @media (max-width: 767px)  {
           .leads-grid { grid-template-columns: 1fr; }
           .leads-search-wrap, .leads-search-wrap input { width: 100% !important; }
+          .leads-grid { grid-template-columns: 1fr; gap: 12px; width: 100%; }
+          .leads-toolbar { flex-direction: column; gap: 10px; width: 100%; }
         }
       `}</style>
     </div>
@@ -1202,20 +1221,23 @@ function LeadCard({
         border: `1px solid ${COLORS.border}`,
         borderLeft: `3px solid ${status.color}`,
         borderRadius: 10,
-        padding: 20,
+        padding: 16,
+        width: '100%',
+        boxSizing: 'border-box',
+        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
       }}
     >
       {/* HEADER */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', minWidth: 0 }}>
-          <Avatar name={lead.name} />
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center', minWidth: 0 }}>
+          <Avatar name={lead.name} size={32} />
           <div style={{ minWidth: 0 }}>
             <div
               style={{
-                fontSize: 15,
+              fontSize: 14,
                 fontWeight: 600,
                 color: COLORS.text,
                 overflow: 'hidden',
@@ -1239,12 +1261,12 @@ function LeadCard({
       </div>
 
       {/* CONTACTS */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
         {lead.phone && (
           <a
             href={`tel:${lead.phone}`}
             style={{
-              fontSize: 13,
+              fontSize: 12,
               color: '#555',
               textDecoration: 'none',
               display: 'inline-flex',
@@ -1262,7 +1284,7 @@ function LeadCard({
           <a
             href={`mailto:${lead.email}`}
             style={{
-              fontSize: 13,
+              fontSize: 12,
               color: '#555',
               textDecoration: 'none',
               display: 'inline-flex',
@@ -1303,12 +1325,10 @@ function LeadCard({
             background: COLORS.bg,
             borderRadius: 6,
             padding: '10px 12px',
-            fontSize: 13,
+            fontSize: 12,
             color: '#666',
             lineHeight: 1.5,
-            display: '-webkit-box',
-            WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 3,
+            maxHeight: 48,
             overflow: 'hidden',
           }}
         >
@@ -1338,13 +1358,13 @@ function LeadCard({
           placeholder="Add a note..."
           style={{
             width: '100%',
-            minHeight: 72,
+            minHeight: 64,
             resize: 'none',
             padding: '8px 10px',
             background: COLORS.bg,
             border: '1px solid transparent',
             borderRadius: 6,
-            fontSize: 13,
+            fontSize: 14,
             fontFamily: 'inherit',
             color: '#444',
             lineHeight: 1.5,
@@ -1379,7 +1399,7 @@ function LeadCard({
         </div>
 
         <div style={{ position: 'relative' }} ref={dropdownRef}>
-          <StatusPill status={lead.status} onClick={() => setDropdownOpen((v) => !v)} />
+          <StatusPill status={lead.status} size="sm" onClick={() => setDropdownOpen((v) => !v)} />
           {dropdownOpen && (
             <div
               style={{
@@ -1486,6 +1506,7 @@ function ScheduleModal({ lead, onClose }: { lead: Lead; onClose: () => void }) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={onClose}
       style={{
         position: 'fixed',
@@ -1499,18 +1520,32 @@ function ScheduleModal({ lead, onClose }: { lead: Lead; onClose: () => void }) {
       className="schedule-overlay"
     >
       <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        exit={{ y: '100%' }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
         className="schedule-modal"
         style={{
           background: '#fff',
-          borderRadius: 12,
-          padding: 28,
-          width: 380,
-          maxWidth: '90vw',
+          borderRadius: '16px 16px 0 0',
+          padding: '24px 20px',
+          paddingBottom: 'calc(24px + env(safe-area-inset-bottom))',
+          width: '100%',
+          maxWidth: '100%',
+          position: 'fixed',
+          bottom: 0,
         }}
       >
+        <div
+          style={{
+            width: 36,
+            height: 4,
+            background: '#e0e0e0',
+            borderRadius: 2,
+            margin: '0 auto 20px',
+          }}
+        />
         <h3 style={{ fontSize: 18, fontWeight: 500, margin: 0, marginBottom: 4, color: COLORS.text }}>
           Schedule consultation
         </h3>
@@ -1567,18 +1602,6 @@ function ScheduleModal({ lead, onClose }: { lead: Lead; onClose: () => void }) {
             {saving ? 'Saving...' : 'Confirm'}
           </button>
         </div>
-
-        <style>{`
-          @media (max-width: 767px) {
-            .schedule-overlay { align-items: flex-end !important; }
-            .schedule-modal {
-              width: 100% !important;
-              max-width: 100% !important;
-              border-radius: 16px 16px 0 0 !important;
-              padding: 24px 20px 40px !important;
-            }
-          }
-        `}</style>
       </motion.div>
     </motion.div>
   )
@@ -1602,20 +1625,22 @@ function PushToastContainer({
       <style>{`
         .dash-toast-container {
           position: fixed;
-          bottom: 24px;
-          right: 24px;
+          top: 72px;
+          left: 16px;
+          right: 16px;
           z-index: 9999;
           display: flex;
           flex-direction: column;
           gap: 8px;
           pointer-events: none;
         }
-        @media (max-width: 1023px) {
+        @media (min-width: 768px) {
           .dash-toast-container {
-            bottom: 80px;
-            right: 16px;
-            left: 16px;
             top: auto;
+            bottom: 24px;
+            right: 24px;
+            left: auto;
+            width: auto;
             align-items: flex-end;
           }
         }
@@ -1649,8 +1674,8 @@ function PushToast({
         border: '1px solid rgba(255,255,255,0.10)',
         borderRadius: 10,
         padding: '14px 16px',
-        width: 320,
-        maxWidth: 'calc(100vw - 32px)',
+        width: '100%',
+        maxWidth: '100%',
         pointerEvents: 'auto',
         display: 'flex',
         alignItems: 'center',
@@ -1814,7 +1839,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
   const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
   return (
-    <div className="cal-grid">
+    <div className="cal-grid" style={{ padding: 16 }}>
       {/* LEFT — calendar + upcoming */}
       <div>
         <div
@@ -1824,7 +1849,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
             borderRadius: 10,
             padding: 20,
             width: '100%',
-            maxWidth: 480,
+            maxWidth: '100%',
             margin: '0 auto',
           }}
         >
@@ -1834,10 +1859,10 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: 24,
+              marginBottom: 16,
             }}
           >
-            <div style={{ fontSize: 18, fontWeight: 500, color: '#1a1a1a' }}>
+            <div style={{ fontSize: 16, fontWeight: 500, color: '#1a1a1a' }}>
               {currentMonth.toLocaleDateString('en-US', {
                 month: 'long',
                 year: 'numeric',
@@ -1898,7 +1923,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(7, 1fr)',
-              gap: 2,
+              gap: 1,
             }}
           >
             {cells.map((cell, i) => {
@@ -1936,7 +1961,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    borderRadius: 8,
+                    borderRadius: 6,
                     cursor: otherMonth ? 'default' : 'pointer',
                     pointerEvents: otherMonth ? 'none' : 'auto',
                     position: 'relative',
@@ -1949,7 +1974,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                 >
                   <span
                     style={{
-                      fontSize: 13,
+                      fontSize: 'clamp(11px, 3vw, 13px)',
                       fontWeight: numWeight,
                       color: numColor,
                     }}
@@ -1975,7 +2000,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                       <span
                         style={{
                           position: 'absolute',
-                          bottom: dotCount === 1 ? 6 : 5,
+                          bottom: 3,
                           left: 0,
                           right: 0,
                           display: 'flex',
@@ -2029,7 +2054,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
         </div>
 
         {/* UPCOMING */}
-        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a', marginTop: 24, marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a', marginTop: 16, marginBottom: 12 }}>
           Upcoming
         </div>
         {upcoming.length === 0 ? (
@@ -2055,7 +2080,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 12,
-                    padding: '10px 14px',
+                    padding: '12px 16px',
                     background: '#f8f8f6',
                     borderRadius: 8,
                   }}
@@ -2120,9 +2145,10 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
             overflow: 'hidden',
             position: 'sticky',
             top: 88,
+            marginTop: 16,
           }}
         >
-          <div style={{ padding: '20px 24px', borderBottom: '1px solid #f0f0ee' }}>
+          <div style={{ padding: '16px', borderBottom: '1px solid #f0f0ee' }}>
             {selectedDate ? (
               <>
                 <div style={{ fontSize: 15, fontWeight: 500, color: '#1a1a1a' }}>
@@ -2194,19 +2220,19 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                     <div
                       key={lead.id}
                       style={{
-                        padding: '16px 24px',
+                        padding: '12px 16px',
                         borderBottom: '1px solid #f0f0ee',
                         display: 'flex',
-                        gap: 12,
+                        gap: 10,
                         alignItems: 'flex-start',
                       }}
                     >
                       <div
                         style={{
-                          width: 48,
+                          width: 44,
                           flexShrink: 0,
                           textAlign: 'right',
-                          fontSize: 13,
+                          fontSize: 12,
                           fontWeight: 500,
                           color: '#1a1a1a',
                           paddingTop: 1,
@@ -2227,7 +2253,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                         }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a' }}>
+                        <div style={{ fontSize: 13, fontWeight: 500, color: '#1a1a1a', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {lead.name}
                         </div>
                         {lead.project_type && (
@@ -2259,7 +2285,7 @@ function CalendarTab({ leads }: { leads: Lead[] }) {
                       </div>
                       <span
                         style={{
-                          fontSize: 11,
+                          fontSize: 10,
                           padding: '3px 8px',
                           borderRadius: 999,
                           background: badge.bg,
@@ -2426,24 +2452,24 @@ function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
   return (
     <div className="analytics-grid">
       <div style={cardStyle}>
-        <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
+        <h3 style={{ fontSize: 13, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads by status
         </h3>
-        <ResponsiveContainer width="100%" height={240}>
+        <ResponsiveContainer width="100%" height={200}>
           <BarChart data={statusData}>
-            <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
+            <XAxis dataKey="name" tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <YAxis allowDecimals={false} tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <Tooltip contentStyle={{ ...tooltipStyle, fontSize: 11 }} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
             <Bar dataKey="count" fill="#C47C3A" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
       <div style={cardStyle}>
-        <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
+        <h3 style={{ fontSize: 13, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads by project type
         </h3>
-        <ResponsiveContainer width="100%" height={240}>
+        <ResponsiveContainer width="100%" height={200}>
           <PieChart>
             <Pie
               data={typeData}
@@ -2456,21 +2482,21 @@ function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
                 <Cell key={i} fill={pieColors[i % pieColors.length]} />
               ))}
             </Pie>
-            <Tooltip contentStyle={tooltipStyle} />
+            <Tooltip contentStyle={{ ...tooltipStyle, fontSize: 11 }} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
           </PieChart>
         </ResponsiveContainer>
       </div>
 
-      <div style={{ ...cardStyle, gridColumn: '1 / -1' }}>
-        <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
+      <div style={{ ...cardStyle, gridColumn: '1 / -1', height: 180 }}>
+        <h3 style={{ fontSize: 13, fontWeight: 500, margin: 0, marginBottom: 16, color: COLORS.text }}>
           Leads over time
         </h3>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={monthlyData}>
-            <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke={COLORS.textMuted} />
-            <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
+            <XAxis dataKey="month" tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <YAxis allowDecimals={false} tick={{ fontSize: 10 }} stroke={COLORS.textMuted} />
+            <Tooltip contentStyle={{ ...tooltipStyle, fontSize: 11 }} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
             <Bar dataKey="count" fill="#C47C3A" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

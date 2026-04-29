@@ -1225,6 +1225,15 @@ function LeadCard({
     await supabase.from('leads').update({ status: newStatus }).eq('id', lead.id)
   }
 
+  const handleDelete = async () => {
+    if (!window.confirm(`Delete lead "${lead.name}"?`)) return
+    const { error } = await supabase.from('leads').delete().eq('id', lead.id)
+    if (error) {
+      console.error('Error deleting lead:', error)
+      alert('Failed to delete lead')
+    }
+  }
+
   return (
     <div
       style={{

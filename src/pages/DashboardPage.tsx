@@ -963,7 +963,7 @@ function MetricCard({
         background: COLORS.surface,
         border: `1px solid ${COLORS.border}`,
         borderRadius: 10,
-        padding: 14px,
+        padding: 14,
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>

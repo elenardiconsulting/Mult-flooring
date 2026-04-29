@@ -175,6 +175,12 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-bg-base);
   overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 img {

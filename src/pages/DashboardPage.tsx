@@ -203,8 +203,11 @@ export default function DashboardPage() {
     setToasts((prev) => [t, ...prev].slice(0, 4))
 
   const handleEnableNotifications = async () => {
-    const ok = await subscribeUserToPush()
-    setPermission(ok ? 'granted' : (typeof Notification !== 'undefined' ? Notification.permission : 'denied'))
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      await subscribeUserToPush(user.id)
+      setPermission(typeof Notification !== 'undefined' ? Notification.permission : 'denied')
+    }
   }
 
   useEffect(() => {
@@ -223,11 +226,12 @@ export default function DashboardPage() {
 
     // Register SW and (if already permitted) re-subscribe to push.
     const initPush = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
       const reg = await registerServiceWorker()
       if (!reg) return
       await navigator.serviceWorker.ready
-      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-        await subscribeUserToPush()
+      if (typeof Notification !== 'undefined' && Notification.permission === 'granted' && user) {
+        await subscribeUserToPush(user.id)
       }
     }
     initPush()

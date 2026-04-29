@@ -386,16 +386,16 @@ const Footer = () => {
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
               transition: "all 300ms ease",
-            }}
+            } as React.CSSProperties}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "linear-gradient(135deg, #E8C87A 0%, #C9A84C 50%, #E8C87A 100%)";
-              e.currentTarget.style.WebkitBackgroundClip = "text";
-              e.currentTarget.style.WebkitTextFillColor = "transparent";
+              (e.currentTarget.style as any).webkitBackgroundClip = "text";
+              (e.currentTarget.style as any).webkitTextFillColor = "transparent";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "linear-gradient(135deg, #C9A84C 0%, #E8C87A 45%, #C9A84C 100%)";
-              e.currentTarget.style.WebkitBackgroundClip = "text";
-              e.currentTarget.style.WebkitTextFillColor = "transparent";
+              (e.currentTarget.style as any).webkitBackgroundClip = "text";
+              (e.currentTarget.style as any).webkitTextFillColor = "transparent";
             }}
           >
             Elenardi Consulting

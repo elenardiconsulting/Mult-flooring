@@ -176,6 +176,13 @@ const Icons = {
       <path d="M7 14l4-4 4 4 5-6" />
     </svg>
   ),
+  trash: (p: any) => (
+    <svg {...iconProps} width={14} height={14} {...p}>
+      <path d="M3 6h18" />
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    </svg>
+  ),
 }
 
 type Tab = 'overview' | 'leads' | 'calendar' | 'analytics'
@@ -1218,6 +1225,15 @@ function LeadCard({
     await supabase.from('leads').update({ status: newStatus }).eq('id', lead.id)
   }
 
+  const handleDelete = async () => {
+    if (!window.confirm(`Delete lead "${lead.name}"?`)) return
+    const { error } = await supabase.from('leads').delete().eq('id', lead.id)
+    if (error) {
+      console.error('Error deleting lead:', error)
+      alert('Failed to delete lead')
+    }
+  }
+
   return (
     <div
       style={{
@@ -1256,9 +1272,31 @@ function LeadCard({
             </div>
           </div>
         </div>
-        <div style={{ textAlign: 'right', flexShrink: 0 }}>
-          <StatusPill status={lead.status} />
-          <div style={{ fontSize: 11, color: COLORS.textFaint, marginTop: 4 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button
+              onClick={handleDelete}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 4,
+                cursor: 'pointer',
+                color: '#ccc',
+                borderRadius: 4,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'color 180ms',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#ff4444')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#ccc')}
+              title="Delete Lead"
+            >
+              <Icons.trash />
+            </button>
+            <StatusPill status={lead.status} />
+          </div>
+          <div style={{ fontSize: 11, color: COLORS.textFaint }}>
             {timeAgo(lead.created_at)}
           </div>
         </div>

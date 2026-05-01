@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
 import { useParallax } from "@/hooks/useParallax";
+import HeroContactForm from "./HeroContactForm";
+
 const HERO_IMAGES = [
   {
     src: '/projects/project-07.jpg',

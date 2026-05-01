@@ -382,7 +382,7 @@ const Footer = () => {
               src={elenardiLogo}
               alt="Elenardi Mídia"
               style={{
-                height: "22px",
+                height: "25px",
                 width: "auto",
                 opacity: 0.8,
                 transition: "opacity 250ms ease",

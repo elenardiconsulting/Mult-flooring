@@ -97,21 +97,38 @@ const VideoCard = ({ video, index = 0, animateOnView = false }: VideoCardProps) 
           aspectRatio: "9 / 16",
         }}
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          src={video.src}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
+        {video.src ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            src={video.src}
+            poster={video.poster}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              display: "block",
+            }}
+          />
+        ) : (
+          <img
+            src={video.poster}
+            alt={video.label}
+            style={{
+              width: '100%',
+              aspectRatio: '9/16',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+              display: 'block',
+              borderRadius: '8px',
+            }}
+          />
+        )}
 
         {/* Overlay gradient */}
         <div

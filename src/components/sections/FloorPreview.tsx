@@ -36,7 +36,7 @@ const PREVIEW_SWATCHES: Swatch[] = [
     finish: "Natural",
     tone: "Light",
     width: "Medium",
-    image: "/swatches/red-oak-natural.jpg",
+    image: "/projects/project-07.jpg",
     hex: "#C68C4E",
     description: "Unfinished natural Red Oak. Warm amber tone with open grain character.",
     details: { thickness: '¾"', grade: "Select & Better", coating: "Site-finished", available_widths: '2¼", 3", 3¼", 4", 5"' }
@@ -48,7 +48,7 @@ const PREVIEW_SWATCHES: Swatch[] = [
     finish: "Driftwood",
     tone: "Medium",
     width: "Wide Plank",
-    image: "/swatches/white-oak-driftwood.jpg",
+    image: "/projects/project-10.jpg",
     hex: "#A89880",
     tag: "Trending",
     description: "Warm gray-brown mix that evokes aged, weathered wood. Organic and sophisticated.",
@@ -61,7 +61,7 @@ const PREVIEW_SWATCHES: Swatch[] = [
     finish: "Embossed",
     tone: "Light",
     width: "LVP",
-    image: "/swatches/lvp-light-ash.jpg",
+    image: "/projects/project-01.jpg",
     hex: "#DAD0BC",
     tag: "100% Waterproof",
     description: "Light pale gray-beige LVP with realistic embossed grain. 100% waterproof.",
@@ -74,7 +74,7 @@ const PREVIEW_SWATCHES: Swatch[] = [
     finish: "Natural",
     tone: "Light",
     width: "Parquet",
-    image: "/swatches/parquet-natural.jpg",
+    image: "/projects/project-04.jpg",
     hex: "#C68C4E",
     tag: "Signature",
     description: "Classic herringbone and basket-weave patterns in natural Red Oak.",
@@ -229,7 +229,7 @@ const SwatchImage = ({ src, alt, hex }: { src: string; alt: string; hex: string 
         <img
           src={src}
           alt={alt}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="h-full w-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-110"
           onError={() => setError(true)}
         />
       ) : (

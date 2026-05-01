@@ -3,21 +3,20 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
 import { useParallax } from "@/hooks/useParallax";
-import heroNewImg from "@/assets/hero-new.jpg";
 import HeroContactForm from "./HeroContactForm";
 
 const HERO_IMAGES = [
   {
-    src: heroNewImg,
-    alt: "Luxury living room with premium hardwood flooring installed by Mult Flooring MA",
+    src: '/projects/project-07.jpg',
+    alt: 'Wide plank hardwood floor installation by Mult Flooring Massachusetts',
   },
   {
-    src: "/hero/hero-bedroom.jpg",
-    alt: "Master bedroom with Red Oak hardwood floor installation in Massachusetts",
+    src: '/projects/project-10.jpg',
+    alt: 'Premium hardwood floor result by Mult Flooring West Bridgewater MA',
   },
   {
-    src: "/hero/hero-kitchen.jpg",
-    alt: "Modern kitchen with hardwood flooring installed by Mult Flooring West Bridgewater",
+    src: '/projects/project-03.jpg',
+    alt: 'Dark walnut hardwood staircase installed by Mult Flooring MA',
   },
 ];
 
@@ -173,8 +172,8 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
-            src={heroNewImg}
-            alt="Premium wooden floor interior"
+            src={HERO_IMAGES[0].src}
+            alt={HERO_IMAGES[0].alt}
             loading="eager"
             className="w-full h-full object-cover object-[center_right]"
             style={{ y: heroParallax.y, willChange: "transform" }}

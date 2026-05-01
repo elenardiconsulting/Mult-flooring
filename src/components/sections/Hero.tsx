@@ -3,20 +3,21 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
 import { useParallax } from "@/hooks/useParallax";
+import heroNewImg from "@/assets/hero-new.jpg";
 import HeroContactForm from "./HeroContactForm";
 
 const HERO_IMAGES = [
   {
-    src: '/projects/project-07.jpg',
-    alt: 'Wide plank hardwood floor installation by Mult Flooring Massachusetts',
+    src: heroNewImg,
+    alt: "Luxury living room with premium hardwood flooring installed by Mult Flooring MA",
   },
   {
-    src: '/projects/project-10.jpg',
-    alt: 'Premium hardwood floor result by Mult Flooring West Bridgewater MA',
+    src: "/hero/hero-bedroom.jpg",
+    alt: "Master bedroom with Red Oak hardwood floor installation in Massachusetts",
   },
   {
-    src: '/projects/project-03.jpg',
-    alt: 'Dark walnut hardwood staircase installed by Mult Flooring MA',
+    src: "/hero/hero-kitchen.jpg",
+    alt: "Modern kitchen with hardwood flooring installed by Mult Flooring West Bridgewater",
   },
 ];
 

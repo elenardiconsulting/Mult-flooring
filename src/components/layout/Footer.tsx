@@ -1,5 +1,6 @@
 import { COMPANY } from "@/lib/constants";
 import logo from "@/assets/mult-flooring-logo.png";
+import elenardiLogo from "@/assets/elenardi-midia-logo.png";
 
 const labelStyle: React.CSSProperties = {
   fontSize: 11,
@@ -357,9 +358,9 @@ const Footer = () => {
             marginTop: 16,
             paddingTop: 16,
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             alignItems: "center",
-            gap: 6,
+            gap: 8,
           }}
         >
           <span
@@ -372,33 +373,22 @@ const Footer = () => {
             Website designed & developed by
           </span>
           <a
-            href="https://wa.me/13392428150"
+            href="https://www.instagram.com/elenardimidia/"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "0.02em",
-              textDecoration: "none",
-              display: "inline-block",
-              background: "linear-gradient(135deg, #C9A84C 0%, #E8C87A 45%, #C9A84C 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              transition: "all 300ms ease",
-            } as React.CSSProperties}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "linear-gradient(135deg, #E8C87A 0%, #C9A84C 50%, #E8C87A 100%)";
-              (e.currentTarget.style as any).webkitBackgroundClip = "text";
-              (e.currentTarget.style as any).webkitTextFillColor = "transparent";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "linear-gradient(135deg, #C9A84C 0%, #E8C87A 45%, #C9A84C 100%)";
-              (e.currentTarget.style as any).webkitBackgroundClip = "text";
-              (e.currentTarget.style as any).webkitTextFillColor = "transparent";
-            }}
           >
-            Elenardi Consulting
+            <img
+              src={elenardiLogo}
+              alt="Elenardi Mídia"
+              style={{
+                height: "48px",
+                width: "auto",
+                opacity: 1,
+                transition: "opacity 250ms ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            />
           </a>
         </div>
       </div>

@@ -8,22 +8,25 @@ import SectionLabel from "@/components/ui/mult-section-label";
 // work-3.mp4 → SnapInsta_to_AQPwIlV...mp4
 const VIDEOS = [
   {
-    id: "video-1",
-    src: "/videos/work-1.mp4",
-    label: "Installation in progress",
-    description: "Our crew at work, precision\non every plank.",
+    id: 'work-1',
+    src: '/videos/work-1.mp4',
+    poster: '/projects/project-14.jpg',
+    label: 'Installation in progress',
+    description: 'Our crew at work —\nprecision on every plank.',
   },
   {
-    id: "video-2",
-    src: "/videos/work-2.mp4",
-    label: "Before & after",
-    description: "The transformation from\nsubfloor to finished floor.",
+    id: 'work-2',
+    src: '/videos/work-2.mp4',
+    poster: '/projects/project-04.jpg',
+    label: 'Staircase installation',
+    description: 'From subfloor to\nfinished staircase.',
   },
   {
-    id: "video-3",
-    src: "/videos/work-3.mp4",
-    label: "Final result",
-    description: "The finished floor —\nexactly as planned.",
+    id: 'work-3',
+    src: '/videos/work-3.mp4',
+    poster: '/projects/project-03.jpg',
+    label: 'Final result',
+    description: 'The finished floor —\nexactly as planned.',
   },
 ];
 

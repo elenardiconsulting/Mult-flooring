@@ -173,8 +173,8 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
-            src={HERO_IMAGES[0].src}
-            alt={HERO_IMAGES[0].alt}
+            src={heroNewImg}
+            alt="Premium wooden floor interior"
             loading="eager"
             className="w-full h-full object-cover object-[center_right]"
             style={{ y: heroParallax.y, willChange: "transform" }}

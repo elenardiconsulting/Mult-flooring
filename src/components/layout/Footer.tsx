@@ -358,9 +358,9 @@ const Footer = () => {
             marginTop: 16,
             paddingTop: 16,
             display: "flex",
-            flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
-            gap: 8,
+            gap: 10,
           }}
         >
           <span
@@ -376,18 +376,19 @@ const Footer = () => {
             href="https://www.instagram.com/elenardimidia/"
             target="_blank"
             rel="noopener noreferrer"
+            className="flex items-center"
           >
             <img
               src={elenardiLogo}
               alt="Elenardi Mídia"
               style={{
-                height: "48px",
+                height: "22px",
                 width: "auto",
-                opacity: 1,
+                opacity: 0.8,
                 transition: "opacity 250ms ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.8")}
             />
           </a>
         </div>

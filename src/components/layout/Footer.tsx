@@ -311,7 +311,18 @@ const Footer = () => {
               <br />
               West Bridgewater, MA 02379
             </p>
-            <ContactLink href="tel:5085104007">(508) 510-4007</ContactLink>
+            <p
+              className="text-center md:text-left"
+              style={{
+                fontSize: 13,
+                color: "rgba(255,255,255,0.55)",
+                marginBottom: 6,
+              }}
+            >
+              Visits by Appointment
+            </p>
+            <ContactLink href="tel:5087449103">(508) 744-9103 · Cintia</ContactLink>
+            <ContactLink href="tel:7748237239">(774) 823-7239 · Lucas</ContactLink>
             <ContactLink href="mailto:multflooring@gmail.com">
               multflooring@gmail.com
             </ContactLink>

@@ -9,7 +9,11 @@ export const COMPANY = {
   years: "20",
   email: "multflooring@gmail.com",
   address: "Serving New England",
-  hours: "Mon to Sat, 8am to 6pm",
+  hours: "Visits by Appointment",
+  contacts: [
+    { name: "Cintia", phone: "(508) 744-9103", phoneRaw: "5087449103" },
+    { name: "Lucas", phone: "(774) 823-7239", phoneRaw: "7748237239" },
+  ],
   cta: {
     primary: "Request a Consultation",
     collections: "Explore Collections",

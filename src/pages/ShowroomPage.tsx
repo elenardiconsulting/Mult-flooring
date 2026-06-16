@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -6,6 +7,64 @@ import Footer from "@/components/layout/Footer";
 import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import SEO from "@/components/SEO";
+
+/* ============================================================ */
+/* MOBILE CAROUSEL (used on < 768px in sections 4, 5, 6)        */
+/* ============================================================ */
+const MobileCarousel = ({
+  items,
+  widthVw,
+  ar,
+}: {
+  items: React.ReactNode[];
+  widthVw: number;
+  ar: string;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  return (
+    <div className="md:hidden">
+      <div
+        ref={ref}
+        className="showroom-carousel"
+        onScroll={(e) => {
+          const el = e.currentTarget;
+          const first = el.firstElementChild as HTMLElement | null;
+          if (!first) return;
+          const step = first.getBoundingClientRect().width + 12;
+          setActive(Math.round(el.scrollLeft / step));
+        }}
+      >
+        {items.map((node, i) => (
+          <div
+            key={i}
+            className="showroom-carousel-item"
+            style={{ width: `${widthVw}vw`, aspectRatio: ar }}
+          >
+            {node}
+          </div>
+        ))}
+      </div>
+      <div className="showroom-dots">
+        {items.map((_, i) => (
+          <span
+            key={i}
+            className={`showroom-dot${i === active ? " is-active" : ""}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const carouselMediaStyle: React.CSSProperties = {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  display: "block",
+};
+
+
 
 
 const EASE = [0.16, 1, 0.3, 1] as const;

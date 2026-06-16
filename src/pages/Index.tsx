@@ -9,6 +9,7 @@ import SocialProof from "@/components/sections/SocialProof";
 import CtaFinal from "@/components/sections/CtaFinal";
 import PartnersTicker from "@/components/sections/PartnersTicker";
 import WhyChoose from "@/components/sections/WhyChoose";
+import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import Footer from "@/components/layout/Footer";
 import SectionTransition from "@/components/ui/SectionTransition";
 import SEO from "@/components/SEO";
@@ -115,6 +116,8 @@ const Index = () => {
         <SectionTransition direction="left" />
         <WhyChoose />
         <SectionTransition direction="right" />
+        <ReviewsSection />
+        <SectionTransition direction="left" />
         <CtaFinal />
       </main>
       <Footer />

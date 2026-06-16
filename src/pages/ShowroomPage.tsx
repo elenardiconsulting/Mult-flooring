@@ -622,77 +622,112 @@ const TheSpace = () => (
 
       <motion.div
         {...fadeUp}
-        className="grid grid-cols-2 md:[grid-template-columns:2fr_1fr_1fr] md:[grid-template-rows:auto_auto]"
-        style={{ gap: 8, marginTop: 48 }}
+        className="showroom-bento"
+        style={{ marginTop: 48 }}
       >
-        <img
-          src="/showroom/showroom-interior-overview.jpg"
-          alt="Showroom interior overview"
-          loading="lazy"
-          className="col-span-2 md:col-span-1 md:row-span-2"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center top",
-            borderRadius: 12,
-            minHeight: 400,
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-6.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "1 / 1",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
-        <img
-          src="/showroom/showroom-stair-rail.jpg"
-          alt="Stair rail close-up"
-          loading="lazy"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "1 / 1",
-            objectFit: "cover",
-            objectPosition: "center top",
-            width: "100%",
-          }}
-        />
-        <img
-          src="/showroom/showroom-wickham-display.jpg"
-          alt="Wickham display"
-          loading="lazy"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "1 / 1",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-3.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "1 / 1",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
+        <div className="showroom-bento-item showroom-bento-feature">
+          <img
+            src="/showroom/showroom-interior-overview.jpg"
+            alt="Showroom interior overview"
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              display: "block",
+            }}
+          />
+        </div>
+        <div className="showroom-bento-item">
+          <video
+            src="/showroom/showroom-video-6.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </div>
+        <div className="showroom-bento-item">
+          <img
+            src="/showroom/showroom-stair-rail.jpg"
+            alt="Stair rail close-up"
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              display: "block",
+            }}
+          />
+        </div>
+        <div className="showroom-bento-item">
+          <img
+            src="/showroom/showroom-wickham-display.jpg"
+            alt="Wickham display"
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </div>
+        <div className="showroom-bento-item">
+          <video
+            src="/showroom/showroom-video-3.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </div>
       </motion.div>
+
+      <style>{`
+        .showroom-bento {
+          display: grid;
+          gap: 8px;
+          grid-template-columns: 1fr 1fr;
+        }
+        .showroom-bento-item {
+          aspect-ratio: 1 / 1;
+          overflow: hidden;
+          border-radius: 12px;
+        }
+        @media (min-width: 768px) {
+          .showroom-bento {
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 300px 300px;
+          }
+          .showroom-bento-item {
+            aspect-ratio: auto;
+            height: 100%;
+          }
+          .showroom-bento-feature {
+            grid-row: 1 / 3;
+            grid-column: 1;
+          }
+        }
+      `}</style>
     </div>
   </section>
 );

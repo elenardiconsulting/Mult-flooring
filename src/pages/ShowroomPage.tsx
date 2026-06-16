@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
@@ -6,6 +7,64 @@ import Footer from "@/components/layout/Footer";
 import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import SEO from "@/components/SEO";
+
+/* ============================================================ */
+/* MOBILE CAROUSEL (used on < 768px in sections 4, 5, 6)        */
+/* ============================================================ */
+const MobileCarousel = ({
+  items,
+  widthVw,
+  ar,
+}: {
+  items: React.ReactNode[];
+  widthVw: number;
+  ar: string;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  return (
+    <div className="md:hidden">
+      <div
+        ref={ref}
+        className="showroom-carousel"
+        onScroll={(e) => {
+          const el = e.currentTarget;
+          const first = el.firstElementChild as HTMLElement | null;
+          if (!first) return;
+          const step = first.getBoundingClientRect().width + 12;
+          setActive(Math.round(el.scrollLeft / step));
+        }}
+      >
+        {items.map((node, i) => (
+          <div
+            key={i}
+            className="showroom-carousel-item"
+            style={{ width: `${widthVw}vw`, aspectRatio: ar }}
+          >
+            {node}
+          </div>
+        ))}
+      </div>
+      <div className="showroom-dots">
+        {items.map((_, i) => (
+          <span
+            key={i}
+            className={`showroom-dot${i === active ? " is-active" : ""}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const carouselMediaStyle: React.CSSProperties = {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  display: "block",
+};
+
+
 
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -418,54 +477,91 @@ const StairRail = () => (
     style={{ background: "var(--color-bg-dark, #1a1a1a)", paddingTop: 100, paddingBottom: 100 }}
   >
     <div className="max-w-[var(--max-width)] mx-auto grid md:grid-cols-2 gap-16 items-center">
-      <motion.div {...fadeUp} className="grid grid-cols-2 order-2 md:order-1" style={{ gap: 8 }}>
-        <video
-          src="/showroom/showroom-video-2.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="col-span-2"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "16 / 9",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
-        <img
-          src="/showroom/showroom-stair-detail.jpg"
-          alt="Stair detail display"
-          loading="lazy"
-          className="showroom-media"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "4 / 3",
-            objectFit: "cover",
-            objectPosition: "center top",
-            width: "100%",
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-3.mp4"
-          poster="/showroom/showroom-stair-rail.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="showroom-media"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "4 / 3",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
+      <motion.div {...fadeUp} className="order-2 md:order-1">
+        {/* Desktop — 3 equal columns, all 9:16 */}
+        <div className="hidden md:grid md:grid-cols-3" style={{ gap: 8 }}>
+          <video
+            src="/showroom/showroom-video-2.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+          <img
+            src="/showroom/showroom-stair-detail.jpg"
+            alt="Stair detail display"
+            loading="lazy"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              objectPosition: "center top",
+              width: "100%",
+            }}
+          />
+          <video
+            src="/showroom/showroom-video-3.mp4"
+            poster="/showroom/showroom-stair-rail.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+        </div>
 
+        {/* Mobile — horizontal carousel */}
+        <MobileCarousel
+          widthVw={80}
+          ar="9 / 16"
+          items={[
+            <video
+              key="v2"
+              src="/showroom/showroom-video-2.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+            <img
+              key="sd"
+              src="/showroom/showroom-stair-detail.jpg"
+              alt="Stair detail display"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <video
+              key="v3"
+              src="/showroom/showroom-video-3.mp4"
+              poster="/showroom/showroom-stair-rail.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+          ]}
+        />
       </motion.div>
+
 
       <motion.div {...fadeUp} className="order-1 md:order-2">
         <SectionLabel style={{ color: "rgba(201,168,76,0.70)" }}>
@@ -539,54 +635,91 @@ const TileStone = () => (
         </p>
       </motion.div>
 
-      <motion.div
-        {...fadeUp}
-        className="grid grid-cols-1 md:grid-cols-3"
-        style={{ gap: 12, marginTop: 48 }}
-      >
-        <img
-          src="/showroom/showroom-tile-samples.jpg"
-          alt="Tile samples wall"
-          loading="lazy"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "9 / 16",
-            objectFit: "cover",
-            objectPosition: "center top",
-            width: "100%",
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-4.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "9 / 16",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-5.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "9 / 16",
-            objectFit: "cover",
-            width: "100%",
-          }}
+      <motion.div {...fadeUp} style={{ marginTop: 48 }}>
+        {/* Desktop — 3 columns */}
+        <div className="hidden md:grid md:grid-cols-3" style={{ gap: 12 }}>
+          <img
+            src="/showroom/showroom-tile-samples.jpg"
+            alt="Tile samples wall"
+            loading="lazy"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              objectPosition: "center top",
+              width: "100%",
+            }}
+          />
+          <video
+            src="/showroom/showroom-video-4.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+          <video
+            src="/showroom/showroom-video-5.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+        </div>
+
+        {/* Mobile — horizontal carousel */}
+        <MobileCarousel
+          widthVw={80}
+          ar="9 / 16"
+          items={[
+            <img
+              key="tile"
+              src="/showroom/showroom-tile-samples.jpg"
+              alt="Tile samples wall"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <video
+              key="v4"
+              src="/showroom/showroom-video-4.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+            <video
+              key="v5"
+              src="/showroom/showroom-video-5.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+          ]}
         />
       </motion.div>
+
 
     </div>
   </section>
@@ -711,11 +844,62 @@ const TheSpace = () => (
         </div>
       </motion.div>
 
+      {/* Mobile — horizontal carousel replacing bento grid */}
+      <div style={{ marginTop: 48 }}>
+        <MobileCarousel
+          widthVw={85}
+          ar="4 / 5"
+          items={[
+            <img
+              key="io"
+              src="/showroom/showroom-interior-overview.jpg"
+              alt="Showroom interior overview"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <video
+              key="v6"
+              src="/showroom/showroom-video-6.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+            <img
+              key="sr"
+              src="/showroom/showroom-stair-rail.jpg"
+              alt="Stair rail close-up"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <img
+              key="wk"
+              src="/showroom/showroom-wickham-display.jpg"
+              alt="Wickham display"
+              loading="lazy"
+              style={carouselMediaStyle}
+            />,
+            <video
+              key="v3b"
+              src="/showroom/showroom-video-3.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+          ]}
+        />
+      </div>
+
       <style>{`
         .showroom-bento {
-          display: grid;
-          gap: 8px;
-          grid-template-columns: 1fr 1fr;
+          display: none;
         }
         @media (max-width: 767px) {
           .showroom-media {
@@ -723,18 +907,16 @@ const TheSpace = () => (
             width: 100% !important;
           }
         }
-        .showroom-bento-item {
-          aspect-ratio: 1 / 1;
-          overflow: hidden;
-          border-radius: 12px;
-        }
         @media (min-width: 768px) {
           .showroom-bento {
+            display: grid;
+            gap: 8px;
             grid-template-columns: 2fr 1fr 1fr;
-            grid-template-rows: 360px 360px;
+            grid-template-rows: 400px 400px;
           }
           .showroom-bento-item {
-            aspect-ratio: auto;
+            overflow: hidden;
+            border-radius: 12px;
             height: 100%;
           }
           .showroom-bento-feature {
@@ -742,7 +924,46 @@ const TheSpace = () => (
             grid-column: 1;
           }
         }
+
+        /* Mobile carousel (sections 4, 5, 6) */
+        .showroom-carousel {
+          display: flex;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          gap: 12px;
+          padding-bottom: 8px;
+        }
+        .showroom-carousel::-webkit-scrollbar {
+          display: none;
+        }
+        .showroom-carousel-item {
+          flex-shrink: 0;
+          scroll-snap-align: center;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .showroom-dots {
+          display: flex;
+          justify-content: center;
+          gap: 6px;
+          margin-top: 12px;
+        }
+        .showroom-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--color-border, rgba(0,0,0,0.15));
+          transition: width 0.25s ease, background 0.25s ease, border-radius 0.25s ease;
+        }
+        .showroom-dot.is-active {
+          background: var(--color-accent-mid, #C9A84C);
+          width: 20px;
+          border-radius: 3px;
+        }
       `}</style>
+
     </div>
   </section>
 );

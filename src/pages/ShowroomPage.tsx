@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import SEO from "@/components/SEO";
+import showroomMainTour2Asset from "@/assets/showroom-main-tour-2.mp4.asset.json";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -287,7 +288,7 @@ const Welcome = () => (
         }}
       >
         <video
-          src="/showroom/showroom-main-tour.mp4"
+          src={showroomMainTour2Asset.url}
           poster={POSTER}
           controls
           playsInline

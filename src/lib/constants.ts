@@ -30,6 +30,7 @@ export const COMPANY = {
 export const NAV_LINKS = [
   { label: "Cabinets", href: "/cabinets" },
   { label: "Projects", href: "/projects" },
+  { label: "Showroom", href: "/showroom" },
   { label: "Process", href: "/process" },
   { label: "Contact", href: "/contact" },
 ] as const;

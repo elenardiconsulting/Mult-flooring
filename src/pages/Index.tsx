@@ -116,6 +116,8 @@ const Index = () => {
         <SectionTransition direction="left" />
         <WhyChoose />
         <SectionTransition direction="right" />
+        <ReviewsSection />
+        <SectionTransition direction="left" />
         <CtaFinal />
       </main>
       <Footer />

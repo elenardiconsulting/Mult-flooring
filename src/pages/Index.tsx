@@ -44,16 +44,7 @@ const homeSchema = {
   ],
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
-    dayOfWeek: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ],
-    opens: "08:00",
-    closes: "18:00",
+    description: "By appointment only",
   },
   aggregateRating: {
     "@type": "AggregateRating",

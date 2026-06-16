@@ -284,11 +284,29 @@ export default function ContactPage() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
               <InfoCard
+                icon={<PinIcon />}
+                label="Visits"
+                value="By Appointment Only"
+              />
+              <InfoCard
                 icon={<PhoneIcon />}
-                label="Call us"
-                value="(508) 510-4007"
-                sub="Mon to Sat, 8am to 6pm"
-                href="tel:5085104007"
+                label="Contact"
+                value={
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <a
+                      href="tel:5087449103"
+                      style={{ fontSize: 15, fontWeight: 500, color: "var(--color-text-primary)" }}
+                    >
+                      (508) 744-9103 · Cintia
+                    </a>
+                    <a
+                      href="tel:7748237239"
+                      style={{ fontSize: 15, fontWeight: 500, color: "var(--color-text-primary)" }}
+                    >
+                      (774) 823-7239 · Lucas
+                    </a>
+                  </div>
+                }
               />
               <InfoCard
                 icon={<MailIcon />}

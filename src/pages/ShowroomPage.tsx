@@ -844,11 +844,62 @@ const TheSpace = () => (
         </div>
       </motion.div>
 
+      {/* Mobile — horizontal carousel replacing bento grid */}
+      <div style={{ marginTop: 48 }}>
+        <MobileCarousel
+          widthVw={85}
+          ar="4 / 5"
+          items={[
+            <img
+              key="io"
+              src="/showroom/showroom-interior-overview.jpg"
+              alt="Showroom interior overview"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <video
+              key="v6"
+              src="/showroom/showroom-video-6.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+            <img
+              key="sr"
+              src="/showroom/showroom-stair-rail.jpg"
+              alt="Stair rail close-up"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <img
+              key="wk"
+              src="/showroom/showroom-wickham-display.jpg"
+              alt="Wickham display"
+              loading="lazy"
+              style={carouselMediaStyle}
+            />,
+            <video
+              key="v3b"
+              src="/showroom/showroom-video-3.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+          ]}
+        />
+      </div>
+
       <style>{`
         .showroom-bento {
-          display: grid;
-          gap: 8px;
-          grid-template-columns: 1fr 1fr;
+          display: none;
         }
         @media (max-width: 767px) {
           .showroom-media {
@@ -856,18 +907,16 @@ const TheSpace = () => (
             width: 100% !important;
           }
         }
-        .showroom-bento-item {
-          aspect-ratio: 1 / 1;
-          overflow: hidden;
-          border-radius: 12px;
-        }
         @media (min-width: 768px) {
           .showroom-bento {
+            display: grid;
+            gap: 8px;
             grid-template-columns: 2fr 1fr 1fr;
-            grid-template-rows: 360px 360px;
+            grid-template-rows: 400px 400px;
           }
           .showroom-bento-item {
-            aspect-ratio: auto;
+            overflow: hidden;
+            border-radius: 12px;
             height: 100%;
           }
           .showroom-bento-feature {
@@ -875,7 +924,46 @@ const TheSpace = () => (
             grid-column: 1;
           }
         }
+
+        /* Mobile carousel (sections 4, 5, 6) */
+        .showroom-carousel {
+          display: flex;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          gap: 12px;
+          padding-bottom: 8px;
+        }
+        .showroom-carousel::-webkit-scrollbar {
+          display: none;
+        }
+        .showroom-carousel-item {
+          flex-shrink: 0;
+          scroll-snap-align: center;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .showroom-dots {
+          display: flex;
+          justify-content: center;
+          gap: 6px;
+          margin-top: 12px;
+        }
+        .showroom-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--color-border, rgba(0,0,0,0.15));
+          transition: width 0.25s ease, background 0.25s ease, border-radius 0.25s ease;
+        }
+        .showroom-dot.is-active {
+          background: var(--color-accent-mid, #C9A84C);
+          width: 20px;
+          border-radius: 3px;
+        }
       `}</style>
+
     </div>
   </section>
 );

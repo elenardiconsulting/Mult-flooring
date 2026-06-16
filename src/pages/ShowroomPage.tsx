@@ -7,7 +7,7 @@ import Footer from "@/components/layout/Footer";
 import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import SEO from "@/components/SEO";
-import showroomMainTourAsset from "@/assets/showroom-main-tour.mp4.asset.json";
+
 
 /* ============================================================ */
 /* MOBILE CAROUSEL (used on < 768px in sections 4, 5, 6)        */
@@ -348,7 +348,7 @@ const Welcome = () => (
         }}
       >
         <video
-          src={showroomMainTourAsset.url}
+          src="/showroom/showroom-principal.mp4"
           poster="/showroom/showroom-interior-overview.jpg"
           controls
           playsInline

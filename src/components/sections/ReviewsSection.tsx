@@ -198,8 +198,8 @@ export function ReviewsSection() {
               <button
                 onClick={submit}
                 disabled={status === "sending"}
-                className="inline-flex h-[48px] items-center justify-center rounded-full px-7 text-[15px] font-semibold text-black disabled:opacity-60"
-                style={{ background: ACCENT }}
+                className="inline-flex h-[48px] items-center justify-center rounded-full px-7 text-[15px] font-semibold text-white disabled:opacity-60 transition-colors hover:bg-[#5a3a14]"
+                style={{ background: "#7a4f1e" }}
               >
                 {status === "sending" ? "Submitting..." : "Submit review"}
               </button>

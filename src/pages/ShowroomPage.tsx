@@ -477,54 +477,91 @@ const StairRail = () => (
     style={{ background: "var(--color-bg-dark, #1a1a1a)", paddingTop: 100, paddingBottom: 100 }}
   >
     <div className="max-w-[var(--max-width)] mx-auto grid md:grid-cols-2 gap-16 items-center">
-      <motion.div {...fadeUp} className="grid grid-cols-2 order-2 md:order-1" style={{ gap: 8 }}>
-        <video
-          src="/showroom/showroom-video-2.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="col-span-2"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "16 / 9",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
-        <img
-          src="/showroom/showroom-stair-detail.jpg"
-          alt="Stair detail display"
-          loading="lazy"
-          className="showroom-media"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "4 / 3",
-            objectFit: "cover",
-            objectPosition: "center top",
-            width: "100%",
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-3.mp4"
-          poster="/showroom/showroom-stair-rail.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="showroom-media"
-          style={{
-            borderRadius: 10,
-            aspectRatio: "4 / 3",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
+      <motion.div {...fadeUp} className="order-2 md:order-1">
+        {/* Desktop — 3 equal columns, all 9:16 */}
+        <div className="hidden md:grid md:grid-cols-3" style={{ gap: 8 }}>
+          <video
+            src="/showroom/showroom-video-2.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+          <img
+            src="/showroom/showroom-stair-detail.jpg"
+            alt="Stair detail display"
+            loading="lazy"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              objectPosition: "center top",
+              width: "100%",
+            }}
+          />
+          <video
+            src="/showroom/showroom-video-3.mp4"
+            poster="/showroom/showroom-stair-rail.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+        </div>
 
+        {/* Mobile — horizontal carousel */}
+        <MobileCarousel
+          widthVw={80}
+          ar="9 / 16"
+          items={[
+            <video
+              key="v2"
+              src="/showroom/showroom-video-2.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+            <img
+              key="sd"
+              src="/showroom/showroom-stair-detail.jpg"
+              alt="Stair detail display"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <video
+              key="v3"
+              src="/showroom/showroom-video-3.mp4"
+              poster="/showroom/showroom-stair-rail.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+          ]}
+        />
       </motion.div>
+
 
       <motion.div {...fadeUp} className="order-1 md:order-2">
         <SectionLabel style={{ color: "rgba(201,168,76,0.70)" }}>

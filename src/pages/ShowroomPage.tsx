@@ -715,6 +715,12 @@ const TheSpace = () => (
           gap: 8px;
           grid-template-columns: 1fr 1fr;
         }
+        @media (max-width: 767px) {
+          .showroom-media {
+            aspect-ratio: 9 / 16 !important;
+            width: 100% !important;
+          }
+        }
         .showroom-bento-item {
           aspect-ratio: 1 / 1;
           overflow: hidden;
@@ -723,7 +729,7 @@ const TheSpace = () => (
         @media (min-width: 768px) {
           .showroom-bento {
             grid-template-columns: 2fr 1fr 1fr;
-            grid-template-rows: 300px 300px;
+            grid-template-rows: 360px 360px;
           }
           .showroom-bento-item {
             aspect-ratio: auto;

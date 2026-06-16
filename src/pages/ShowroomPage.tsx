@@ -635,54 +635,91 @@ const TileStone = () => (
         </p>
       </motion.div>
 
-      <motion.div
-        {...fadeUp}
-        className="grid grid-cols-1 md:grid-cols-3"
-        style={{ gap: 12, marginTop: 48 }}
-      >
-        <img
-          src="/showroom/showroom-tile-samples.jpg"
-          alt="Tile samples wall"
-          loading="lazy"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "9 / 16",
-            objectFit: "cover",
-            objectPosition: "center top",
-            width: "100%",
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-4.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "9 / 16",
-            objectFit: "cover",
-            width: "100%",
-          }}
-        />
-        <video
-          src="/showroom/showroom-video-5.mp4"
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          style={{
-            borderRadius: 12,
-            aspectRatio: "9 / 16",
-            objectFit: "cover",
-            width: "100%",
-          }}
+      <motion.div {...fadeUp} style={{ marginTop: 48 }}>
+        {/* Desktop — 3 columns */}
+        <div className="hidden md:grid md:grid-cols-3" style={{ gap: 12 }}>
+          <img
+            src="/showroom/showroom-tile-samples.jpg"
+            alt="Tile samples wall"
+            loading="lazy"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              objectPosition: "center top",
+              width: "100%",
+            }}
+          />
+          <video
+            src="/showroom/showroom-video-4.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+          <video
+            src="/showroom/showroom-video-5.mp4"
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              borderRadius: 12,
+              aspectRatio: "9 / 16",
+              objectFit: "cover",
+              width: "100%",
+            }}
+          />
+        </div>
+
+        {/* Mobile — horizontal carousel */}
+        <MobileCarousel
+          widthVw={80}
+          ar="9 / 16"
+          items={[
+            <img
+              key="tile"
+              src="/showroom/showroom-tile-samples.jpg"
+              alt="Tile samples wall"
+              loading="lazy"
+              style={{ ...carouselMediaStyle, objectPosition: "center top" }}
+            />,
+            <video
+              key="v4"
+              src="/showroom/showroom-video-4.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+            <video
+              key="v5"
+              src="/showroom/showroom-video-5.mp4"
+              poster={POSTER}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={carouselMediaStyle}
+            />,
+          ]}
         />
       </motion.div>
+
 
     </div>
   </section>

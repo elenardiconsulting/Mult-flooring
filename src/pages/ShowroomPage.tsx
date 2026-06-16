@@ -377,9 +377,10 @@ const FloorCollection = () => (
           src="/showroom/showroom-wickham-display.jpg"
           alt="Wickham hardwood display"
           loading="lazy"
+          className="showroom-media"
           style={{
             borderRadius: 10,
-            aspectRatio: "1 / 1",
+            aspectRatio: "4 / 3",
             objectFit: "cover",
             width: "100%",
           }}
@@ -392,13 +393,15 @@ const FloorCollection = () => (
           loop
           playsInline
           preload="metadata"
+          className="showroom-media"
           style={{
             borderRadius: 10,
-            aspectRatio: "1 / 1",
+            aspectRatio: "4 / 3",
             objectFit: "cover",
             width: "100%",
           }}
         />
+
       </motion.div>
     </div>
   </section>
@@ -434,9 +437,10 @@ const StairRail = () => (
           src="/showroom/showroom-stair-detail.jpg"
           alt="Stair detail display"
           loading="lazy"
+          className="showroom-media"
           style={{
             borderRadius: 10,
-            aspectRatio: "1 / 1",
+            aspectRatio: "4 / 3",
             objectFit: "cover",
             objectPosition: "center top",
             width: "100%",
@@ -450,13 +454,15 @@ const StairRail = () => (
           loop
           playsInline
           preload="metadata"
+          className="showroom-media"
           style={{
             borderRadius: 10,
-            aspectRatio: "1 / 1",
+            aspectRatio: "4 / 3",
             objectFit: "cover",
             width: "100%",
           }}
         />
+
       </motion.div>
 
       <motion.div {...fadeUp} className="order-1 md:order-2">
@@ -533,7 +539,7 @@ const TileStone = () => (
 
       <motion.div
         {...fadeUp}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid grid-cols-1 md:grid-cols-3"
         style={{ gap: 12, marginTop: 48 }}
       >
         <img
@@ -542,7 +548,7 @@ const TileStone = () => (
           loading="lazy"
           style={{
             borderRadius: 12,
-            aspectRatio: "3 / 4",
+            aspectRatio: "9 / 16",
             objectFit: "cover",
             objectPosition: "center top",
             width: "100%",
@@ -558,7 +564,7 @@ const TileStone = () => (
           preload="metadata"
           style={{
             borderRadius: 12,
-            aspectRatio: "3 / 4",
+            aspectRatio: "9 / 16",
             objectFit: "cover",
             width: "100%",
           }}
@@ -573,12 +579,13 @@ const TileStone = () => (
           preload="metadata"
           style={{
             borderRadius: 12,
-            aspectRatio: "3 / 4",
+            aspectRatio: "9 / 16",
             objectFit: "cover",
             width: "100%",
           }}
         />
       </motion.div>
+
     </div>
   </section>
 );
@@ -708,6 +715,12 @@ const TheSpace = () => (
           gap: 8px;
           grid-template-columns: 1fr 1fr;
         }
+        @media (max-width: 767px) {
+          .showroom-media {
+            aspect-ratio: 9 / 16 !important;
+            width: 100% !important;
+          }
+        }
         .showroom-bento-item {
           aspect-ratio: 1 / 1;
           overflow: hidden;
@@ -716,7 +729,7 @@ const TheSpace = () => (
         @media (min-width: 768px) {
           .showroom-bento {
             grid-template-columns: 2fr 1fr 1fr;
-            grid-template-rows: 300px 300px;
+            grid-template-rows: 360px 360px;
           }
           .showroom-bento-item {
             aspect-ratio: auto;

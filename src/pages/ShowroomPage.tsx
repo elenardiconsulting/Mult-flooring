@@ -288,7 +288,7 @@ const Welcome = () => (
         }}
       >
         <video
-          src="/showroom/showroom-main-tour.mp4"
+          src={showroomMainTour2Asset.url}
           poster={POSTER}
           controls
           playsInline

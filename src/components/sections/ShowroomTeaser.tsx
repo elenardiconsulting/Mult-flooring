@@ -52,7 +52,7 @@ const ShowroomTeaser = () => {
                 </BrandButton>
               </Link>
               <Link to="/contact">
-                <BrandButton variant="ghost" size="md">
+                <BrandButton variant="secondary" size="md">
                   Book an Appointment
                 </BrandButton>
               </Link>

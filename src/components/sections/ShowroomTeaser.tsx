@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SectionLabel from "@/components/ui/mult-section-label";
+import showroomMainTourAsset from "@/assets/showroom-main-tour.mp4.asset.json";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -125,7 +126,7 @@ const ShowroomTeaser = () => {
           }}
         >
           <video
-            src="/showroom/showroom-main-tour.mp4"
+            src={showroomMainTourAsset.url}
             poster="/showroom/showroom-interior-overview.jpg"
             controls
             playsInline

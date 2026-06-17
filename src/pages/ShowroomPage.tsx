@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import BrandButton from "@/components/ui/mult-button";
 import SectionLabel from "@/components/ui/mult-section-label";
 import SEO from "@/components/SEO";
+import showroomPrincipalAsset from "@/assets/showroom-principal.mp4.asset.json";
 
 
 
@@ -349,7 +350,7 @@ const Welcome = () => (
         }}
       >
         <video
-          src="/showroom/showroom-principal.mp4"
+          src={showroomPrincipalAsset.url}
           poster="/showroom/showroom-interior-overview.jpg"
           controls
           playsInline

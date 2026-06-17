@@ -343,7 +343,7 @@ const Welcome = () => (
       <motion.div
         {...fadeUp}
         style={{
-          maxWidth: 900,
+          maxWidth: 720,
           margin: "0 auto",
           borderRadius: 16,
           overflow: "hidden",
@@ -359,7 +359,7 @@ const Welcome = () => (
           preload="metadata"
           style={{
             width: "100%",
-            maxHeight: "85vh",
+            maxHeight: "68vh",
             borderRadius: "16px",
             objectFit: "cover",
             display: "block",

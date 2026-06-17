@@ -4,6 +4,7 @@ import SectionLabel from "@/components/ui/mult-section-label";
 import showroomPrincipalAsset from "@/assets/showroom-principal.mp4.asset.json";
 
 
+
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const GOLD_GRAD =

@@ -131,7 +131,7 @@ const ShowroomTeaser = () => {
         >
           <video
             src={showroomPrincipalAsset.url}
-            poster="/showroom/showroom-interior-overview.jpg"
+            
             controls
             playsInline
             preload="metadata"

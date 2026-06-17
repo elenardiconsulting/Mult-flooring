@@ -352,7 +352,7 @@ const Welcome = () => (
         }}
       >
         <video
-          src="/showroom/showroom-principal.mp4"
+          src={showroomPrincipalAsset.url}
           poster="/showroom/showroom-interior-overview.jpg"
           controls
           playsInline

@@ -1,0 +1,28 @@
+import { useEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { supabase } from '@/integrations/supabase/client'
+
+export default function ProductsAdminRoute({ children }: { children: React.ReactNode }) {
+  const [loading, setLoading] = useState(true)
+  const [authed, setAuthed] = useState(false)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setAuthed(!!session)
+      setLoading(false)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setAuthed(!!session)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
+  if (loading) return (
+    <div style={{
+      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: '#faf7f4', fontSize: 13, color: '#9e9e9e',
+      letterSpacing: '0.1em', textTransform: 'uppercase',
+    }}>Loading…</div>
+  )
+  return authed ? <>{children}</> : <Navigate to="/products-admin/login" replace />
+}

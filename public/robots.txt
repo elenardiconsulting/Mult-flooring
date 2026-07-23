@@ -3,5 +3,7 @@ Allow: /
 Disallow: /dashboard
 Disallow: /login
 Disallow: /dashboard/*
+Disallow: /products-admin
+Disallow: /products-admin/*
 
 Sitemap: https://multflooring.com/sitemap.xml

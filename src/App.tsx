@@ -14,6 +14,11 @@ import ContactPage from "./pages/ContactPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
 import ProtectedRoute from "./components/auth/ProtectedRoute.tsx";
+import ProductsAdminRoute from "./components/auth/ProductsAdminRoute.tsx";
+import ProductsLoginPage from "./pages/ProductsLoginPage.tsx";
+import ProductsManagerPage from "./pages/ProductsManagerPage.tsx";
+import ProductsNewPage from "./pages/ProductsNewPage.tsx";
+import ProductsEditPage from "./pages/ProductsEditPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -42,6 +47,10 @@ const App = () => (
               </ProtectedRoute>
             }
           />
+          <Route path="/products-admin/login" element={<ProductsLoginPage />} />
+          <Route path="/products-admin" element={<ProductsAdminRoute><ProductsManagerPage /></ProductsAdminRoute>} />
+          <Route path="/products-admin/new" element={<ProductsAdminRoute><ProductsNewPage /></ProductsAdminRoute>} />
+          <Route path="/products-admin/edit/:id" element={<ProductsAdminRoute><ProductsEditPage /></ProductsAdminRoute>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

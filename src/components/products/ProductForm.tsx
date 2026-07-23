@@ -9,8 +9,8 @@ import { productsTable, type Product } from '@/lib/products'
 const BUCKET = 'product-photos'
 
 async function compressImage(file: File): Promise<Blob> {
-  const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' as ImageOrientationFrom })
-    .catch(() => createImageBitmap(file))
+  const bitmap = await createImageBitmap(file).catch(() => null)
+  if (!bitmap) return file
   const MAX = 1600
   const scale = Math.min(1, MAX / Math.max(bitmap.width, bitmap.height))
   const w = Math.round(bitmap.width * scale)
@@ -20,12 +20,9 @@ async function compressImage(file: File): Promise<Blob> {
   const ctx = canvas.getContext('2d')!
   ctx.drawImage(bitmap, 0, 0, w, h)
   return await new Promise<Blob>((resolve) =>
-    canvas.toBlob((b) => resolve(b!), 'image/jpeg', 0.82)
+    canvas.toBlob((b) => resolve(b ?? file), 'image/jpeg', 0.82)
   )
 }
-
-// TS lib fallback
-type ImageOrientationFrom = 'from-image' | 'none'
 
 interface PhotoItem {
   id: string

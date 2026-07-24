@@ -24,7 +24,7 @@ function TeaserCard({ product }: { product: Product }) {
       }}
       className="hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
     >
-      <div style={{ aspectHeight: '4/3', position: 'relative', background: '#f0e6d8', display: 'flex', alignItems: 'center', justifyContent: 'center', aspectRatio: '4/3' }}>
+      <div style={{ position: 'relative', background: '#f0e6d8', display: 'flex', alignItems: 'center', justifyContent: 'center', aspectRatio: '4/3' }}>
         {product.image_urls?.[0] ? (
           <img 
             src={product.image_urls[0]} 

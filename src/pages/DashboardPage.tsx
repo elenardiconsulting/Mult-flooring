@@ -1847,9 +1847,10 @@ function PushToast({
               whiteSpace: 'nowrap',
             }}
           >
-            {toast.projectType}
+            {toast.type === 'quote' ? `Ref: ${toast.projectType.replace('New Quote Request', '')}` : toast.projectType}
           </div>
         )}
+
       </div>
       <button
         onClick={() => onRemove(toast.id)}

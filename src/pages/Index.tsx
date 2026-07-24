@@ -11,7 +11,7 @@ import PartnersTicker from "@/components/sections/PartnersTicker";
 import WhyChoose from "@/components/sections/WhyChoose";
 import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import ShowroomTeaser from "@/components/sections/ShowroomTeaser";
-import ProductsSection from "@/components/sections/ProductsSection";
+import ProductsTeaser from "@/components/sections/ProductsTeaser";
 import Footer from "@/components/layout/Footer";
 import SectionTransition from "@/components/ui/SectionTransition";
 import SEO from "@/components/SEO";
@@ -107,7 +107,7 @@ const Index = () => {
         <SectionTransition direction="right" />
         <ShowroomTeaser />
         <SectionTransition direction="left" />
-        <ProductsSection />
+        <ProductsTeaser />
         <SectionTransition direction="right" />
         <SocialProof />
         <SectionTransition direction="right" />

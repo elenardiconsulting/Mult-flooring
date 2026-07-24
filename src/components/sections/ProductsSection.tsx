@@ -2,21 +2,28 @@ import { useEffect, useState, useRef } from 'react'
 import DOMPurify from 'dompurify'
 import { supabase } from '@/integrations/supabase/client'
 import { productsTable, type Product } from '@/lib/products'
+import { trackQuoteRequest, formatPrice } from '@/lib/quoteTracking'
 import SectionLabel from '@/components/ui/mult-section-label'
+
 
 const ALLOWED = { ALLOWED_TAGS: ['p', 'br', 'strong', 'b', 'em', 'i', 'u', 'ul', 'ol', 'li'] }
 const containsHtml = (s: string) => /<[a-z][\s\S]*>/i.test(s)
 
-function ProductCard({ product, onOpen }: { product: Product; onOpen: () => void }) {
+function ProductCard({ 
+  product, 
+  onOpen,
+  loadingQuote,
+  onQuote
+}: { 
+  product: Product; 
+  onOpen: () => void;
+  loadingQuote: boolean;
+  onQuote: () => void;
+}) {
   const desc = product.description || ''
   const isHtml = containsHtml(desc)
   const clean = isHtml ? DOMPurify.sanitize(desc, ALLOWED) : ''
 
-  const waMsg = encodeURIComponent(
-    `Hi! I'm interested in ${product.name}${
-      product.price != null ? ` ($${Number(product.price).toLocaleString()})` : ''
-    }. Can you tell me more?`
-  )
 
   return (
     <div style={{
@@ -63,8 +70,9 @@ function ProductCard({ product, onOpen }: { product: Product; onOpen: () => void
           color: '#1a1a1a', marginBottom: 8, marginTop: 0,
         }}>{product.name}</h3>
         <div style={{ fontSize: 20, fontWeight: 700, color: '#7a4f1e' }}>
-          {product.price != null ? `$${Number(product.price).toLocaleString()}` : 'Request a Quote'}
+          {formatPrice(product.price)}
         </div>
+
         {product.price_note && (
           <div style={{ fontSize: 12, color: '#9e9e9e', marginTop: 2, marginBottom: 12 }}>
             {product.price_note}
@@ -95,16 +103,28 @@ function ProductCard({ product, onOpen }: { product: Product; onOpen: () => void
           flex: 1, height: 44, border: '1px solid #e8e8e6', borderRadius: 8,
           fontSize: 14, color: '#555', background: '#fff', cursor: 'pointer',
         }}>View Photos</button>
-        <a
-          href={`https://wa.me/15085104007?text=${waMsg}`}
-          target="_blank" rel="noopener noreferrer"
+        <button
+          disabled={loadingQuote}
+          onClick={onQuote}
           style={{
             flex: 1, height: 44, background: '#C47C3A', color: '#fff',
             borderRadius: 8, fontSize: 14, fontWeight: 600,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            textDecoration: 'none',
+            textDecoration: 'none', border: 'none', cursor: loadingQuote ? 'not-allowed' : 'pointer',
+            opacity: loadingQuote ? 0.8 : 1,
+            gap: 8
           }}
-        >Get a Quote</a>
+        >
+          {loadingQuote ? (
+            <>
+              <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
+              </svg>
+              Opening...
+            </>
+          ) : 'Get a Quote'}
+        </button>
+
       </div>
     </div>
   )
@@ -239,6 +259,39 @@ export default function ProductsSection() {
   const [loading, setLoading] = useState(true)
   const [lightbox, setLightbox] = useState<Product | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState(0)
+  const [loadingQuote, setLoadingQuote] = useState<string | null>(null)
+
+  const handleQuote = async (product: Product) => {
+    setLoadingQuote(product.id)
+
+    // 1. Salvar no Supabase e obter ref code
+    const refCode = await trackQuoteRequest({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+    })
+
+    // 2. Montar mensagem WhatsApp com ref
+    const priceText = product.price
+      ? `$${Number(product.price).toLocaleString()}`
+      : 'price TBD'
+
+    const msg = encodeURIComponent(
+      `Hi! I'm interested in ${product.name} ` +
+      `(${priceText}). ` +
+      `Reference: ${refCode}. ` +
+      `Can you tell me more?`
+    )
+
+    // 3. Abrir WhatsApp
+    window.open(
+      `https://wa.me/15085104007?text=${msg}`,
+      '_blank'
+    )
+
+    setLoadingQuote(null)
+  }
+
 
   useEffect(() => {
     const load = () => productsTable().select('*')
@@ -313,8 +366,11 @@ export default function ProductsSection() {
             <ProductCard
               key={p.id}
               product={p}
+              loadingQuote={loadingQuote === p.id}
+              onQuote={() => handleQuote(p)}
               onOpen={() => { setLightbox(p); setLightboxIndex(0) }}
             />
+
           ))
         )}
       </div>

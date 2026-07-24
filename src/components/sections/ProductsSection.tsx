@@ -24,12 +24,30 @@ function ProductCard({ product, onOpen }: { product: Product; onOpen: () => void
       background: '#fff', border: '1px solid #e8e8e6',
       borderRadius: 12, overflow: 'hidden', height: '100%',
     }}>
-      <div style={{ position: 'relative', aspectRatio: '4/3', background: '#f0e6d8' }}>
-        {product.image_urls[0] ? (
-          <img src={product.image_urls[0]} alt={product.name}
+      <div style={{
+        position: 'relative',
+        aspectRatio: '4/3',
+        background: '#f0e6d8',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+      }}>
+        {product.image_urls?.[0] ? (
+          <img
+            src={product.image_urls[0]}
+            alt={product.name}
             loading="lazy"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-        ) : null}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+            }}
+          />
+        ) : (
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C47C3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+          </svg>
+        )}
         {product.image_urls.length > 1 && (
           <div style={{
             position: 'absolute', top: 8, right: 8,

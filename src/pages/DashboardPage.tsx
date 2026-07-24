@@ -14,6 +14,8 @@ import {
   YAxis,
 } from 'recharts'
 import { supabase, type Lead, type LeadStatus } from '@/lib/supabase'
+import { formatPrice } from '@/lib/quoteTracking'
+
 import {
   registerServiceWorker,
   subscribeUserToPush,
@@ -27,7 +29,9 @@ type LeadToast = {
   name: string
   projectType: string
   createdAt: string
+  type: 'lead' | 'quote'
 }
+
 
 /* ───────────────── design tokens (dashboard-only) ───────────────── */
 const COLORS = {
@@ -183,16 +187,25 @@ const Icons = {
       <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
     </svg>
   ),
+  quotes: (p: any) => (
+    <svg {...iconProps} {...p}>
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  ),
 }
 
-type Tab = 'overview' | 'leads' | 'calendar' | 'analytics'
+type Tab = 'overview' | 'leads' | 'calendar' | 'analytics' | 'quotes'
+
 
 /* ───────────────── main ───────────────── */
 export default function DashboardPage() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<Tab>('overview')
   const [leads, setLeads] = useState<Lead[]>([])
+  const [quotes, setQuotes] = useState<any[]>([])
   const [loadingLeads, setLoadingLeads] = useState(true)
+  const [loadingQuotes, setLoadingQuotes] = useState(true)
+
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   /* push + toast state */
@@ -229,7 +242,18 @@ export default function DashboardPage() {
       setLoadingLeads(false)
       initialLoadDone.current = true
     }
+    const fetchQuotes = async () => {
+      const { data } = await supabase
+        .from('quote_requests' as any)
+        .select('*')
+        .order('created_at', { ascending: false })
+      if (!active) return
+      if (data) setQuotes(data)
+      setLoadingQuotes(false)
+    }
     fetchLeads()
+    fetchQuotes()
+
 
     // Register SW and (if already permitted) re-subscribe to push.
     const initPush = async () => {
@@ -268,9 +292,11 @@ export default function DashboardPage() {
                 name: lead.name,
                 projectType: lead.project_type,
                 createdAt: lead.created_at,
+                type: 'lead',
               })
             }
           }
+
           if (payload.eventType === 'UPDATE') {
             setLeads((prev) =>
               prev.map((l) =>
@@ -285,14 +311,51 @@ export default function DashboardPage() {
       )
       .subscribe()
 
+    const quotesChannel = supabase
+      .channel('quote-requests-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'quote_requests' },
+        (payload) => {
+          if (payload.eventType === 'INSERT') {
+            const quote = payload.new as any
+            setQuotes((prev) => [quote, ...prev])
+            if (initialLoadDone.current) {
+              addToast({
+                id: quote.id,
+                name: quote.product_name,
+                projectType: 'New Quote Request',
+                createdAt: quote.created_at,
+                type: 'quote',
+              })
+            }
+          }
+          if (payload.eventType === 'UPDATE') {
+            setQuotes((prev) =>
+              prev.map((q) =>
+                q.id === payload.new.id ? payload.new : q,
+              ),
+            )
+          }
+          if (payload.eventType === 'DELETE') {
+            setQuotes((prev) => prev.filter((q) => q.id !== payload.old.id))
+          }
+        },
+      )
+      .subscribe()
+
     return () => {
       active = false
       window.clearTimeout(permTimer)
       supabase.removeChannel(channel)
+      supabase.removeChannel(quotesChannel)
     }
+
   }, [])
 
   const newCount = useMemo(() => leads.filter((l) => l.status === 'new').length, [leads])
+  const pendingQuotesCount = useMemo(() => quotes.filter((q) => q.status === 'pending').length, [quotes])
+
 
   const handleSignOut = async () => {
     await unsubscribeFromPush()
@@ -305,14 +368,17 @@ export default function DashboardPage() {
     leads: 'Leads',
     calendar: 'Calendar',
     analytics: 'Analytics',
+    quotes: 'Quotes',
   }
 
-  const navItems: { id: Tab; label: string; icon: any }[] = [
+  const navItems: { id: Tab; label: string; icon: any; badge?: number }[] = [
     { id: 'overview', label: 'Overview', icon: Icons.overview },
-    { id: 'leads', label: 'Leads', icon: Icons.leads },
+    { id: 'leads', label: 'Leads', icon: Icons.leads, badge: newCount },
     { id: 'calendar', label: 'Calendar', icon: Icons.calendar },
     { id: 'analytics', label: 'Analytics', icon: Icons.analytics },
+    { id: 'quotes', label: 'Quotes', icon: Icons.quotes, badge: pendingQuotesCount },
   ]
+
 
   return (
     <div
@@ -367,7 +433,8 @@ export default function DashboardPage() {
               onClick={() => setActiveTab(item.id)}
               icon={<item.icon />}
               label={item.label}
-              badge={item.id === 'leads' ? newCount : 0}
+              badge={item.badge || 0}
+
             />
           ))}
         </nav>
@@ -509,6 +576,8 @@ export default function DashboardPage() {
           {activeTab === 'leads' && <LeadsTab leads={leads} loading={loadingLeads} />}
           {activeTab === 'calendar' && <CalendarTab leads={leads} />}
           {activeTab === 'analytics' && <AnalyticsTab leads={leads} loading={loadingLeads} />}
+          {activeTab === 'quotes' && <QuotesTab quotes={quotes} loading={loadingQuotes} />}
+
         </div>
       </div>
 
@@ -541,7 +610,7 @@ export default function DashboardPage() {
               aria-label={item.label}
             >
               <item.icon />
-              {item.id === 'leads' && newCount > 0 && (
+              {item.badge && item.badge > 0 && (
                 <span
                   style={{
                     position: 'absolute',
@@ -555,7 +624,8 @@ export default function DashboardPage() {
                     fontWeight: 600,
                   }}
                 >
-                  {newCount}
+                  {item.badge}
+
                 </span>
               )}
             </button>
@@ -628,7 +698,7 @@ export default function DashboardPage() {
                     }}
                     icon={<item.icon />}
                     label={item.label}
-                    badge={item.id === 'leads' ? newCount : 0}
+                    badge={item.badge || 0}
                   />
                 ))}
               </nav>
@@ -2551,3 +2621,183 @@ function AnalyticsTab({ leads, loading }: { leads: Lead[]; loading: boolean }) {
     </div>
   )
 }
+
+/* ───────────────── QUOTES TAB ───────────────── */
+function QuotesTab({ quotes, loading }: { quotes: any[]; loading: boolean }) {
+  if (loading) {
+    return (
+      <div>
+        <div className="metrics-grid">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="skeleton" style={{ height: 110 }} />
+          ))}
+        </div>
+        <div className="skeleton" style={{ height: 400, marginTop: 32 }} />
+      </div>
+    )
+  }
+
+  const total = quotes.length
+  const pending = quotes.filter((q) => q.status === 'pending').length
+  const won = quotes.filter((q) => q.status === 'closed_won').length
+  const thisMonth = quotes.filter((q) => {
+    const d = new Date(q.created_at)
+    const now = new Date()
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()
+  }).length
+
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    await supabase.from('quote_requests' as any).update({ status: newStatus }).eq('id', id)
+  }
+
+  return (
+    <div>
+      <div className="metrics-grid">
+        <MetricCard label="Total Quotes" value={total} sub="All time" icon={<Icons.quotes />} />
+        <MetricCard
+          label="Pending"
+          value={pending}
+          sub="Need follow-up"
+          icon={<svg {...iconProps} width="16" height="16"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>}
+          highlight={pending > 0 ? COLORS.accentMid : undefined}
+        />
+        <MetricCard
+          label="Closed Won"
+          value={won}
+          sub="Converted"
+          icon={<Icons.check />}
+          highlight={won > 0 ? COLORS.success : undefined}
+        />
+        <MetricCard label="This Month" value={thisMonth} sub="Quote requests" icon={<Icons.calendar />} />
+      </div>
+
+      <div style={{ marginTop: 32 }}>
+        {quotes.length === 0 ? (
+          <div
+            style={{
+              padding: '80px 20px',
+              textAlign: 'center',
+              background: '#fff',
+              border: `1px solid ${COLORS.border}`,
+              borderRadius: 10,
+            }}
+          >
+            <Icons.quotes style={{ opacity: 0.2, width: 32, height: 32, marginBottom: 12 }} />
+            <div style={{ fontSize: 14, color: '#bbb' }}>No quote requests yet</div>
+            <div style={{ fontSize: 12, color: '#ccc', marginTop: 4 }}>
+              They will appear here when visitors click 'Get a Quote' on a product.
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1,
+              border: `1px solid ${COLORS.border}`,
+              borderRadius: 10,
+              overflow: 'hidden',
+              background: COLORS.border,
+            }}
+          >
+            {quotes.map((q) => {
+              const statusStyles: Record<string, { color: string; bg: string }> = {
+                pending: { color: '#854F0B', bg: '#FAEEDA' },
+                contacted: { color: '#185FA5', bg: '#E6F1FB' },
+                closed_won: { color: '#27500A', bg: '#EAF3DE' },
+                closed_lost: { color: '#A32D2D', bg: '#FCEBEB' },
+              }
+              const s = statusStyles[q.status] || statusStyles.pending
+
+              return (
+                <div
+                  key={q.id}
+                  style={{
+                    background: '#fff',
+                    padding: '16px 20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 16,
+                  }}
+                >
+                  <div
+                    style={{
+                      background: '#f0e6d8',
+                      color: '#7a4f1e',
+                      borderRadius: 6,
+                      padding: '4px 10px',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      fontFamily: 'monospace',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {q.reference_code}
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: '#1a1a1a',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      {q.product_name}
+                    </div>
+                    <div style={{ fontSize: 12, color: '#9e9e9e', marginTop: 2 }}>
+                      {formatPrice(q.product_price)} · {timeAgo(q.created_at)}
+                    </div>
+                  </div>
+
+                  <select
+                    value={q.status}
+                    onChange={(e) => handleStatusChange(q.id, e.target.value)}
+                    style={{
+                      fontSize: 12,
+                      border: 'none',
+                      borderRadius: 999,
+                      padding: '4px 10px',
+                      cursor: 'pointer',
+                      fontWeight: 500,
+                      color: s.color,
+                      background: s.bg,
+                      outline: 'none',
+                    }}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="closed_won">Closed Won</option>
+                    <option value="closed_lost">Closed Lost</option>
+                  </select>
+
+                  <div
+                    className="dash-date"
+                    style={{
+                      fontSize: 11,
+                      color: '#bbb',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {new Date(q.created_at).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+

@@ -31,14 +31,15 @@ export async function trackQuoteRequest(product: {
   const sessionId = getSessionId()
 
   try {
-    const { error } = await supabase.from('quote_requests').insert({
+    const { error } = await supabase.from('quote_requests' as any).insert({
       product_id: product.id,
       product_name: product.name,
       product_price: product.price,
       reference_code: referenceCode,
       session_id: sessionId,
       status: 'pending',
-    })
+    } as any)
+
     if (error) throw error
   } catch (error) {
     console.error('Error tracking quote request:', error)

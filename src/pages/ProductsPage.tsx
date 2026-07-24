@@ -7,7 +7,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { productsTable, type Product } from "@/lib/products";
 import { trackQuoteRequest, formatPrice } from "@/lib/quoteTracking";
 import DOMPurify from "dompurify";
-import BrandButton from "@/components/ui/mult-button";
 
 const ALLOWED = { ALLOWED_TAGS: ['p', 'br', 'strong', 'b', 'em', 'i', 'u', 'ul', 'ol', 'li'] };
 const containsHtml = (s: string) => /<[a-z][\s\S]*>/i.test(s);
@@ -39,6 +38,40 @@ function ProductCard({ product, onOpen, loadingQuote, onQuote }: { product: Prod
           {loadingQuote ? <>Loading...</> : 'Get a Quote'}
         </button>
       </div>
+    </div>
+  );
+}
+
+function Lightbox({ product, index, setIndex, onClose }: { product: Product; index: number; setIndex: (n: number) => void; onClose: () => void }) {
+  const touchStart = useRef<number | null>(null);
+  const imgs = product.image_urls;
+  const desc = product.description || '';
+  const isHtml = containsHtml(desc);
+  const clean = isHtml ? DOMPurify.sanitize(desc, ALLOWED) : '';
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') setIndex((index - 1 + imgs.length) % imgs.length);
+      if (e.key === 'ArrowRight') setIndex((index + 1) % imgs.length);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [index, imgs.length, onClose, setIndex]);
+
+  const prev = () => setIndex((index - 1 + imgs.length) % imgs.length);
+  const next = () => setIndex((index + 1) % imgs.length);
+
+  return (
+    <div role="dialog" aria-modal="true" style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.92)', zIndex: 9999, display: 'flex', flexDirection: 'column' }} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <button onClick={onClose} aria-label="Close" style={{ position: 'absolute', top: 16, right: 16, fontSize: 28, color: '#fff', background: 'transparent', border: 'none', cursor: 'pointer', padding: 8, zIndex: 2 }}>✕</button>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', padding: '0 60px' }} onTouchStart={(e) => { touchStart.current = e.touches[0].clientX; }} onTouchEnd={(e) => { if (touchStart.current == null) return; const dx = e.changedTouches[0].clientX - touchStart.current; if (dx > 40) prev(); else if (dx < -40) next(); touchStart.current = null; }}>
+        {imgs.length > 1 && <button onClick={prev} aria-label="Previous" style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', width: 48, height: 48, borderRadius: '50%', border: 'none', background: 'rgba(0,0,0,0.30)', color: '#fff', cursor: 'pointer', fontSize: 24 }}>‹</button>}
+        {imgs[index] && <img src={imgs[index]} alt="" style={{ maxHeight: '65vh', maxWidth: '90vw', objectFit: 'contain' }} />}
+        {imgs.length > 1 && <button onClick={next} aria-label="Next" style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', width: 48, height: 48, borderRadius: '50%', border: 'none', background: 'rgba(0,0,0,0.30)', color: '#fff', cursor: 'pointer', fontSize: 24 }}>›</button>}
+      </div>
+      {imgs.length > 1 && <div style={{ display: 'flex', justifyContent: 'center', gap: 6, padding: '12px 0' }}>{imgs.map((_, i) => <span key={i} style={{ width: i === index ? 20 : 6, height: 6, borderRadius: 999, background: i === index ? '#C47C3A' : 'rgba(255,255,255,0.3)', transition: 'width 200ms' }} />)}</div>}
+      {desc && <div style={{ padding: '0 24px 24px', color: 'rgba(255,255,255,0.75)', fontSize: 14, lineHeight: 1.6, maxHeight: '20vh', overflowY: 'auto' }}>{isHtml ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : <div style={{ whiteSpace: 'pre-wrap' }}>{desc}</div>}</div>}
     </div>
   );
 }
@@ -83,11 +116,16 @@ export default function ProductsPage() {
           </div>
         </div>
         <div style={{ padding: '64px var(--padding-x)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 24, maxWidth: 1200, margin: '0 auto' }}>
+          <style>{`
+            .products-grid-mf { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+            @media (max-width: 768px) { .products-grid-mf { grid-template-columns: 1fr; } }
+          `}</style>
+          <div className="products-grid-mf">
             {loading ? <p>Loading products...</p> : products.map((p) => <ProductCard key={p.id} product={p} loadingQuote={loadingQuote === p.id} onQuote={() => handleQuote(p)} onOpen={() => { setLightbox(p); setLightboxIndex(0); }} />)}
           </div>
         </div>
       </main>
+      {lightbox && <Lightbox product={lightbox} index={lightboxIndex} setIndex={setLightboxIndex} onClose={() => setLightbox(null)} />}
       <Footer />
     </Layout>
   );

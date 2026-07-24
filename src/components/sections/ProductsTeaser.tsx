@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { productsTable, type Product } from "@/lib/products";
 import SectionLabel from "@/components/ui/mult-section-label";
 import BrandButton from "@/components/ui/mult-button";
@@ -32,9 +31,11 @@ function TeaserCard({ product }: { product: Product }) {
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         ) : (
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C47C3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-          </svg>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C47C3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
         )}
       </div>
       <div style={{ padding: 16, flex: 1 }}>
@@ -80,25 +81,38 @@ export default function ProductsTeaser() {
   if (!loading && products.length === 0) return null;
 
   return (
-    <section style={{ 
-      background: 'var(--color-bg-surface)', 
-      padding: 'var(--section-padding-y) var(--padding-x)' 
-    }}>
+    <section className="products-teaser-section">
       <style>{`
-        .teaser-grid-mf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        @media (max-width: 1024px) { .teaser-grid-mf { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 640px) { .teaser-grid-mf { grid-template-columns: 1fr; } }
+        .products-teaser-section {
+          background: var(--color-bg-surface);
+          padding: 100px var(--padding-x);
+        }
+        .teaser-grid-mf { 
+          display: grid; 
+          grid-template-columns: repeat(3, 1fr); 
+          gap: 20px; 
+        }
+        .teaser-header-mf {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          margin-bottom: 40px;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        @media (max-width: 1024px) { 
+          .teaser-grid-mf { grid-template-columns: repeat(2, 1fr); } 
+        }
+        @media (max-width: 768px) {
+          .products-teaser-section { padding: 64px var(--padding-x-mobile); }
+        }
+        @media (max-width: 640px) { 
+          .teaser-grid-mf { grid-template-columns: 1fr; } 
+        }
       `}</style>
       
       <div className="max-w-[var(--max-width)] mx-auto">
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'flex-end', 
-          marginBottom: 40, 
-          flexWrap: 'wrap', 
-          gap: 16 
-        }}>
+        <div className="teaser-header-mf">
           <div>
             <SectionLabel>In Stock</SectionLabel>
             <h2 style={{ 

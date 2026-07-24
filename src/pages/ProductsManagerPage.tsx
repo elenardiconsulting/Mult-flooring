@@ -91,10 +91,19 @@ export default function ProductsManagerPage() {
                   background: '#f0e6d8', overflow: 'hidden',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  {p.image_urls[0] ? (
-                    <img src={p.image_urls[0]} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {p.image_urls?.[0] ? (
+                    <img
+                      src={p.image_urls[0]}
+                      alt=""
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
                   ) : (
-                    <span style={{ fontSize: 20, color: '#9e8c7a' }}>🖼</span>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C47C3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                    </svg>
                   )}
                 </div>
 

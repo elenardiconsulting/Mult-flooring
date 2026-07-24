@@ -250,8 +250,21 @@ export default function ProductForm({ mode }: { mode: 'new' | 'edit' }) {
               {photos.map((p) => (
                 <div key={p.id} style={{ position: 'relative', aspectRatio: '1/1', borderRadius: 8, overflow: 'hidden', background: '#f0e6d8' }}>
                   {p.url && (
-                    <img src={p.url} alt=""
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    <img
+                      src={p.url}
+                      alt=""
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                  )}
+                  {!p.url && !p.uploading && (
+                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C47C3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                      </svg>
+                    </div>
                   )}
                   {p.uploading && (
                     <div style={{

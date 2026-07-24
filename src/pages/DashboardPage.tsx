@@ -1822,8 +1822,9 @@ function PushToast({
             marginBottom: 2,
           }}
         >
-          New lead
+          {toast.type === 'quote' ? 'New Quote Request' : 'New lead'}
         </div>
+
         <div
           style={{
             fontSize: 14,

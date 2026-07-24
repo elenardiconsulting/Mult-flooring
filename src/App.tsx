@@ -19,7 +19,7 @@ import ProductsLoginPage from "./pages/ProductsLoginPage.tsx";
 import ProductsManagerPage from "./pages/ProductsManagerPage.tsx";
 import ProductsNewPage from "./pages/ProductsNewPage.tsx";
 import ProductsEditPage from "./pages/ProductsEditPage.tsx";
-import ProductsPage from "./pages/ProductsPage.tsx";
+import ProductsPage from "@/pages/ProductsPage";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();

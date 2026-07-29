@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mult Flooring - Redirecting...</title>
+    <script>
+      (function() {
+        var path = window.location.pathname;
+        var query = window.location.search;
+        var hash = window.location.hash;
+        
+        // If we have a path that isn't root, redirect to root with the path as a param
+        // This is a fallback for servers that don't support _redirects (like GitHub Pages or some simple hosts)
+        if (path && path !== '/') {
+          window.location.replace(
+            '/?redirect=' + encodeURIComponent(path + query + hash)
+          );
+        } else {
+          // If we are already at root but landed here (maybe 404 on an asset), just go home
+          window.location.replace('/');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to Mult Flooring...</p>
+  </body>
+</html>

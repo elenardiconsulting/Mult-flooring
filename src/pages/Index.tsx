@@ -101,8 +101,8 @@ const Index = () => {
         <Hero />
         <VideoSection />
         <SectionTransition direction="right" />
-        {/* <FloorPreview /> */}
-        {/* <SectionTransition direction="left" /> */}
+        <FloorPreview />
+        <SectionTransition direction="left" />
         <Gallery />
         <SectionTransition direction="right" />
         <ShowroomTeaser />

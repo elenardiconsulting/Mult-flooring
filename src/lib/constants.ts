@@ -28,7 +28,6 @@ export const COMPANY = {
 } as const;
 
 export const NAV_LINKS = [
-  { label: "Floors", href: "/floors" },
   { label: "Products", href: "/products" },
   { label: "Cabinets", href: "/cabinets" },
   { label: "Projects", href: "/projects" },

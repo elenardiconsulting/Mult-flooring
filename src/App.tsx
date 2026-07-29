@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
@@ -24,7 +25,23 @@ import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get('redirect');
+    if (redirect) {
+      // Use window.history.replaceState to clean up the URL without a full reload if possible,
+      // but since we are at the root, the router will handle the navigation if we tell it to.
+      // However, the cleanest way with React Router is often to just navigate or let the 
+      // initial route handling logic pick it up if we were to use a more complex state.
+      // For now, we'll use history.replaceState to make the URL look correct, 
+      // and the router will mount and see the correct path if we are lucky, 
+      // or we can manually trigger a navigation.
+      window.history.replaceState(null, '', redirect);
+    }
+  }, []);
+
+  return (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -60,6 +77,7 @@ const App = () => (
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>
-);
+  );
+};
 
 export default App;

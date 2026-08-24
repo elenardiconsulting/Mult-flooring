@@ -177,6 +177,7 @@ export default function ContactPage() {
     phone: "",
     email: "",
     projectType: "",
+    referralSource: "",
     message: "",
     preferPhone: false,
   });
@@ -196,6 +197,7 @@ export default function ContactPage() {
         message: form.message || '',
         prefer_phone: form.preferPhone || false,
         status: 'new',
+        source: form.referralSource || 'Website Form',
       });
 
     if (supabaseError) {

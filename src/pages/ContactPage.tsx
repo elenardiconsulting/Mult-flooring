@@ -216,6 +216,7 @@ export default function ContactPage() {
       phone: "",
       email: "",
       projectType: "",
+      referralSource: "",
       message: "",
       preferPhone: false,
     });

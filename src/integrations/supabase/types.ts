@@ -26,6 +26,7 @@ export type Database = {
           prefer_phone: boolean
           project_type: string
           scheduled_at: string | null
+          source: string
           status: Database["public"]["Enums"]["lead_status"]
           updated_at: string
         }
@@ -40,6 +41,7 @@ export type Database = {
           prefer_phone?: boolean
           project_type?: string
           scheduled_at?: string | null
+          source?: string
           status?: Database["public"]["Enums"]["lead_status"]
           updated_at?: string
         }
@@ -54,6 +56,7 @@ export type Database = {
           prefer_phone?: boolean
           project_type?: string
           scheduled_at?: string | null
+          source?: string
           status?: Database["public"]["Enums"]["lead_status"]
           updated_at?: string
         }

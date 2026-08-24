@@ -177,6 +177,7 @@ export default function ContactPage() {
     phone: "",
     email: "",
     projectType: "",
+    referralSource: "",
     message: "",
     preferPhone: false,
   });
@@ -196,6 +197,7 @@ export default function ContactPage() {
         message: form.message || '',
         prefer_phone: form.preferPhone || false,
         status: 'new',
+        source: form.referralSource || 'Website Form',
       });
 
     if (supabaseError) {
@@ -214,6 +216,7 @@ export default function ContactPage() {
       phone: "",
       email: "",
       projectType: "",
+      referralSource: "",
       message: "",
       preferPhone: false,
     });
@@ -479,6 +482,49 @@ export default function ContactPage() {
                     <option value="new-construction">New Construction</option>
                     <option value="not-sure">Not sure yet</option>
                   </select>
+
+                  <div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 500,
+                        color: "var(--color-text-secondary)",
+                        marginBottom: 6,
+                      }}
+                    >
+                      How did you hear about us?{" "}
+                      <span style={{ fontWeight: 400, color: "var(--color-text-muted)", fontSize: 12 }}>
+                        (optional)
+                      </span>
+                    </div>
+                    <select
+                      value={form.referralSource}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, referralSource: e.target.value }))
+                      }
+                      style={{
+                        ...inputStyle,
+                        color: form.referralSource
+                          ? "var(--color-text-primary)"
+                          : "var(--color-text-muted)",
+                      }}
+                      onFocus={onFocus}
+                      onBlur={onBlur}
+                    >
+                      <option value="">Select an option</option>
+                      <option value="Facebook or Instagram Ad">
+                        I saw your ad on Facebook or Instagram
+                      </option>
+                      <option value="Friend or Family Referral">
+                        A friend or family member recommended you
+                      </option>
+                      <option value="Google Search">I found you on Google</option>
+                      <option value="Van or Vehicle">I saw your van or truck in my area</option>
+                      <option value="Yard Sign">I saw a yard sign near my neighborhood</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
 
                   <textarea
                     rows={4}

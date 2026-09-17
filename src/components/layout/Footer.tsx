@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
 import logo from "@/assets/mult-flooring-logo.png";
 import elenardiLogo from "@/assets/elenardi-midia-logo.png";
@@ -354,8 +355,23 @@ const Footer = () => {
             borderTop: "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
-            © {new Date().getFullYear()} Mult Flooring. All rights reserved.
+          <span className="flex items-center gap-4">
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
+              © {new Date().getFullYear()} Mult Flooring. All rights reserved.
+            </span>
+            <Link
+              to="/privacy-policy"
+              style={{
+                fontSize: 12,
+                color: "rgba(255,255,255,0.25)",
+                textDecoration: "none",
+                transition: "color var(--duration-base)",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.50)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.25)")}
+            >
+              Privacy Policy
+            </Link>
           </span>
           <span style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
             Licensed &amp; Insured and MA and RI and CT

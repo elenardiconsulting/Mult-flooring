@@ -11,6 +11,7 @@ import CabinetsPage from "./pages/CabinetsPage.tsx";
 import ProjectsPage from "./pages/ProjectsPage.tsx";
 import ProcessPage from "./pages/ProcessPage.tsx";
 import ShowroomPage from "./pages/ShowroomPage.tsx";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/process" element={<ProcessPage />} />
           <Route path="/showroom" element={<ShowroomPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/dashboard"

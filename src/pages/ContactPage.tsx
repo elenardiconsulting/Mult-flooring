@@ -20,10 +20,10 @@ const contactSchema = {
     email: "multflooring@gmail.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "240 W Center St",
-      addressLocality: "West Bridgewater",
+      streetAddress: "516 N Bedford St, Apt 3",
+      addressLocality: "East Bridgewater",
       addressRegion: "MA",
-      postalCode: "02379",
+      postalCode: "02333",
     },
   },
 };
@@ -231,10 +231,10 @@ export default function ContactPage() {
       }}
     >
       <SEO
-        title="Get a Free Flooring Quote — West Bridgewater, MA"
+        title="Get a Free Flooring Quote — East Bridgewater, MA"
         description="Request a free in-home flooring consultation. Hardwood, vinyl, laminate and cabinet installation across New England. Call (508) 510-4007 or submit online."
         canonical="/contact"
-        keywords="free flooring quote Massachusetts, flooring consultation MA, hardwood floor estimate, contact flooring contractor West Bridgewater"
+        keywords="free flooring quote Massachusetts, flooring consultation MA, hardwood floor estimate, contact flooring contractor East Bridgewater"
         schema={contactSchema}
       />
       <Navbar />
@@ -321,8 +321,8 @@ export default function ContactPage() {
               <InfoCard
                 icon={<PinIcon />}
                 label="Visit us"
-                value="240 W Center St"
-                sub="West Bridgewater, MA 02379"
+                value="516 N Bedford St, Apt 3"
+                sub="East Bridgewater, MA 02333"
               />
               <InfoCard
                 icon={<GlobeIcon />}

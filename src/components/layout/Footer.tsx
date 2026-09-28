@@ -308,9 +308,9 @@ const Footer = () => {
                 marginBottom: 16,
               }}
             >
-              240 W Center St
+              516 N Bedford St, Apt 3
               <br />
-              West Bridgewater, MA 02379
+              East Bridgewater, MA 02333
             </p>
             <p
               className="text-center md:text-left"
@@ -334,7 +334,7 @@ const Footer = () => {
             <span style={labelStyle} className="text-center md:text-left">Location</span>
             <div className="w-full aspect-video md:aspect-square rounded-lg overflow-hidden border border-white/10 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2962.645014389146!2d-71.018318!3d42.028308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e4919161a06707%3A0x6e7619374092b37d!2s240%20W%20Center%20St%2C%20West%20Bridgewater%2C%20MA%2002379!5e0!3m2!1sen!2sus!4v1714150000000!5m2!1sen!2sus"
+                src="https://www.google.com/maps?q=516+N+Bedford+St,+East+Bridgewater,+MA+02333&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

@@ -54,7 +54,7 @@ const ShowroomTeaser = () => {
             }}
           >
             Visit us in<br />
-            <span style={goldText}>West Bridgewater.</span>
+            <span style={goldText}>East Bridgewater.</span>
           </h2>
           <p
             style={{
@@ -65,7 +65,7 @@ const ShowroomTeaser = () => {
               maxWidth: 460,
             }}
           >
-            240 W Center St — our showroom brings your renovation to life.
+            516 N Bedford St, Apt 3 — our showroom brings your renovation to life.
             Touch the materials, compare the finishes, and leave with
             confidence.
           </p>
@@ -160,7 +160,7 @@ const ShowroomTeaser = () => {
               color: "#ffffff",
             }}
           >
-            📍 West Bridgewater, MA
+            📍 East Bridgewater, MA
           </div>
         </motion.div>
       </div>

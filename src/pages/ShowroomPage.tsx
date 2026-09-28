@@ -92,7 +92,7 @@ const fadeUp = {
 };
 
 const MAPS_URL =
-  "https://maps.google.com/?q=240+W+Center+St+West+Bridgewater+MA+02379";
+  "https://maps.google.com/?q=516+N+Bedford+St+Apt+3+East+Bridgewater+MA+02333";
 
 const CONTACTS = [
   {
@@ -160,7 +160,7 @@ const Hero = () => (
             maxWidth: 440,
           }}
         >
-          Our showroom in West Bridgewater brings your renovation to life.
+          Our showroom in East Bridgewater brings your renovation to life.
           Touch the materials, see the finishes, and walk away confident in
           your choice.
         </p>
@@ -205,7 +205,7 @@ const Hero = () => (
             lineHeight: 1.5,
           }}
         >
-          240 W Center St<br />West Bridgewater, MA 02379
+          516 N Bedford St, Apt 3<br />East Bridgewater, MA 02333
         </p>
 
         <div
@@ -336,7 +336,7 @@ const Welcome = () => (
           }}
         >
           Take a quick tour with our team and get a feel for what's waiting
-          for you at our West Bridgewater showroom.
+          for you at our East Bridgewater showroom.
         </p>
       </motion.div>
 
@@ -763,7 +763,7 @@ const TheSpace = () => (
           }}
         >
           Over 2,000 sq ft of carefully curated displays — floors, stairs,
-          tile and cabinets all under one roof in West Bridgewater, MA.
+          tile and cabinets all under one roof in East Bridgewater, MA.
         </p>
       </motion.div>
 
@@ -1082,7 +1082,7 @@ const BookYourVisit = () => (
           className="hover:!text-white/70 transition-colors"
           style={{ color: "rgba(255,255,255,0.35)", textDecoration: "none" }}
         >
-          240 W Center St, West Bridgewater, MA 02379
+          516 N Bedford St, Apt 3, East Bridgewater, MA 02333
         </a>
       </motion.div>
     </div>
@@ -1096,8 +1096,8 @@ const ShowroomPage = () => {
   return (
     <Layout>
       <SEO
-        title="Visit Our Showroom — West Bridgewater, MA"
-        description="Visit the Mult Flooring showroom in West Bridgewater, MA. Browse hardwood, vinyl, tile and stair samples in person. By appointment — call Cintia or Lucas."
+        title="Visit Our Showroom — East Bridgewater, MA"
+        description="Visit the Mult Flooring showroom in East Bridgewater, MA. Browse hardwood, vinyl, tile and stair samples in person. By appointment — call Cintia or Lucas."
         canonical="/showroom"
       />
       <Navbar />

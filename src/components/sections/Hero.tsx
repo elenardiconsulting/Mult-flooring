@@ -17,7 +17,7 @@ const HERO_IMAGES = [
   },
   {
     src: "/hero/hero-kitchen.jpg",
-    alt: "Modern kitchen with hardwood flooring installed by Mult Flooring West Bridgewater",
+    alt: "Modern kitchen with hardwood flooring installed by Mult Flooring East Bridgewater",
   },
 ];
 

@@ -210,7 +210,7 @@ const CtaFinal = () => {
             <div className="flex items-center gap-[10px]">
               <PinIcon />
               <span style={{ fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
-                240 W Center St, West Bridgewater, MA 02379
+                516 N Bedford St, Apt 3, East Bridgewater, MA 02333
               </span>
             </div>
           </div>

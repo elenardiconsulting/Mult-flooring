@@ -193,7 +193,7 @@ const CABINET_VIDEOS = [
   {
     id: "showroom",
     title: "Kitchen Showroom",
-    description: "Multiple styles on display in our West Bridgewater showroom",
+    description: "Multiple styles on display in our East Bridgewater showroom",
     src: "/videos/cabinet-3.mp4",
   },
 ];
@@ -277,7 +277,7 @@ export default function CabinetsPage() {
         title="Kitchen Cabinets & Bathroom Vanities — Massachusetts"
         description="Solid wood kitchen cabinets, bathroom vanities and laundry room storage. Supplied and installed across New England. Free in-home consultation. Call (508) 510-4007."
         canonical="/cabinets"
-        keywords="kitchen cabinets Massachusetts, bathroom vanities MA, cabinet installation West Bridgewater, solid wood cabinets MA, kitchen remodel Massachusetts"
+        keywords="kitchen cabinets Massachusetts, bathroom vanities MA, cabinet installation East Bridgewater, solid wood cabinets MA, kitchen remodel Massachusetts"
         schema={cabinetsSchema}
       />
       <Navbar />
@@ -1174,7 +1174,7 @@ export default function CabinetsPage() {
                 lineHeight: 1.6,
               }}
             >
-              Visit our showroom at 240 W Center St, West Bridgewater to see the full cabinet selection in person.
+              Visit our showroom at 516 N Bedford St, East Bridgewater to see the full cabinet selection in person.
             </p>
             <div className="mt-4">
               <a

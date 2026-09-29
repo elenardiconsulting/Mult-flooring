@@ -5,6 +5,7 @@ import SEO from "@/components/SEO";
 import Layout from "@/components/layout/Layout";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/layout/Footer";
+import flooringHero from "@/assets/flooring-hero-showroom.jpg.asset.json";
 
 type Tone = "Light" | "Medium" | "Dark";
 
@@ -393,13 +394,32 @@ export default function FlooringPage() {
         canonical="/flooring"
       />
 
-      <header style={{ background: "var(--color-bg-dark)", paddingTop: 140, paddingBottom: 80 }} className="px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]">
+      <header
+        style={{ background: "var(--color-bg-dark)", position: "relative", overflow: "hidden", paddingTop: 140, paddingBottom: 80 }}
+        className="px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]"
+      >
+        {/* Background photo with dark veil for text contrast */}
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <img
+            src={flooringHero.url}
+            alt=""
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 65%", display: "block" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(90deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.78) 50%, rgba(26,26,26,0.62) 100%), linear-gradient(rgba(26,26,26,0.30), rgba(26,26,26,0.40))",
+            }}
+          />
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           className="mx-auto grid grid-cols-1 lg:grid-cols-2 items-end"
-          style={{ gap: 64, maxWidth: 1280 }}
+          style={{ gap: 64, maxWidth: 1280, position: "relative", zIndex: 1 }}
         >
           <div>
             <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(201,168,76,0.80)", fontWeight: 600 }}>LVP Catalog</div>

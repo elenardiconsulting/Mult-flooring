@@ -400,7 +400,7 @@ export default function FlooringPage() {
         {/* Background photo with dark veil for text contrast */}
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <img
-            src={flooringHero.url}
+            src="/flooring/flooring-hero-showroom.jpg"
             alt=""
             style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 65%", display: "block" }}
           />

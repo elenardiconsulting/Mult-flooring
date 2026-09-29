@@ -144,21 +144,25 @@ const Check = () => (
   </svg>
 );
 
-function Pill({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
+function Pill({ active, label, onClick, className }: { active: boolean; label: string; onClick: () => void; className?: string }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
+      className={className}
       style={{
         background: active ? BROWN : "#fff",
         color: active ? "#fff" : "#666",
         border: `1px solid ${active ? BROWN : "#e8e8e6"}`,
         borderRadius: 999,
-        padding: "6px 16px",
+        padding: "8px 18px",
         fontSize: 12,
+        fontWeight: active ? 600 : 500,
+        whiteSpace: "nowrap",
         cursor: "pointer",
         transition: "all 200ms",
+        boxShadow: active ? "0 4px 12px rgba(26,26,26,0.12)" : "none",
       }}
     >
       {label}
@@ -423,7 +427,38 @@ export default function FlooringPage() {
         className="px-[var(--padding-x-mobile)] md:px-[var(--padding-x)]"
         style={{ background: "var(--color-bg-surface)", paddingTop: 20, paddingBottom: 20, borderBottom: "1px solid var(--color-border)", position: "sticky", top: 68, zIndex: 30 }}
       >
-        <div className="mx-auto flex flex-wrap items-center" style={{ gap: 32, maxWidth: 1280 }}>
+        {/* Mobile — architectural horizontal scroll */}
+        <div className="md:hidden" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="flex justify-between items-center" style={{ marginBottom: 16 }}>
+            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--color-text-muted)", fontWeight: 600 }}>
+              Refine Flooring
+            </span>
+            <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: 14, color: "var(--color-text-secondary)" }}>
+              {total} colorways
+            </span>
+          </div>
+
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ ...filterLabel, marginRight: 0, marginBottom: 8 }}>Collection</div>
+            <div className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: "none", paddingBottom: 2 }}>
+              {COLLECTION_FILTERS.map((f) => (
+                <Pill key={f} label={f} active={collectionFilter === f} onClick={() => setCollectionFilter(f)} className="flex-none active:scale-95" />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ ...filterLabel, marginRight: 0, marginBottom: 8 }}>Tone</div>
+            <div className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: "none", paddingBottom: 2 }}>
+              {TONE_FILTERS.map((f) => (
+                <Pill key={f} label={f} active={toneFilter === f} onClick={() => setToneFilter(f)} className="flex-none active:scale-95" />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop — inline wrap */}
+        <div className="hidden md:flex md:flex-wrap md:items-center md:mx-auto" style={{ gap: 32, maxWidth: 1280 }}>
           <div className="flex flex-wrap items-center" style={{ gap: 8 }}>
             <span style={filterLabel}>Collection</span>
             {COLLECTION_FILTERS.map((f) => <Pill key={f} label={f} active={collectionFilter === f} onClick={() => setCollectionFilter(f)} />)}

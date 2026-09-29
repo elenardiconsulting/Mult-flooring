@@ -5,7 +5,6 @@ import SEO from "@/components/SEO";
 import Layout from "@/components/layout/Layout";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/layout/Footer";
-import flooringHero from "@/assets/flooring-hero-showroom.jpg.asset.json";
 
 type Tone = "Light" | "Medium" | "Dark";
 

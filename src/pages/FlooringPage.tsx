@@ -133,7 +133,7 @@ const TONE_FILTERS = ["All", "Light", "Medium", "Dark"];
 
 function openWhatsApp(p: FloorProduct) {
   const msg = encodeURIComponent(
-    `Hi! I'm interested in the ${p.collection} — ${p.name} (${p.price}). Can you tell me more?`,
+    `Vim do website.\n\nHi! I'm interested in the ${p.collection} — ${p.name} (${p.price}). Can you tell me more?`,
   );
   window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank", "noopener,noreferrer");
 }

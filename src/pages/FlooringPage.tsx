@@ -2,6 +2,9 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import SEO from "@/components/SEO";
+import Layout from "@/components/layout/Layout";
+import Navbar from "@/components/sections/Navbar";
+import Footer from "@/components/layout/Footer";
 
 type Tone = "Light" | "Medium" | "Dark";
 
@@ -378,7 +381,8 @@ export default function FlooringPage() {
   const filterLabel: React.CSSProperties = { fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-muted)", marginRight: 4 };
 
   return (
-    <>
+    <Layout>
+      <Navbar />
       <SEO
         title="Vinyl Plank Flooring Catalog — Mult Flooring MA"
         description="Browse our LVP vinyl plank flooring collections — Permshield Lite, Permshield One Plus and MSI Cyrus. Available in MA, RI and CT."
@@ -485,6 +489,7 @@ export default function FlooringPage() {
       </section>
 
       <AnimatePresence>{selected && <ProductModal key={selected.id} product={selected} onClose={() => setSelected(null)} />}</AnimatePresence>
-    </>
+      <Footer />
+    </Layout>
   );
 }

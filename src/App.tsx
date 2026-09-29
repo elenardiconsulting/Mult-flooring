@@ -22,6 +22,7 @@ import ProductsManagerPage from "./pages/ProductsManagerPage.tsx";
 import ProductsNewPage from "./pages/ProductsNewPage.tsx";
 import ProductsEditPage from "./pages/ProductsEditPage.tsx";
 import ProductsPage from "@/pages/ProductsPage";
+import FlooringPage from "@/pages/FlooringPage";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/" element={<Index />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/floors" element={<FloorsPage />} />
+          <Route path="/flooring" element={<FlooringPage />} />
           <Route path="/cabinets" element={<CabinetsPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/process" element={<ProcessPage />} />

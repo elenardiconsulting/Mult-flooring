@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import SEO from "@/components/SEO";
 import Layout from "@/components/layout/Layout";
@@ -212,6 +212,7 @@ function ProductCard({ product, index, selected, onSelect }: { product: FloorPro
   const [hover, setHover] = useState(false);
   return (
     <motion.div
+      id={`product-${product.id}`}
       initial={{ opacity: 0, scale: 0.97 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
@@ -371,6 +372,20 @@ export default function FlooringPage() {
   const [collectionFilter, setCollectionFilter] = useState("All");
   const [toneFilter, setToneFilter] = useState("All");
   const [selected, setSelected] = useState<FloorProduct | null>(null);
+  const [searchParams] = useSearchParams();
+
+  // Deep link: /flooring?product=<id> opens that product's details and scrolls to its card.
+  useEffect(() => {
+    const productId = searchParams.get("product");
+    if (!productId) return;
+    const found = COLLECTIONS.flatMap((c) => c.products).find((p) => p.id === productId);
+    if (!found) return;
+    setSelected(found);
+    const t = window.setTimeout(() => {
+      document.getElementById(`product-${productId}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 400);
+    return () => window.clearTimeout(t);
+  }, [searchParams]);
 
   // Derived: collections with products matching active filters (kept grouped).
   const visible = useMemo(

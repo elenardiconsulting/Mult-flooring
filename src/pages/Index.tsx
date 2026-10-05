@@ -12,6 +12,7 @@ import WhyChoose from "@/components/sections/WhyChoose";
 import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import ShowroomTeaser from "@/components/sections/ShowroomTeaser";
 import ProductsTeaser from "@/components/sections/ProductsTeaser";
+import BestSellers from "@/components/sections/BestSellers";
 import Footer from "@/components/layout/Footer";
 import SectionTransition from "@/components/ui/SectionTransition";
 import SEO from "@/components/SEO";
@@ -106,6 +107,8 @@ const Index = () => {
         <Gallery />
         <SectionTransition direction="right" />
         <ShowroomTeaser />
+        <SectionTransition direction="right" />
+        <BestSellers />
         <SectionTransition direction="left" />
         <ProductsTeaser />
         <SectionTransition direction="right" />

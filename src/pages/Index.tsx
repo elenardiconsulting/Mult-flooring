@@ -100,6 +100,9 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <SectionTransition direction="right" />
+        <BestSellers />
+        <SectionTransition direction="left" />
         <VideoSection />
         <SectionTransition direction="right" />
         <FloorPreview />
@@ -108,8 +111,6 @@ const Index = () => {
         <SectionTransition direction="right" />
         <ShowroomTeaser />
         <SectionTransition direction="right" />
-        <BestSellers />
-        <SectionTransition direction="left" />
         <ProductsTeaser />
         <SectionTransition direction="right" />
         <SocialProof />

@@ -9,7 +9,6 @@ import SocialProof from "@/components/sections/SocialProof";
 import CtaFinal from "@/components/sections/CtaFinal";
 import PartnersTicker from "@/components/sections/PartnersTicker";
 import WhyChoose from "@/components/sections/WhyChoose";
-import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import ShowroomTeaser from "@/components/sections/ShowroomTeaser";
 import ProductsTeaser from "@/components/sections/ProductsTeaser";
 import BestSellers from "@/components/sections/BestSellers";
@@ -116,8 +115,6 @@ const Index = () => {
         <SocialProof />
         <SectionTransition direction="right" />
         <WhyChoose />
-        <SectionTransition direction="right" />
-        <ReviewsSection />
         <SectionTransition direction="left" />
         <CtaFinal />
       </main>

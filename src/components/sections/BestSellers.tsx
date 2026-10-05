@@ -35,7 +35,7 @@ function openQuote(e: MouseEvent, p: BestSeller) {
 
 function Card({ product, index }: { product: BestSeller; index: number }) {
   const navigate = useNavigate();
-  const [active, setActive] = useState<"room" | "swatch">("room");
+  const [active, setActive] = useState<"room" | "swatch">("swatch");
   const toggleBtn = (key: "room" | "swatch", label: string) => (
     <button
       type="button"

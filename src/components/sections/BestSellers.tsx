@@ -57,7 +57,7 @@ function Card({ product, index }: { product: BestSeller; index: number }) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      onClick={() => navigate("/flooring")}
+      onClick={() => navigate(`/flooring?product=${product.id}`)}
       className="bs-card hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
       style={{ background: "#fff", border: "1px solid #e8e8e6", borderRadius: 12, overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer", transition: "transform 260ms, box-shadow 260ms" }}
     >

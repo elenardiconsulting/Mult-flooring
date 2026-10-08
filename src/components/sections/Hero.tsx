@@ -3,23 +3,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { COMPANY } from "@/lib/constants";
 import { useParallax } from "@/hooks/useParallax";
-import heroNewImg from "@/assets/hero-new.jpg";
 import HeroContactForm from "./HeroContactForm";
 
-const HERO_IMAGES = [
-  {
-    src: heroNewImg,
-    alt: "Luxury living room with premium hardwood flooring installed by Mult Flooring MA",
-  },
-  {
-    src: "/hero/hero-bedroom.jpg",
-    alt: "Master bedroom with Red Oak hardwood floor installation in Massachusetts",
-  },
-  {
-    src: "/hero/hero-kitchen.jpg",
-    alt: "Modern kitchen with hardwood flooring installed by Mult Flooring East Bridgewater",
-  },
-];
 
 const GOLD = "#8A5C2D";
 const EASE_EXPO = [0.16, 1, 0.3, 1] as any;
@@ -72,8 +57,8 @@ const useTypewriter = (words: string[]) => {
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [currentImage, setCurrentImage] = useState(0);
   const [isDesktop, setIsDesktop] = useState(
+
     typeof window !== "undefined" ? window.innerWidth >= 1024 : true
   );
 
@@ -87,31 +72,6 @@ const Hero = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Auto-advance crossfade (desktop only)
-  useEffect(() => {
-    if (!isDesktop) return;
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isDesktop]);
-
-  // Preload remaining slideshow images (desktop only)
-  useEffect(() => {
-    if (!isDesktop) return;
-    const links: HTMLLinkElement[] = [];
-    HERO_IMAGES.slice(1).forEach((img) => {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = img.src as string;
-      document.head.appendChild(link);
-      links.push(link);
-    });
-    return () => {
-      links.forEach((l) => l.parentNode?.removeChild(l));
-    };
-  }, [isDesktop]);
 
   const easeExpo = EASE_EXPO;
   const heroParallax = useParallax(40);
@@ -135,52 +95,30 @@ const Hero = () => {
       }
       style={!isDesktop ? { minHeight: "100svh" } : undefined}
     >
-      {/* Full-bleed Image / Slideshow */}
+      {/* Full-bleed background video */}
       <div
         ref={heroParallax.ref}
         className="absolute inset-0 z-0 overflow-hidden"
       >
-        {isDesktop ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
-            className="absolute inset-0"
-            style={{ y: heroParallax.y, willChange: "transform" }}
-          >
-            {HERO_IMAGES.map((img, index) => (
-              <img
-                key={typeof img.src === "string" ? img.src : index}
-                src={img.src as string}
-                alt={img.alt}
-                loading={index === 0 ? "eager" : "lazy"}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center",
-                  opacity: index === currentImage ? 1 : 0,
-                  transition: "opacity 1.2s ease-in-out",
-                  zIndex: index === currentImage ? 1 : 0,
-                }}
-              />
-            ))}
-          </motion.div>
-        ) : (
-          <motion.img
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
-            src={heroNewImg}
-            alt="Premium wooden floor interior"
-            loading="eager"
-            className="w-full h-full object-cover object-[center_right]"
-            style={{ y: heroParallax.y, willChange: "transform" }}
-          />
-        )}
+        <motion.video
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1, duration: 1.0, ease: easeExpo }}
+          src="/hero/hero-banner.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            objectPosition: isDesktop ? "center" : "center right",
+            y: heroParallax.y,
+            willChange: "transform",
+          }}
+        />
       </div>
+
 
       {/* DESKTOP overlays */}
       {isDesktop && (
